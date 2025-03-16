@@ -21,3 +21,9 @@ shape = SubResource("CapsuleShape2D_ku7tn")
 
 [node name="EndOfGun" type="Marker2D" parent="."]
 position = Vector2(70, 10)
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.38
+one_shot = true
+
+[node name="FiringEffect" type="Sprite2D" parent="."]

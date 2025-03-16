@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var speed: float = 200.0
 
 @onready var end_of_gun = $EndOfGun
+@onready var attack_cooldown = $AttackCooldown
 
 
 func _ready() -> void:
@@ -39,12 +40,16 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func shoot():
-	var bullet_instance = Bullet.instantiate()
-	get_parent().add_child(bullet_instance)
+	if attack_cooldown.is_stopped():
+		var bullet_instance = Bullet.instantiate()
+		get_parent().add_child(bullet_instance)
 	
-	bullet_instance.global_position = end_of_gun.global_position
+		bullet_instance.global_position = end_of_gun.global_position
 	
-	var target = get_global_mouse_position()
-	var direction_to_shoot = (target - bullet_instance.global_position).normalized()
-	
-	bullet_instance.set_direction(direction_to_shoot)
+		var target = get_global_mouse_position()
+		var direction_to_shoot = (target - bullet_instance.global_position).normalized()
+		
+		bullet_instance.set_direction(direction_to_shoot)
+		
+		# attack cooldown timer restart
+		attack_cooldown.start()
