@@ -15,7 +15,7 @@ func _ready() -> void:
 	firing_effect.hide()
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var direction := Vector2.ZERO
 	
 	if Input.is_action_pressed("up"):
@@ -60,6 +60,7 @@ func shoot():
 		
 		# firing animnation - play
 		firing_animation.play("FiringAnimation")
+
 
 func handle_hit():
 	hp -= 20
