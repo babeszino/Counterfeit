@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @export var Bullet: PackedScene
 @export var speed: float = 200.0
+@export var hp: int = 100
+
 
 @onready var end_of_gun = $EndOfGun
 @onready var attack_cooldown = $AttackCooldown
@@ -58,3 +60,7 @@ func shoot():
 		
 		# firing animnation - play
 		firing_animation.play("FiringAnimation")
+
+func handle_hit():
+	hp -= 20
+	print("player was hit", hp)
