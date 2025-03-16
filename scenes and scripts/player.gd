@@ -5,10 +5,12 @@ extends CharacterBody2D
 
 @onready var end_of_gun = $EndOfGun
 @onready var attack_cooldown = $AttackCooldown
+@onready var firing_effect = $FiringEffect
+@onready var firing_animation = $FiringAnimation
 
 
 func _ready() -> void:
-	pass
+	firing_effect.hide()
 
 
 func _process(delta: float) -> void:
@@ -53,3 +55,6 @@ func shoot():
 		
 		# attack cooldown timer restart
 		attack_cooldown.start()
+		
+		# firing animnation - play
+		firing_animation.play("FiringAnimation")
