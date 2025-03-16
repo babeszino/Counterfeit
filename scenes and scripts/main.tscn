@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://6h0df44y31cl"]
+
+[ext_resource type="PackedScene" uid="uid://c70c3tbs3toos" path="res://scenes and scripts/player.tscn" id="1_jyli1"]
+[ext_resource type="PackedScene" uid="uid://cwi2nhewkrqi0" path="res://scenes and scripts/bullet.tscn" id="3_y2pae"]
+
+[node name="Main" type="Node2D"]
+position = Vector2(598, 334)
+
+[node name="Player" parent="." instance=ExtResource("1_jyli1")]
+Bullet = ExtResource("3_y2pae")

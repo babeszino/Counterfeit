@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwi2nhewkrqi0"]
+
+[ext_resource type="Texture2D" uid="uid://b2vw7thsmjgrw" path="res://assets/9mm_bullet.png" id="1_i5e1o"]
+[ext_resource type="Script" path="res://scenes and scripts/bullet.gd" id="1_ot1d2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_btweu"]
+radius = 1.0
+height = 6.0
+
+[node name="Bullet" type="Area2D"]
+rotation = 1.5708
+scale = Vector2(2, 2)
+script = ExtResource("1_ot1d2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_btweu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_i5e1o")
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
