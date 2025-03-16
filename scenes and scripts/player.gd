@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var Bullet: PackedScene
-@export var speed: float = 250.0
+@export var speed: float = 200.0
 
 @onready var end_of_gun = $EndOfGun
 
