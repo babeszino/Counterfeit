@@ -1,18 +1,13 @@
 extends CharacterBody2D
 
-@export var Bullet: PackedScene
-@export var speed: float = 200.0
-@export var hp: int = 100
+@export var speed : float = 200.0
 
-
-@onready var end_of_gun = $EndOfGun
-@onready var attack_cooldown = $AttackCooldown
-@onready var firing_effect = $FiringEffect
-@onready var firing_animation = $FiringAnimation
+@onready var health_point = $HP
+@onready var gun = $Gun
 
 
 func _ready() -> void:
-	firing_effect.hide()
+	gun.firing_effect.hide()
 
 
 func _physics_process(delta: float) -> void:
@@ -40,28 +35,13 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("fire"):
-		shoot()
+		gun.shoot()
 
 
 func shoot():
-	if attack_cooldown.is_stopped():
-		var bullet_instance = Bullet.instantiate()
-		get_parent().add_child(bullet_instance)
-	
-		bullet_instance.global_position = end_of_gun.global_position
-	
-		var target = get_global_mouse_position()
-		var direction_to_shoot = (target - bullet_instance.global_position).normalized()
-		
-		bullet_instance.set_direction(direction_to_shoot)
-		
-		# attack cooldown timer restart
-		attack_cooldown.start()
-		
-		# firing animnation - play
-		firing_animation.play("FiringAnimation")
+	pass
 
 
 func handle_hit():
-	hp -= 20
-	print("player was hit", hp)
+	health_point.hp -= 20
+	print("player was hit", health_point.hp)

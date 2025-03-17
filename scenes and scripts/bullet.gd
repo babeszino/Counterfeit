@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var speed: int = 450
+@export var speed : int = 650
 
 @onready var despawn_timer = $DespawnTimer
 
