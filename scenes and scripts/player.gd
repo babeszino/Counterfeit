@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Player
+
 @export var speed : float = 200.0
 
 @onready var health_point = $HP
@@ -45,3 +47,6 @@ func shoot():
 func handle_hit():
 	health_point.hp -= 20
 	print("player was hit", health_point.hp)
+	
+	if health_point.hp <= 0:
+		queue_free()

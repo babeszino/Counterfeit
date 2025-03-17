@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmmoqbd78j0j5"]
+[gd_scene load_steps=8 format=3 uid="uid://bmmoqbd78j0j5"]
 
 [ext_resource type="Script" path="res://scenes and scripts/enemy.gd" id="1_327h3"]
 [ext_resource type="Texture2D" uid="uid://8lsji0ll5a71" path="res://assets/enemy_character.png" id="3_ev8f7"]
 [ext_resource type="PackedScene" uid="uid://dxywyh2v0bi41" path="res://scenes and scripts/gun.tscn" id="4_bj666"]
 [ext_resource type="PackedScene" uid="uid://8qpliy80okbk" path="res://scenes and scripts/hp.tscn" id="4_pjocm"]
+[ext_resource type="Script" path="res://scenes and scripts/functionality.gd" id="5_005k8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ku7tn"]
 radius = 47.0
 height = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e7jjm"]
+radius = 533.164
 
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
@@ -26,3 +30,13 @@ position = Vector2(58, 12)
 scale = Vector2(0.9, 0.9)
 
 [node name="HP" parent="." instance=ExtResource("4_pjocm")]
+
+[node name="Functionality" type="Node2D" parent="."]
+script = ExtResource("5_005k8")
+
+[node name="PlayerDetectionZone" type="Area2D" parent="Functionality" groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Functionality/PlayerDetectionZone"]
+shape = SubResource("CircleShape2D_e7jjm")
+
+[connection signal="body_entered" from="Functionality/PlayerDetectionZone" to="Functionality" method="_on_player_detection_zone_body_entered"]

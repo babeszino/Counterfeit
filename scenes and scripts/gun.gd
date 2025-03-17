@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Gun
+
 @export var Bullet : PackedScene
 
 @onready var end_of_gun = $EndOfGun
