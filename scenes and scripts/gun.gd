@@ -11,7 +11,6 @@ extends Node2D
 func shoot():
 	if attack_cooldown.is_stopped():
 		var bullet_instance = Bullet.instantiate()
-		#get_parent().add_child(bullet_instance)
 		get_tree().current_scene.add_child(bullet_instance)
 	
 		bullet_instance.global_position = end_of_gun.global_position
