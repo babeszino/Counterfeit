@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var health_point = $HP
 @onready var functionality = $Functionality
 
+
 func _ready() -> void:
 	gun.firing_effect.hide()
 	functionality.initialize(self, gun)

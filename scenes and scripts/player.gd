@@ -40,13 +40,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		gun.shoot()
 
 
-func shoot():
-	pass
-
-
 func handle_hit():
 	health_point.hp -= 20
-	print("player was hit", health_point.hp)
+	print("player hit! health: ", health_point.hp)
 	
-	if health_point.hp <= 0:
-		queue_free()
+	#if health_point.hp <= 0:
+		#queue_free()

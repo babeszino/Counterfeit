@@ -1,7 +1,5 @@
 extends Node2D
 
-signal state_changed(new_state)
-
 enum State {
 	SCOUT, 
 	ATTACK
@@ -23,7 +21,10 @@ func _process(delta: float) -> void:
 			if player != null and gun != null:
 				# .angle() at the end because rotation is a float and this way we get the angle
 				enemy.rotation = enemy.global_position.direction_to(player.global_position).angle()
-				gun.shoot()
+				
+		
+				var direction_to_shoot = enemy.global_position.direction_to(player.global_position)
+				gun.shoot(direction_to_shoot)
 			else:
 				printerr("something went wrong, there is no player or gun")
 		_:
@@ -40,7 +41,6 @@ func set_state(new_state: int):
 		return
 	
 	current_state = new_state
-	emit_signal("state_changed", current_state)
 
 
 func _on_player_detection_zone_body_entered(body: Node2D) -> void:
