@@ -19,9 +19,9 @@ func _process(delta: float) -> void:
 			pass
 		State.ATTACK:
 			if player != null and gun != null:
-				# .angle() at the end because rotation is a float and this way we get the angle
-				enemy.rotation = enemy.global_position.direction_to(player.global_position).angle()
-				
+				# .angle() because rotation is a float and this way we get the angle
+				# float lerp_angle(from: float, to: float, weight: float) -> smoother enemy turn
+				enemy.rotation = lerp_angle(enemy.rotation, enemy.global_position.direction_to(player.global_position).angle(), 0.1)
 				var direction_to_shoot = enemy.global_position.direction_to(player.global_position)
 				gun.shoot(direction_to_shoot)
 			else:
