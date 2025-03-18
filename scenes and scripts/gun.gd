@@ -17,13 +17,9 @@ func shoot(target_direction: Vector2 = Vector2.ZERO):
 	
 		bullet_instance.global_position = end_of_gun.global_position
 		
-		#var target = get_global_mouse_position()
-		#var direction_to_shoot = (target - bullet_instance.global_position).normalized()
-		
 		if target_direction == Vector2.ZERO:
 			target_direction = (get_global_mouse_position() - bullet_instance.global_position).normalized()
 		
-		#bullet_instance.set_direction(direction_to_shoot)
 		bullet_instance.set_direction(target_direction)
 		
 		# attack cooldown timer restart

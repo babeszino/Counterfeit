@@ -22,7 +22,6 @@ func _process(delta: float) -> void:
 				# .angle() at the end because rotation is a float and this way we get the angle
 				enemy.rotation = enemy.global_position.direction_to(player.global_position).angle()
 				
-		
 				var direction_to_shoot = enemy.global_position.direction_to(player.global_position)
 				gun.shoot(direction_to_shoot)
 			else:

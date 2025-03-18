@@ -4,6 +4,7 @@ extends Area2D
 
 @onready var despawn_timer = $DespawnTimer
 
+
 var direction := Vector2.ZERO
 
 
