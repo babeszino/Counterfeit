@@ -8,24 +8,35 @@ enum State {
 @onready var player_detection_zone = $PlayerDetectionZone
 @onready var guard_timer = $GuardTimer
 
-var current_state : int = State.GUARD: set = set_state
+var current_state : int = -1: set = set_state
 var player : Player = null
 var gun : Gun = null
 var enemy : CharacterBody2D = null
+var player_position : Vector2 = Vector2.ZERO
 
-# GUARD state variables
+# for GUARD state
 var default_position : Vector2 = Vector2.ZERO
 var guard_location : Vector2 = Vector2.ZERO
 var guard_location_reached : bool = false
 var enemy_velocity : Vector2 = Vector2.ZERO
 
 
-func _process(delta: float) -> void:
+func _ready() -> void:
+	set_state(State.GUARD)
+
+
+func _physics_process(delta: float) -> void:
 	match current_state:
 		State.GUARD:
 			if !guard_location_reached:
 				enemy.velocity = enemy_velocity
 				enemy.move_and_slide()
+				
+				# the if is to make sure the enemy and player loads in
+				
+				if enemy != null and player != null:
+					enemy.rotation = lerp_angle(enemy.rotation, enemy.global_position.direction_to(player.global_position).angle(), 0.1)
+				
 				if enemy.global_position.distance_to(guard_location) < 5:
 					guard_location_reached = true
 					enemy.velocity = Vector2.ZERO
@@ -54,9 +65,10 @@ func set_state(new_state: int):
 		return
 	
 	if new_state == State.GUARD:
-		default_position = enemy.global_position
-		guard_timer.start()
-		guard_location_reached = true
+		if enemy != null and player != null:
+			default_position = enemy.global_position
+			guard_timer.start()
+			guard_location_reached = true
 	
 	current_state = new_state
 
