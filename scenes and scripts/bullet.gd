@@ -5,7 +5,7 @@ extends Area2D
 @onready var despawn_timer = $DespawnTimer
 
 
-var direction := Vector2.ZERO
+var bullet_direction := Vector2.ZERO
 
 
 func _ready() -> void:
@@ -13,14 +13,14 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if direction != Vector2.ZERO:
-		var velocity = direction * speed * delta
+	if bullet_direction != Vector2.ZERO:
+		var velocity = bullet_direction * speed * delta
 		
 		global_position += velocity
 
 
 func set_direction(direction: Vector2):
-	self.direction = direction
+	bullet_direction = direction
 	
 	# bullet rotation
 	rotation += direction.angle()

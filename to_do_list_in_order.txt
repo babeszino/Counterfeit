@@ -1,16 +1,6 @@
-PART 9 - 20:30
-
+///////////////////////////////////////////////////////////
 TO-DO:
-
--enemy patrol - finish it up
-
--check if I do anything at all with the "player" and the "enemy" scene groups - if not then remove
-
--give the enemy a proper AI, so when it is in ATTACK mode, it chooses the shortest path to the player and stuff, doesn't get stuck in walls etc.
-
--add an enemy detection zone for the Player, so if the enemy AI turns to ATTACK mode, it should find the shortest path to the middle of the Player's detection zone, 
-crouch down, shoot - if the Player moves and the Enemy is fully out of the Player's detection zone, then the Enemy should still stay in ATTACK mode and find the shortest path to
-the middle of the Player's detection zone - repeat until either the Player dies or the Enemy dies
+///////////////////////////////////////////////////////////
 
 -ammo and reloading
 
@@ -23,6 +13,14 @@ the middle of the Player's detection zone - repeat until either the Player dies 
 -draw all 5 map layouts - preferably bigger ones
 
 -implement the randomized map order into the game
+
+-add enemy spawn points
+
+-give the enemy a proper AI, so when it is in ATTACK mode, it chooses the shortest path to the player and stuff, doesn't get stuck in walls etc.
+
+-add an enemy detection zone for the Player, so if the enemy AI turns to ATTACK mode, it should find the shortest path to the middle of the Player's detection zone, 
+crouch down, shoot - if the Player moves and the Enemy is fully out of the Player's detection zone, then the Enemy should still stay in ATTACK mode and find the shortest path to
+the middle of the Player's detection zone - repeat until either the Player dies or the Enemy dies
 
 -implement the door opening, which enables the player to advance to the next level after finishing
 
@@ -45,3 +43,12 @@ should delete the latest save, and the "Continue" option shouldn't appear in the
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
 
+///////////////////////////////////////////////////////////
+DONE:
+///////////////////////////////////////////////////////////
+
+-enemy patrol - finish it up
+
+-check if I do anything at all with the "player" and the "enemy" scene groups - if not then remove
+
+-do something about reuses of the "if enemy != null and player != null:" line in functionality.gd

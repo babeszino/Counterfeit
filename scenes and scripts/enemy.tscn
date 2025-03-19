@@ -33,7 +33,7 @@ scale = Vector2(0.9, 0.9)
 [node name="Functionality" type="Node2D" parent="."]
 script = ExtResource("5_005k8")
 
-[node name="PlayerDetectionZone" type="Area2D" parent="Functionality" groups=["enemy"]]
+[node name="PlayerDetectionZone" type="Area2D" parent="Functionality"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Functionality/PlayerDetectionZone"]
 scale = Vector2(2.51057, 1.435)
@@ -43,9 +43,4 @@ polygon = PackedVector2Array(0, 0, 500, -500, 500, 500)
 scale = Vector2(50, 50)
 shape = SubResource("CircleShape2D_ujeph")
 
-[node name="GuardTimer" type="Timer" parent="Functionality"]
-wait_time = 3.0
-one_shot = true
-
 [connection signal="body_entered" from="Functionality/PlayerDetectionZone" to="Functionality" method="_on_player_detection_zone_body_entered"]
-[connection signal="timeout" from="Functionality/GuardTimer" to="Functionality" method="_on_guard_timer_timeout"]

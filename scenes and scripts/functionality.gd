@@ -1,63 +1,82 @@
 extends Node2D
 
-enum State {
-	GUARD, 
-	ATTACK
-}
+enum State { GUARD, ATTACK }
 
 @onready var player_detection_zone = $PlayerDetectionZone
-@onready var guard_timer = $GuardTimer
 
-var current_state : int = -1: set = set_state
-var player : Player = null
-var gun : Gun = null
+var player : CharacterBody2D = null
+var gun = null
 var enemy : CharacterBody2D = null
-var player_position : Vector2 = Vector2.ZERO
 
-# for GUARD state
+# GUARD state variables
+var current_state : int = State.GUARD
 var default_position : Vector2 = Vector2.ZERO
-var guard_location : Vector2 = Vector2.ZERO
-var guard_location_reached : bool = false
-var enemy_velocity : Vector2 = Vector2.ZERO
+var patrol_distance : float = 200.0
+var patrol_speed : float = 100.0
+var patrol_top_point : Vector2 = Vector2.ZERO
+var patrol_bottom_point : Vector2 = Vector2.ZERO
+var moving_to_bottom : bool = true
 
 
 func _ready() -> void:
-	set_state(State.GUARD)
+	await get_tree().process_frame # wait a frame for parent to load
+	current_state = State.GUARD
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	match current_state:
 		State.GUARD:
-			if !guard_location_reached:
-				enemy.velocity = enemy_velocity
+			if enemy != null:
+				var target : Vector2 = Vector2.ZERO
+				if moving_to_bottom:
+					target = patrol_bottom_point
+				else:
+					target = patrol_top_point
+				
+				# Switch direction
+				var distance_to_target = enemy.global_position.distance_to(target)
+				if distance_to_target < 10.0:
+					moving_to_bottom = !moving_to_bottom
+				
+				var direction = Vector2.ZERO
+				if moving_to_bottom:
+					direction = Vector2(0, 1)
+					
+				else:
+					direction = Vector2(0, -1)
+				
+				# enemy faces the direction it is going
+				if direction != Vector2.ZERO:
+					var target_angle = direction.angle() + PI*2
+					enemy.rotation = lerp_angle(enemy.rotation, target_angle, 0.1)
+				
+				enemy.velocity = direction * patrol_speed
 				enemy.move_and_slide()
-				
-				# the if is to make sure the enemy and player loads in
-				
-				if enemy != null and player != null:
-					enemy.rotation = lerp_angle(enemy.rotation, enemy.global_position.direction_to(player.global_position).angle(), 0.1)
-				
-				if enemy.global_position.distance_to(guard_location) < 5:
-					guard_location_reached = true
-					enemy.velocity = Vector2.ZERO
-					guard_timer.start()
 			
 		State.ATTACK:
 			if player != null and gun != null:
-				# .angle() because rotation is a float and this way we get the angle
-				# float lerp_angle(from: float, to: float, weight: float) -> smoother enemy turn
+				# rotate in direction of player
 				enemy.rotation = lerp_angle(enemy.rotation, enemy.global_position.direction_to(player.global_position).angle(), 0.1)
+				
+				# shoot at player
 				var direction_to_shoot = enemy.global_position.direction_to(player.global_position)
 				gun.shoot(direction_to_shoot)
 			else:
 				printerr("something went wrong, there is no player or gun")
 		_:
-			printerr("something went very wrong, it should either be SCOUT or ATTACK")
+			printerr("something went very wrong, it should either be GUARD or ATTACK")
 
 
-func initialize(enemy, gun: Gun):
-	self.enemy = enemy
-	self.gun = gun
+func initialize(enemy_node, gun_node):
+	self.enemy = enemy_node
+	self.gun = gun_node
+	
+	if enemy != null:
+		default_position = enemy.global_position
+		patrol_top_point = default_position
+		patrol_bottom_point = default_position + Vector2(0, patrol_distance)
+	else:
+		printerr("something went wrong, enemy is probably null during initilzation")
 
 
 func set_state(new_state: int):
@@ -65,25 +84,15 @@ func set_state(new_state: int):
 		return
 	
 	if new_state == State.GUARD:
-		if enemy != null and player != null:
+		if enemy != null:
 			default_position = enemy.global_position
-			guard_timer.start()
-			guard_location_reached = true
+			patrol_top_point = default_position
+			patrol_bottom_point = default_position + Vector2(0, patrol_distance)
 	
 	current_state = new_state
 
 
 func _on_player_detection_zone_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body is Player:
 		set_state(State.ATTACK)
 		player = body
-
-
-func _on_guard_timer_timeout() -> void:
-	var guard_range = 50
-	var random_x = randf_range(-guard_range, guard_range)
-	var random_y = randf_range(-guard_range, guard_range)
-	
-	guard_location = Vector2(random_x, random_y) + default_position
-	guard_location_reached = false
-	enemy_velocity = enemy.global_position.direction_to(guard_location)
