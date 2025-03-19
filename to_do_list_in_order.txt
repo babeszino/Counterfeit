@@ -1,8 +1,10 @@
-PART 9 - 6:58
+PART 9 - 20:30
 
 TO-DO:
 
 -enemy patrol - finish it up
+
+-check if I do anything at all with the "player" and the "enemy" scene groups - if not then remove
 
 -give the enemy a proper AI, so when it is in ATTACK mode, it chooses the shortest path to the player and stuff, doesn't get stuck in walls etc.
 
@@ -42,5 +44,4 @@ should delete the latest save, and the "Continue" option shouldn't appear in the
 -add a UI to the game, which shows the player health bar and the ammo capacity/current bullets left in the magazine
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
-
 

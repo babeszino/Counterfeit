@@ -43,4 +43,9 @@ polygon = PackedVector2Array(0, 0, 500, -500, 500, 500)
 scale = Vector2(50, 50)
 shape = SubResource("CircleShape2D_ujeph")
 
+[node name="GuardTimer" type="Timer" parent="Functionality"]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="body_entered" from="Functionality/PlayerDetectionZone" to="Functionality" method="_on_player_detection_zone_body_entered"]
+[connection signal="timeout" from="Functionality/GuardTimer" to="Functionality" method="_on_guard_timer_timeout"]
