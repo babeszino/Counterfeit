@@ -2,9 +2,13 @@ PART 9 - 6:58
 
 TO-DO:
 
--enemy patrol - finish it up from the video
+-enemy patrol - finish it up
 
 -give the enemy a proper AI, so when it is in ATTACK mode, it chooses the shortest path to the player and stuff, doesn't get stuck in walls etc.
+
+-add an enemy detection zone for the Player, so if the enemy AI turns to ATTACK mode, it should find the shortest path to the middle of the Player's detection zone, 
+crouch down, shoot - if the Player moves and the Enemy is fully out of the Player's detection zone, then the Enemy should still stay in ATTACK mode and find the shortest path to
+the middle of the Player's detection zone - repeat until either the Player dies or the Enemy dies
 
 -ammo and reloading
 
@@ -20,11 +24,14 @@ TO-DO:
 
 -implement the door opening, which enables the player to advance to the next level after finishing
 
--implement transition animations that plays when the player advances to the next level - these should give something to the story of the game
+-add transition animations that plays when the player advances to the next level - these should give something to the story of the game
+
+-implement auto saving, and if there is a save add an option "Continue" to the menu, which puts the player back on the map where he left - choosing "New Game" in the menu
+should delete the latest save, and the "Continue" option shouldn't appear in the menu after that
 
 -draw the rest of the guns (baseball bat, double barrel shotgun, m4, rocket launcher)
 
--implement the guns into the game - come up with a logic: how and where should the player get each weapon -> 5 map, 5 weapons, you get one weapon/map
+-add the guns into the game - come up with a logic: how and where should the player get each weapon -> 5 map, 5 weapons, you get one weapon/map
 
 -implement the knockback effect of the rocket launcher
 
