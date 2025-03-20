@@ -79,7 +79,7 @@ texture = ExtResource("3_87kxa")
 position = Vector2(19.0001, 8.7738e-05)
 
 [node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.2
 one_shot = true
 
 [node name="FiringEffect" type="Sprite2D" parent="."]
@@ -92,3 +92,9 @@ texture = ExtResource("3_qypym")
 libraries = {
 "": SubResource("AnimationLibrary_tes11")
 }
+
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

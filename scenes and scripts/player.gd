@@ -6,6 +6,7 @@ class_name Player
 
 @onready var health_point = $HP
 @onready var gun = $Gun
+@onready var ammo_display = $CanvasLayer/AmmoDisplay
 
 
 func _ready() -> void:
@@ -33,10 +34,13 @@ func _physics_process(delta: float) -> void:
 	
 	# look where the cursor is at
 	look_at(get_global_mouse_position())
+	
+	if ammo_display:
+		ammo_display.text = gun.get_ammo_display()
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_released("fire"):
+	if event.is_action_released("fire") and gun.can_shoot():
 		gun.shoot()
 
 

@@ -6,11 +6,13 @@ TO-DO:
 
 -make the viewport focus on the player (keep the player in the middle), zoom in closer to the player maybe?
 
+-fix the bug where the player can shoot itself with the gun
+
 -adding a menu where you can start the game, or quit
 
 -draw a health bar which has 5 bars (80 hp should show only 4 bars, 20 hp should only show one) - match case in code
 
--draw all 5 map layouts - preferably bigger ones
+-draw all 5 map layouts - preferably ones that are bigger in height
 
 -implement the randomized map order into the game
 
