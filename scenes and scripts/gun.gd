@@ -44,7 +44,14 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	bullet_instance.global_position = end_of_gun.global_position
 	
 	if target_direction == Vector2.ZERO:
-		target_direction = (get_global_mouse_position() - bullet_instance.global_position).normalized()
+		var mouse_direction = (get_global_mouse_position() - global_position).normalized()
+		var gun_forward = Vector2.RIGHT.rotated(global_rotation)
+		var angle_diff = abs(gun_forward.angle_to(mouse_direction))
+		
+		if angle_diff > PI/2:
+			target_direction = gun_forward
+		else:
+			target_direction = mouse_direction
 	
 	bullet_instance.set_direction(target_direction)
 	
