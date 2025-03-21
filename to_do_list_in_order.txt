@@ -4,6 +4,8 @@ TO-DO:
 
 -draw a health bar which has 5 bars (80 hp should show only 4 bars, 20 hp should only show one) - match case in code
 
+-add a UI to the game, which shows the player health bar and the ammo capacity/current bullets left in the magazine
+
 -draw all 5 map layouts - preferably ones that are bigger in height
 
 -implement the randomized map order into the game
@@ -32,8 +34,6 @@ should delete the latest save, and the "Continue" option shouldn't appear in the
 -implement the score system - double, triple, multi kill bonus + multiplier after finishing the level as fast as you can
 
 -implement jumping between walls for the player - should have some good logic and a proper use
-
--add a UI to the game, which shows the player health bar and the ammo capacity/current bullets left in the magazine
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
 
