@@ -6,7 +6,6 @@ class_name Player
 
 @onready var health_point = $HP
 @onready var gun = $Gun
-@onready var ammo_display = $CanvasLayer/AmmoDisplay
 
 
 func _ready() -> void:
@@ -32,11 +31,7 @@ func _physics_process(delta: float) -> void:
 	
 	position += direction * speed * delta
 	
-	# look where the cursor is at
 	look_at(get_global_mouse_position())
-	
-	if ammo_display:
-		ammo_display.text = gun.get_ammo_display()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -48,5 +43,5 @@ func handle_hit():
 	health_point.hp -= 20
 	print("player hit! health: ", health_point.hp)
 	
-	#if health_point.hp <= 0:
-		#queue_free()
+	if health_point.hp <= 0:
+		queue_free()

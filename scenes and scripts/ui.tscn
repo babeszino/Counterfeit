@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://csp3sn1jfrc4q"]
+
+[ext_resource type="Texture2D" uid="uid://c1ukbyxiwxtlw" path="res://assets/health_bar1.png" id="1_7ackw"]
+[ext_resource type="Script" path="res://scenes and scripts/ui.gd" id="1_qcsck"]
+[ext_resource type="Texture2D" uid="uid://bx4bw4v71ew75" path="res://assets/health_bar2.png" id="2_wkdsv"]
+[ext_resource type="Texture2D" uid="uid://cv3d06swwy4y1" path="res://assets/health_bar3.png" id="3_b3m06"]
+[ext_resource type="Texture2D" uid="uid://dlish530x5yck" path="res://assets/health_bar4.png" id="4_1h6x2"]
+[ext_resource type="Texture2D" uid="uid://brmptv4kqhn1c" path="res://assets/health_bar5.png" id="5_gavqp"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_qcsck")
+
+[node name="TopContainer" type="MarginContainer" parent="."]
+offset_right = 296.0
+offset_bottom = 90.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HealthBarContainer" type="Control" parent="TopContainer"]
+custom_minimum_size = Vector2(256, 50)
+layout_mode = 2
+
+[node name="HealthBar1" type="TextureRect" parent="TopContainer/HealthBarContainer"]
+layout_mode = 1
+offset_right = 1280.0
+offset_bottom = 256.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_7ackw")
+expand_mode = 1
+
+[node name="HealthBar2" type="TextureRect" parent="TopContainer/HealthBarContainer"]
+layout_mode = 1
+offset_right = 1280.0
+offset_bottom = 256.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_wkdsv")
+expand_mode = 1
+
+[node name="HealthBar3" type="TextureRect" parent="TopContainer/HealthBarContainer"]
+layout_mode = 1
+offset_right = 1280.0
+offset_bottom = 256.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_b3m06")
+expand_mode = 1
+
+[node name="HealthBar4" type="TextureRect" parent="TopContainer/HealthBarContainer"]
+layout_mode = 1
+offset_right = 1280.0
+offset_bottom = 256.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_1h6x2")
+expand_mode = 1
+
+[node name="HealthBar5" type="TextureRect" parent="TopContainer/HealthBarContainer"]
+layout_mode = 1
+offset_right = 1280.0
+offset_bottom = 256.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_gavqp")
+expand_mode = 1
+
+[node name="BottomContainer" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -114.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="AmmoDisplay" type="Label" parent="BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 48
+text = "18 / 18"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
