@@ -2,9 +2,9 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--draw all 5 map layouts - preferably ones that are bigger in height
-
 -implement the randomized map order into the game
+
+-draw all 5 map layouts - preferably ones that are bigger in height
 
 -add enemy spawn points
 
