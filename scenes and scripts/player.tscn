@@ -9,7 +9,7 @@
 radius = 47.0
 height = 100.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_j2an2")
 
@@ -28,4 +28,4 @@ scale = Vector2(0.9, 0.9)
 [node name="HP" parent="." instance=ExtResource("4_w2lfu")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.9, 0.9)
+zoom = Vector2(1.2, 1.2)

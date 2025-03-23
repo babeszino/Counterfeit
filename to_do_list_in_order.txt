@@ -8,18 +8,19 @@ TO-DO:
 
 -add enemy spawn points
 
+-use groups whereever I can
+
+-implement the door opening, which enables the player to advance to the next level after finishing
+
+-if enemies get shot, they should switch to ATTACK mode - they should also have a detection zone, which if the player shoots into, the enemy switches to ATTACK mode
+
 -give the enemy a proper AI, so when it is in ATTACK mode, it chooses the shortest path to the player and stuff, doesn't get stuck in walls etc.
 
 -add an enemy detection zone for the Player, so if the enemy AI turns to ATTACK mode, it should find the shortest path to the middle of the Player's detection zone, 
 crouch down, shoot - if the Player moves and the Enemy is fully out of the Player's detection zone, then the Enemy should still stay in ATTACK mode and find the shortest path to
 the middle of the Player's detection zone - repeat until either the Player dies or the Enemy dies
 
--implement the door opening, which enables the player to advance to the next level after finishing
-
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
-
--implement auto saving, and if there is a save add an option "Continue" to the menu, which puts the player back on the map where he left - choosing "New Game" in the menu
-should delete the latest save, and the "Continue" option shouldn't appear in the menu after that
 
 -draw the rest of the guns (baseball bat, double barrel shotgun, m4, rocket launcher)
 
@@ -30,6 +31,9 @@ should delete the latest save, and the "Continue" option shouldn't appear in the
 -implement the score system - double, triple, multi kill bonus + multiplier after finishing the level as fast as you can
 
 -implement jumping between walls for the player - should have some good logic and a proper use
+
+-implement auto saving, and if there is a save add an option "Continue" to the menu, which puts the player back on the map where he left - choosing "New Game" in the menu
+should delete the latest save, and the "Continue" option shouldn't appear in the menu after that
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
 

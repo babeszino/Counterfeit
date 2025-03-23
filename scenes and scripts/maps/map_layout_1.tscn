@@ -1,12 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://c7gvlkcjwpor2"]
+[gd_scene load_steps=14 format=3 uid="uid://c7gvlkcjwpor2"]
 
-[ext_resource type="Texture2D" uid="uid://7sgp735gxpgm" path="res://assets/map_layout_demo.png" id="1_gqot1"]
+[ext_resource type="Texture2D" uid="uid://dupf5gkgxats1" path="res://assets/map layouts/map_layout_demo.png" id="1_aw43e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5spm"]
 size = Vector2(464, 22.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ridkb"]
-size = Vector2(96, 22.5)
+size = Vector2(147, 23.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w485i"]
 size = Vector2(236, 47)
@@ -35,12 +35,15 @@ size = Vector2(115, 23)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e56qs"]
 size = Vector2(171, 22.625)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d2kpi"]
+size = Vector2(46, 8.31273)
+
 [node name="MapLayout1" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(576, 5.68434e-14)
 scale = Vector2(0.725, 0.725)
-texture = ExtResource("1_gqot1")
+texture = ExtResource("1_aw43e")
 metadata/_edit_lock_ = true
 
 [node name="Walls" type="StaticBody2D" parent="."]
@@ -50,7 +53,7 @@ position = Vector2(831, 565.25)
 shape = SubResource("RectangleShape2D_p5spm")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
-position = Vector2(505, 565)
+position = Vector2(530.5, 565.625)
 shape = SubResource("RectangleShape2D_ridkb")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
@@ -95,17 +98,21 @@ position = Vector2(100.688, 336.5)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_e56qs")
 
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="Walls"]
+position = Vector2(208.844, -606)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_d2kpi")
+
 [node name="SpawnPoints" type="Node2D" parent="."]
-metadata/_edit_lock_ = true
 
 [node name="PlayerSpawn" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(576, 530)
-metadata/_edit_lock_ = true
 
 [node name="EnemySpawn1" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(275, 380)
-metadata/_edit_lock_ = true
 
 [node name="EnemySpawn2" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(877, 380)
-metadata/_edit_lock_ = true
+position = Vector2(390, 160)
+
+[node name="DoorPosition" type="Marker2D" parent="."]
+position = Vector2(181.5, -578)

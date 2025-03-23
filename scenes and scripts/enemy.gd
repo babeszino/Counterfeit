@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal enemy_died
+
 @export var hp : int = 100
 
 @onready var gun = $Gun
@@ -18,3 +20,8 @@ func handle_hit():
 	print("enemy hit! health: ", health_point.hp)
 	if health_point.hp <= 0:
 		queue_free()
+
+
+func die() -> void:
+	emit_signal("enemy_died")
+	queue_free()

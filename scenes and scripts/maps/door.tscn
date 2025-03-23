@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3bfv2vc3tljm"]
+
+[ext_resource type="Script" path="res://scenes and scripts/maps/door.gd" id="1_4xsa6"]
+[ext_resource type="Texture2D" uid="uid://dgbc2j2q66t40" path="res://assets/map layouts/door_closed.png" id="2_vk37g"]
+[ext_resource type="Texture2D" uid="uid://clj5ktbpgbo7" path="res://assets/map layouts/door_opened.png" id="2_xsn4q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_usjwo"]
+size = Vector2(47, 9)
+
+[node name="Door" type="Area2D"]
+script = ExtResource("1_4xsa6")
+
+[node name="DoorClosed" type="Sprite2D" parent="."]
+scale = Vector2(0.183, 0.183)
+texture = ExtResource("2_vk37g")
+
+[node name="DoorOpened" type="Sprite2D" parent="."]
+scale = Vector2(0.183, 0.183)
+texture = ExtResource("2_xsn4q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_usjwo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
