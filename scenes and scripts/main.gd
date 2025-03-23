@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var player = $Player
 @onready var ui = $UI
+@onready var map_manager = get_node("/root/MapManager")
 
 var current_map = null
 var door_scene = preload("res://scenes and scripts/maps/door.tscn")
@@ -17,38 +18,22 @@ func _ready() -> void:
 		ui.set_player(player)
 
 
-func load_next_map() -> void:
-	if current_map:
-		remove_child(current_map)
-		current_map.queue_free()
-		current_map = null
-	
-	if door_instance:
-		remove_child(door_instance)
-		door_instance.queue_free()
-		door_instance = null
-	
-	var next_map_path = MapManager.get_next_map()
-	print("Attempting to load map: ", next_map_path)
-	
-	if next_map_path:
-		var map_scene = load(next_map_path)
-		if map_scene:
-			current_map = map_scene.instantiate()
-			add_child(current_map)
-			
-			call_deferred("spawn_player_at_marker")
-			call_deferred("connect_enemy_signals")
-			call_deferred("setup_door")
-		
-		else:
-			print("Failed to load map scene: ", next_map_path)
-			MapManager.current_map_index += 1
-			call_deferred("load_next_map")
+func get_next_map():
+	if map_manager:
+		var next_index = (map_manager.current_map_index + 1) % map_manager.maps.size()
+		return next_index
 	
 	else:
-		print("All maps completed!")
-		get_tree().change_scene_to_file("res://scenes and scripts/main_menu.tscn")
+		print("ERROR: MapManager not found")
+		return 0
+
+
+func load_next_map():
+	if map_manager:
+		var next_index = get_next_map()
+		map_manager.load_map(next_index)
+	else:
+		print("ERROR: MapManager not found")
 
 
 func spawn_player_at_marker() -> void:

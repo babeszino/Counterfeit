@@ -17,6 +17,11 @@ var is_reloading : bool = false
 
 func _ready() -> void:
 	current_ammo = max_ammo
+	
+	if Bullet == null:
+		Bullet = load("res://scenes and scripts/bullet.tscn")
+		if Bullet == null:
+			printerr("Could not load bullet scene")
 
 
 func _process(_delta: float) -> void:
@@ -38,9 +43,15 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	if !attack_cooldown.is_stopped():
 		return false
 	
+	if Bullet == null:
+		Bullet = load("res://scenes and scripts/bullet.tscn")
+		if Bullet == null:
+			push_error("Could not load bullet scene (shoot function)")
+			return false
+	
 	var bullet_instance = Bullet.instantiate()
-	get_tree().current_scene.add_child(bullet_instance)
-
+	get_tree().root.add_child(bullet_instance)
+	bullet_instance.add_to_group("bullet")
 	bullet_instance.global_position = end_of_gun.global_position
 	
 	if target_direction == Vector2.ZERO:

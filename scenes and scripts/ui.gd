@@ -11,28 +11,48 @@ extends CanvasLayer
 var player = null
 
 
-func _ready () -> void:
+func _ready() -> void:
 	hide_all_health_bars()
+	
+	# connect to player (if it already exists)
+	find_player()
 
 
 func _process(_delta: float) -> void:
-	if is_instance_valid(player) and player.health_point != null:
-		update_health_bar(player.health_point.hp)
-		update_ammo_display(player.gun.get_ammo_display())
+	if player == null:
+		find_player()
+	
+	if is_instance_valid(player):
+		# hp display
+		if player.health_point != null:
+			update_health_bar(player.health_point.hp)
+		else:
+			hide_all_health_bars()
+		
+		# gun - ammo display
+		var gun = player.get_node("Gun")
+		update_ammo_display(gun.get_ammo_display())
 	else:
 		hide_all_health_bars()
 
 
-func set_player(player_node):
+func find_player() -> void:
+	for node in get_tree().get_nodes_in_group("player"):
+		set_player(node)
+		return
+
+
+func set_player(player_node) -> void:
 	player = player_node
+	print("UI connected to player")
 
 
 func hide_all_health_bars() -> void:
-	health_bar1.hide()
-	health_bar2.hide()
-	health_bar3.hide()
-	health_bar4.hide()
-	health_bar5.hide()
+	if health_bar1: health_bar1.hide()
+	if health_bar2: health_bar2.hide()
+	if health_bar3: health_bar3.hide()
+	if health_bar4: health_bar4.hide()
+	if health_bar5: health_bar5.hide()
 
 
 func update_health_bar(health: int) -> void:
@@ -41,16 +61,17 @@ func update_health_bar(health: int) -> void:
 	if health <= 0:
 		return
 	elif health <= 20:
-		health_bar1.show()
+		if health_bar1: health_bar1.show()
 	elif health <= 40:
-		health_bar2.show()
+		if health_bar2: health_bar2.show()
 	elif health <= 60:
-		health_bar3.show()
+		if health_bar3: health_bar3.show()
 	elif health <= 80:
-		health_bar4.show()
+		if health_bar4: health_bar4.show()
 	else:
-		health_bar5.show()
+		if health_bar5: health_bar5.show()
 
 
 func update_ammo_display(ammo_text: String) -> void:
-	ammo_display.text = ammo_text
+	if ammo_display:
+		ammo_display.text = ammo_text

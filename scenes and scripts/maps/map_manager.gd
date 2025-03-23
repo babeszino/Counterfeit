@@ -1,61 +1,134 @@
 extends Node
 
-# Store the map scene paths for easy loading
-var maps = [
-	"res://scenes and scripts/maps/map_layout_1.tscn",
-	"res://scenes and scripts/maps/map_layout_2.tscn"
-	# You can uncomment these when you create the additional maps
-	# "res://scenes and scripts/maps/map_layout_3.tscn",
-	# "res://scenes and scripts/maps/map_layout_4.tscn",
-	# "res://scenes and scripts/maps/map_layout_5.tscn"
-]
+var current_map_index : int = 0
+var maps : Array = []
+var maps_path = "res://scenes and scripts/maps/"
+var player
+var ui_instance
+var game_started : bool = false
 
-# Store the randomized map order
-var map_order = []
-var current_map_index = 0
-
-# Signal to notify when all maps are completed
-signal all_maps_completed
 
 func _ready():
-	randomize() # Initialize random number generator
-	shuffle_maps()
-
-# Shuffle the maps into a random order
-func shuffle_maps():
-	map_order = maps.duplicate()
-	map_order.shuffle()
-	current_map_index = 0
-	print("Map order: ", map_order)
-
-# Get the next map in sequence, or null if we're done
-func get_next_map():
-	if current_map_index >= map_order.size():
-		emit_signal("all_maps_completed")
-		return null
-	
-	var next_map = map_order[current_map_index]
-	current_map_index += 1
-	
-	var file = FileAccess.open(next_map, FileAccess.READ)
-	if file:
-		file.close()
-		return next_map
-	
-	else:
-		print("WARNING: Map file doesn't exist: ", next_map)
-		if current_map_index < map_order.size():
-			# Try the next map
-			return get_next_map()
+	var dir = DirAccess.open(maps_path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.ends_with(".tscn") and file_name.begins_with("map_layout"):
+				maps.append(maps_path + file_name)
+			file_name = dir.get_next()
 		
-		else:
-			emit_signal("all_maps_completed")
-			return null
+		maps.sort()
 
 
-func reset():
-	shuffle_maps()
+func start_game() -> void:
+	game_started = true
+	
+	if ui_instance == null:
+		ui_instance = preload("res://scenes and scripts/ui.tscn").instantiate()
+		get_tree().root.add_child(ui_instance)
+		print("UI instance created")
+	
+	# clear all enemies and bullets
+	clear_entities()
+	
+	if player == null:
+		player = preload("res://scenes and scripts/player.tscn").instantiate()
+		get_tree().root.add_child(player)
+		player.add_to_group("player")
+		player.collision_layer = 2
+		player.collision_mask = 1|4
+		print("Player instance created and configured")
+		
+		if ui_instance != null:
+			ui_instance.set_player(player)
+			print("UI connected to player")
+	
+	load_map(current_map_index)
 
 
-func is_final_map():
-	return current_map_index == map_order.size() - 1
+func clear_entities():
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		enemy.queue_free()
+	
+	for bullet in get_tree().get_nodes_in_group("bullet"):
+		bullet.queue_free()
+
+
+func load_map(map_index):
+	if map_index < 0 or map_index >= maps.size():
+		print("ERROR: Invalid map index")
+		return
+	
+	print("Loading map: ", maps[map_index])
+	
+	current_map_index = map_index
+	
+	# remove old map if exists (if there are any)
+	var old_map = get_node_or_null("current_map")
+	if old_map:
+		old_map.queue_free()
+		await old_map.tree_exited
+	
+	clear_entities()
+	
+	var map_scene = load(maps[map_index])
+	var map_instance = map_scene.instantiate()
+	map_instance.name = "current_map"
+	add_child(map_instance)
+	
+	await get_tree().process_frame
+	
+	if player != null:
+		position_player_on_map(map_instance)
+	else:
+		print("ERROR: Player is null when positioning")
+	
+	spawn_enemies(map_instance)
+	
+	await get_tree().process_frame
+	
+	configure_enemy_detection()
+
+
+func position_player_on_map(map_instance):
+	var spawn_point = map_instance.get_node("SpawnPoints/PlayerSpawn")
+	print("Spawning player at: ", spawn_point.global_position)
+	player.global_position = spawn_point.global_position
+
+
+func spawn_enemies(map_instance):
+	var spawn_points_node = map_instance.get_node("SpawnPoints")
+	
+	for child in spawn_points_node.get_children():
+		if "EnemySpawn" in child.name:
+			var enemy = preload("res://scenes and scripts/enemy.tscn").instantiate()
+			get_tree().root.add_child(enemy)
+			enemy.collision_layer = 4  # layer 4 for enemies
+			enemy.collision_mask = 1  # collide with world
+			enemy.global_position = child.global_position
+			print("Spawned enemy at: ", child.global_position)
+
+
+func configure_enemy_detection():
+	# wait for initialization
+	await get_tree().create_timer(0.1).timeout
+	
+	var enemies = get_tree().get_nodes_in_group("enemy")
+	
+	# player detection
+	for enemy in enemies:
+		var detection_zone = enemy.get_node("Functionality/PlayerDetectionZone")
+		detection_zone.collision_layer = 0
+		detection_zone.collision_mask = 2   # layer 2 to detect player
+		
+		for child in detection_zone.get_children():
+			if child is CollisionShape2D or child is CollisionPolygon2D:
+				child.disabled = false
+
+
+# WARNING: connect this function to a door signal later!
+func _on_door_player_entered():
+	print("Player entered door, loading next map")
+	current_map_index = (current_map_index + 1) % maps.size()
+	load_map(current_map_index)

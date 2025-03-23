@@ -10,6 +10,12 @@ signal enemy_died
 
 
 func _ready() -> void:
+	z_index = 5
+	add_to_group("enemy")
+	
+	collision_layer = 4
+	collision_mask = 1|2
+	
 	gun.firing_effect.hide()
 	functionality.initialize(self, gun)
 	

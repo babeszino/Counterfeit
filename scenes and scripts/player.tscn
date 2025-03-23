@@ -10,7 +10,7 @@ radius = 47.0
 height = 100.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.2, 0.2)
 script = ExtResource("1_j2an2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -24,8 +24,9 @@ shape = SubResource("CapsuleShape2D_ku7tn")
 [node name="Gun" parent="." instance=ExtResource("4_w5o7n")]
 position = Vector2(58, 12)
 scale = Vector2(0.9, 0.9)
+Bullet = null
 
 [node name="HP" parent="." instance=ExtResource("4_w2lfu")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.2, 1.2)
+zoom = Vector2(2.5, 2.5)

@@ -4,6 +4,7 @@ extends Control
 @onready var quit_button = $VBoxContainer/QuitButton
 
 var main_scene : String = "res://scenes and scripts/main.tscn"
+@onready var map_manager = get_node("/root/MapManager")
 
 
 func _ready() -> void:
@@ -23,7 +24,14 @@ func _process(_delta: float) -> void:
 
 
 func _on_start_button_pressed() -> void:
-	get_tree().change_scene_to_file(main_scene)
+	if map_manager:
+		map_manager.start_game()
+	
+	else:
+		print("map_manager var is null")
+	
+	# hide main menu
+	visible = false
 
 
 func _on_quit_button_pressed() -> void:

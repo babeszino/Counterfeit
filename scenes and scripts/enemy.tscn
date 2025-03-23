@@ -13,7 +13,7 @@ height = 100.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ujeph"]
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.2, 0.2)
 script = ExtResource("1_327h3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -27,6 +27,7 @@ shape = SubResource("CapsuleShape2D_ku7tn")
 [node name="Gun" parent="." instance=ExtResource("4_bj666")]
 position = Vector2(58, 12)
 scale = Vector2(0.9, 0.9)
+Bullet = null
 
 [node name="HP" parent="." instance=ExtResource("4_pjocm")]
 

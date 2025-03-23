@@ -9,6 +9,13 @@ class_name Player
 
 
 func _ready() -> void:
+	z_index = 10
+	add_to_group("player")
+	
+	collision_layer = 2
+	collision_mask = 1
+	print("Player collision setup: layer = ", collision_layer, ", mask = ", collision_mask)
+	
 	gun.firing_effect.hide()
 
 
