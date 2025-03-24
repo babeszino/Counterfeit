@@ -51,8 +51,9 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	
 	var bullet_instance = Bullet.instantiate()
 	get_tree().root.add_child(bullet_instance)
-	bullet_instance.add_to_group("bullet")
 	bullet_instance.global_position = end_of_gun.global_position
+	
+	bullet_instance.set_shooter(get_parent())
 	
 	if target_direction == Vector2.ZERO:
 		var mouse_direction = (get_global_mouse_position() - global_position).normalized()

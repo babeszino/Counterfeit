@@ -10,16 +10,13 @@ class_name Player
 
 func _ready() -> void:
 	z_index = 10
-	add_to_group("player")
-	
 	collision_layer = 2
-	collision_mask = 1
-	print("Player collision setup: layer = ", collision_layer, ", mask = ", collision_mask)
+	collision_mask = 1 | 4 | 8
 	
 	gun.firing_effect.hide()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var direction := Vector2.ZERO
 	
 	if Input.is_action_pressed("up"):
@@ -36,7 +33,10 @@ func _physics_process(delta: float) -> void:
 	
 	direction = direction.normalized()
 	
-	position += direction * speed * delta
+	velocity = direction * speed
+	move_and_slide()
+	
+	#position += direction * speed * delta
 	
 	look_at(get_global_mouse_position())
 

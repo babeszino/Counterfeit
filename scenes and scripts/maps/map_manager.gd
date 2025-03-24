@@ -3,9 +3,11 @@ extends Node
 var current_map_index : int = 0
 var maps : Array = []
 var maps_path = "res://scenes and scripts/maps/"
+var randomized_map_indexes : Array = []
+
+var game_started : bool = false
 var player
 var ui_instance
-var game_started : bool = false
 
 
 func _ready():
@@ -24,6 +26,8 @@ func _ready():
 func start_game() -> void:
 	game_started = true
 	
+	randomize_map_order()
+	
 	if ui_instance == null:
 		ui_instance = preload("res://scenes and scripts/ui.tscn").instantiate()
 		get_tree().root.add_child(ui_instance)
@@ -35,16 +39,16 @@ func start_game() -> void:
 	if player == null:
 		player = preload("res://scenes and scripts/player.tscn").instantiate()
 		get_tree().root.add_child(player)
-		player.add_to_group("player")
 		player.collision_layer = 2
-		player.collision_mask = 1|4
+		player.collision_mask = 1 | 4
 		print("Player instance created and configured")
 		
 		if ui_instance != null:
 			ui_instance.set_player(player)
 			print("UI connected to player")
 	
-	load_map(current_map_index)
+	current_map_index = 0
+	load_map(randomized_map_indexes[current_map_index])
 
 
 func clear_entities():
@@ -53,6 +57,17 @@ func clear_entities():
 	
 	for bullet in get_tree().get_nodes_in_group("bullet"):
 		bullet.queue_free()
+
+
+func randomize_map_order() -> void:
+	print("Randomizing map order...")
+	
+	randomized_map_indexes = []
+	for i in range(maps.size()):
+		randomized_map_indexes.append(i)
+	
+	randomized_map_indexes.shuffle()
+	print("Randomized map order: ", randomized_map_indexes)
 
 
 func load_map(map_index):
@@ -127,8 +142,8 @@ func configure_enemy_detection():
 				child.disabled = false
 
 
-# WARNING: connect this function to a door signal later!
+# WARNING: connect this function to a door signal later
 func _on_door_player_entered():
 	print("Player entered door, loading next map")
-	current_map_index = (current_map_index + 1) % maps.size()
-	load_map(current_map_index)
+	current_map_index = (current_map_index + 1) % randomized_map_indexes.size()
+	load_map(randomized_map_indexes[current_map_index])

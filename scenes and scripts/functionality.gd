@@ -8,7 +8,6 @@ var player : CharacterBody2D = null
 var gun = null
 var enemy : CharacterBody2D = null
 
-# GUARD state variables
 var current_state : int = State.GUARD
 var default_position : Vector2 = Vector2.ZERO
 var patrol_distance : float = 125.0
@@ -21,7 +20,7 @@ var patrol_timer : float = 0.0
 
 
 func _ready() -> void:
-	await get_tree().process_frame # wait a frame for parent to load
+	await get_tree().process_frame # wait for parent to load
 	current_state = State.GUARD
 	
 	patrol_timer = 1.0
@@ -44,8 +43,8 @@ func _physics_process(delta: float) -> void:
 				default_position = enemy.global_position
 				patrol_top_point = default_position - Vector2(0, patrol_distance/2)
 				patrol_bottom_point = default_position + Vector2(0, patrol_distance/2)
-				print("Enemy starting to patrol from: ", default_position)
-				print("Final patrol points: ", patrol_top_point, " to ", patrol_bottom_point)
+				#print("Enemy starting to patrol from: ", default_position)
+				#print("Final patrol points: ", patrol_top_point, " to ", patrol_bottom_point)
 	
 	match current_state:
 		State.GUARD:
@@ -59,14 +58,14 @@ func _physics_process(delta: float) -> void:
 					
 					var distance_to_target = enemy.global_position.distance_to(target)
 					
-					if Engine.get_frames_drawn() % 60 == 0:
-						print("Distance to target: ", distance_to_target)
-						print("Current position: ", enemy.global_position)
-						print("Target position: ", target)
+					#if Engine.get_frames_drawn() % 60 == 0:
+						#print("Distance to target: ", distance_to_target)
+						#print("Current position: ", enemy.global_position)
+						#print("Target position: ", target)
 					
 					if distance_to_target < 20.0:
 						moving_to_bottom = !moving_to_bottom
-						print("REACHED TARGET! Switching direction to: ", "bottom" if moving_to_bottom else "top")
+						#print("REACHED TARGET! Switching direction to: ", "bottom" if moving_to_bottom else "top")
 					
 					var direction = Vector2.ZERO
 					if moving_to_bottom:
@@ -114,8 +113,8 @@ func initialize(enemy_node, gun_node):
 		patrol_bottom_point = default_position + Vector2(0, patrol_distance/2)
 		enemy.velocity = Vector2.ZERO
 		
-		print("Enemy initialized at: ", default_position)
-		print("Patrol points: ", patrol_top_point, " to ", patrol_bottom_point)
+		#print("Enemy initialized at: ", default_position)
+		#print("Patrol points: ", patrol_top_point, " to ", patrol_bottom_point)
 	else:
 		printerr("something went wrong, enemy is probably null during initilzation")
 

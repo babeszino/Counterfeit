@@ -29,4 +29,4 @@ Bullet = null
 [node name="HP" parent="." instance=ExtResource("4_w2lfu")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(2, 2)

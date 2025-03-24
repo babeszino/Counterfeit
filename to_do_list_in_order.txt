@@ -2,12 +2,6 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--implement the randomized map order into the game
-
--draw all 5 map layouts - preferably ones that are bigger in height
-
--add enemy spawn points
-
 -use groups whereever I can
 
 -implement the door opening, which enables the player to advance to the next level after finishing
@@ -19,6 +13,8 @@ TO-DO:
 -add an enemy detection zone for the Player, so if the enemy AI turns to ATTACK mode, it should find the shortest path to the middle of the Player's detection zone, 
 crouch down, shoot - if the Player moves and the Enemy is fully out of the Player's detection zone, then the Enemy should still stay in ATTACK mode and find the shortest path to
 the middle of the Player's detection zone - repeat until either the Player dies or the Enemy dies
+
+-draw all 5 map layouts - preferably ones that are bigger in height
 
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
@@ -58,3 +54,7 @@ DONE:
 -draw a health bar which has 5 bars (80 hp should show only 4 bars, 20 hp should only show one) - match case in code
 
 -add a UI to the game, which shows the player health bar and the ammo capacity/current bullets left in the magazine
+
+-implement the randomized map order into the game
+
+-add enemy spawn points

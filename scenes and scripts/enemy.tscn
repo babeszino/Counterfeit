@@ -37,11 +37,11 @@ script = ExtResource("5_005k8")
 [node name="PlayerDetectionZone" type="Area2D" parent="Functionality"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Functionality/PlayerDetectionZone"]
-scale = Vector2(2.51057, 1.435)
+scale = Vector2(1.68645, 0.6525)
 polygon = PackedVector2Array(0, 0, 500, -500, 500, 500)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Functionality/PlayerDetectionZone"]
-scale = Vector2(50, 50)
+scale = Vector2(30, 30)
 shape = SubResource("CircleShape2D_ujeph")
 
 [connection signal="body_entered" from="Functionality/PlayerDetectionZone" to="Functionality" method="_on_player_detection_zone_body_entered"]
