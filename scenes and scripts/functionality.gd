@@ -47,18 +47,10 @@ func _physics_process(delta: float) -> void:
 				patrol_bottom_point = default_position + Vector2(0, patrol_distance/2)
 	
 	if player != null and enemy != null:
-		if line_of_sight:
-			var direction = enemy.global_position.direction_to(player.global_position)
-			var distance = enemy.global_position.distance_squared_to(player.global_position)
-			
-			line_of_sight.global_position = enemy.global_position
-			line_of_sight.target_position = direction * distance
-			line_of_sight.force_raycast_update()
-			
-			if has_line_of_sight_to_player():
-				if current_state != State.ATTACK:
-					set_state(State.ATTACK)
-					print("enemy spotted the player, switching to ATTACK state")
+		var direction = enemy.global_position.direction_to(player.global_position)
+		var distance = enemy.global_position.distance_to(player.global_position)
+		line_of_sight.target_position = direction * distance
+		line_of_sight.force_raycast_update()
 	
 	match current_state:
 		State.GUARD:
@@ -97,11 +89,12 @@ func _physics_process(delta: float) -> void:
 		State.ATTACK:
 			if player != null and gun != null:
 				# rotate in direction of player
-				enemy.rotation = lerp_angle(enemy.rotation, enemy.global_position.direction_to(player.global_position).angle(), 0.1)
+				var direction = enemy.global_position.direction_to(player.global_position)
+				enemy.rotation = lerp_angle(enemy.rotation, direction.angle(), 0.1)
 				
 				# shoot at player
-				var direction_to_shoot = enemy.global_position.direction_to(player.global_position)
-				gun.shoot(direction_to_shoot)
+				if has_line_of_sight_to_player():
+					gun.shoot(direction)
 			else:
 				printerr("something went wrong, there is no player or gun")
 		_:
@@ -144,37 +137,39 @@ func set_state(new_state: int):
 			patrol_bottom_point = default_position + Vector2(0, patrol_distance/2)
 	
 	current_state = new_state
+	
+	if new_state == State.ATTACK and enemy != null and enemy.has_method("update_path"):
+		enemy.update_path()
 
 
 func has_line_of_sight_to_player() -> bool:
-	if player == null or enemy == null:
+	if player == null or enemy == null or line_of_sight == null:
 		return false
 	
-	if line_of_sight:
-		if line_of_sight.is_colliding():
-			var collider = line_of_sight.get_collider()
-			
-			if collider is Player or collider.is_in_group("player"):
-				return true
-			else:
-				return false
-			
-		else:
+	if line_of_sight.is_colliding():
+		var collider = line_of_sight.get_collider()
+		
+		if collider == player or collider.is_in_group("player"):
 			return true
+		
+		return false
 	
-	return false
+	return true
 
 
 func _on_player_detection_zone_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body.is_in_group("player"):
 		player = body
+		
+		if has_line_of_sight_to_player():
+			set_state(State.ATTACK)
+			print("enemy spotted player")
 
 
 func _on_bullet_detection_zone_area_entered(area: Area2D) -> void:
-	if area.is_in_group("bullet"):
-		if area.shooter_group == "player":
-			var player_nodes = get_tree().get_nodes_in_group("player")
-			if player_nodes.size() > 0:
-				player = player_nodes[0]
-				set_state(State.ATTACK)
-				print("enemy heard a bullet flying by")
+	if area.is_in_group("bullet") and area.shooter_group == "player":
+		var player_nodes = get_tree().get_nodes_in_group("player")
+		if player_nodes.size() > 0:
+			player = player_nodes[0]
+			set_state(State.ATTACK)
+			print("enemy heard a bullet flying by")

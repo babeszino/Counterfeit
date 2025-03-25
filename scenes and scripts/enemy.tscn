@@ -23,7 +23,6 @@ rotation = 4.71239
 texture = ExtResource("3_ev8f7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_ku7tn")
 
@@ -54,6 +53,13 @@ shape = SubResource("CircleShape2D_civcf")
 
 [node name="LineOfSightRay" type="RayCast2D" parent="Functionality"]
 hit_from_inside = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 4.0
+target_desired_distance = 4.0
+path_max_distance = 500.0
+avoidance_enabled = true
+debug_enabled = true
 
 [connection signal="body_entered" from="Functionality/PlayerDetectionZone" to="Functionality" method="_on_player_detection_zone_body_entered"]
 [connection signal="area_entered" from="Functionality/BulletDetectionZone" to="Functionality" method="_on_bullet_detection_zone_area_entered"]

@@ -28,9 +28,6 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 
 -implement jumping between walls for the player - should have some good logic and a proper use
 
--implement auto saving, and if there is a save add an option "Continue" to the menu, which puts the player back on the map where he left - choosing "New Game" in the menu
-should delete the latest save, and the "Continue" option shouldn't appear in the menu after that
-
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
 
 -add health bar to enemy players because why not
