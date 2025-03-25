@@ -4,6 +4,7 @@ enum State { GUARD, ATTACK }
 
 @onready var player_detection_zone = $PlayerDetectionZone
 @onready var bullet_detection_zone = $BulletDetectionZone
+@onready var line_of_sight = $LineOfSightRay
 
 var player : CharacterBody2D = null
 var gun = null
@@ -44,6 +45,20 @@ func _physics_process(delta: float) -> void:
 				default_position = enemy.global_position
 				patrol_top_point = default_position - Vector2(0, patrol_distance/2)
 				patrol_bottom_point = default_position + Vector2(0, patrol_distance/2)
+	
+	if player != null and enemy != null:
+		if line_of_sight:
+			var direction = enemy.global_position.direction_to(player.global_position)
+			var distance = enemy.global_position.distance_squared_to(player.global_position)
+			
+			line_of_sight.global_position = enemy.global_position
+			line_of_sight.target_position = direction * distance
+			line_of_sight.force_raycast_update()
+			
+			if has_line_of_sight_to_player():
+				if current_state != State.ATTACK:
+					set_state(State.ATTACK)
+					print("enemy spotted the player, switching to ATTACK state")
 	
 	match current_state:
 		State.GUARD:
@@ -101,6 +116,10 @@ func initialize(enemy_node, gun_node):
 		bullet_detection_zone.collision_layer = 0
 		bullet_detection_zone.collision_mask = 8 # layer 8 - bullets
 	
+	if line_of_sight:
+		line_of_sight.enabled = true
+		line_of_sight.collision_mask = 1 | 2 # 1 - walls and 2 - player
+	
 	should_patrol = false
 	patrol_timer = 2.0
 	
@@ -125,6 +144,25 @@ func set_state(new_state: int):
 			patrol_bottom_point = default_position + Vector2(0, patrol_distance/2)
 	
 	current_state = new_state
+
+
+func has_line_of_sight_to_player() -> bool:
+	if player == null or enemy == null:
+		return false
+	
+	if line_of_sight:
+		if line_of_sight.is_colliding():
+			var collider = line_of_sight.get_collider()
+			
+			if collider is Player or collider.is_in_group("player"):
+				return true
+			else:
+				return false
+			
+		else:
+			return true
+	
+	return false
 
 
 func _on_player_detection_zone_body_entered(body: Node2D) -> void:

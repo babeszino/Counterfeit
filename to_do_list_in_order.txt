@@ -2,8 +2,6 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--the enemy should not see through walls
-
 -give the enemy a proper AI, so when it is in ATTACK mode, it chooses the shortest path to the player and stuff, doesn't get stuck in walls etc.
 
 -add an enemy detection zone for the Player, so if the enemy AI turns to ATTACK mode, it should find the shortest path to the Player's detection zone, 
@@ -74,3 +72,5 @@ DONE:
 -Player hp and ammo should reset to maximum when progressing to next level
 
 -if enemies get shot, they should switch to ATTACK mode - they should also have a detection zone, which if the player shoots into, the enemy switches to ATTACK mode
+
+-the enemy should not see through walls
