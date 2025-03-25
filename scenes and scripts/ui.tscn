@@ -61,6 +61,7 @@ offset_bottom = 256.0
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_gavqp")
 expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="BottomContainer" type="MarginContainer" parent="."]
 anchors_preset = 3

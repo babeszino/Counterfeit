@@ -2,9 +2,9 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--use groups whereever I can
+-Player hp and ammo should reset to maximum when progressing to next level
 
--implement the door opening, which enables the player to advance to the next level after finishing
+-setup collision layers and mask properly everywhere, now it's all over the place (but works)
 
 -if enemies get shot, they should switch to ATTACK mode - they should also have a detection zone, which if the player shoots into, the enemy switches to ATTACK mode
 
@@ -16,7 +16,11 @@ the middle of the Player's detection zone - repeat until either the Player dies 
 
 -draw all 5 map layouts - preferably ones that are bigger in height
 
+-add pause screen - when pressing ESC, the screen should appear, and it should pause the game - should have 3 buttons: "Resume", "Return to main menu" and "Quit"
+
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
+
+-redraw the glock (currently named gun)
 
 -draw the rest of the guns (baseball bat, double barrel shotgun, m4, rocket launcher)
 
@@ -32,6 +36,12 @@ the middle of the Player's detection zone - repeat until either the Player dies 
 should delete the latest save, and the "Continue" option shouldn't appear in the menu after that
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
+
+-add health bar to enemy players because why not
+
+-don't shoot the whole cartridge - add animation to the bullet maybe (cartridge falling off to the side)?
+
+-organize the project directory - including the assets, scenes and scripts
 
 ///////////////////////////////////////////////////////////
 DONE:
@@ -58,3 +68,7 @@ DONE:
 -implement the randomized map order into the game
 
 -add enemy spawn points
+
+-implement the door opening, which enables the player to advance to the next level after finishing
+
+-use groups whereever I can

@@ -23,13 +23,13 @@ func _process(_delta: float) -> void:
 		find_player()
 	
 	if is_instance_valid(player):
-		# hp display
+		# display hp
 		if player.health_point != null:
 			update_health_bar(player.health_point.hp)
 		else:
 			hide_all_health_bars()
 		
-		# gun - ammo display
+		# display ammo
 		var gun = player.get_node("Gun")
 		update_ammo_display(gun.get_ammo_display())
 	else:

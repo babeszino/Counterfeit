@@ -4,8 +4,8 @@ class_name Player
 
 @export var speed : float = 200.0
 
-@onready var health_point = $HP
-@onready var gun = $Gun
+@onready var health_point : Node2D = $HP
+@onready var gun :  = $Gun
 
 
 func _ready() -> void:
@@ -35,8 +35,6 @@ func _physics_process(_delta: float) -> void:
 	
 	velocity = direction * speed
 	move_and_slide()
-	
-	#position += direction * speed * delta
 	
 	look_at(get_global_mouse_position())
 

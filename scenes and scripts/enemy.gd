@@ -11,14 +11,13 @@ signal enemy_died
 
 func _ready() -> void:
 	z_index = 5
-	add_to_group("enemy")
 	
+	# spawn_enemies (map_manager.gd) felulirja a collision_layert es a collision_mask-ot valoszinu
 	collision_layer = 4
 	collision_mask = 1 | 2 | 8
 	
 	gun.firing_effect.hide()
 	functionality.initialize(self, gun)
-	
 
 
 func handle_hit():

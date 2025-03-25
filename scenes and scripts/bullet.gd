@@ -25,8 +25,6 @@ func _process(delta: float) -> void:
 
 func set_direction(direction: Vector2) -> void:
 	bullet_direction = direction
-	
-	# bullet rotation
 	rotation += direction.angle()
  
 
@@ -46,10 +44,7 @@ func _on_despawn_timer_timeout() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	print("Bullet collided with: ", body.name)
-	
 	if body is TileMapLayer:
-		print("Bullet hit wall")
 		queue_free()
 		return
 	
