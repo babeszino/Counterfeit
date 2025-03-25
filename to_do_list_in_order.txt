@@ -2,17 +2,15 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--Player hp and ammo should reset to maximum when progressing to next level
-
 -setup collision layers and mask properly everywhere, now it's all over the place (but works)
 
 -if enemies get shot, they should switch to ATTACK mode - they should also have a detection zone, which if the player shoots into, the enemy switches to ATTACK mode
 
 -give the enemy a proper AI, so when it is in ATTACK mode, it chooses the shortest path to the player and stuff, doesn't get stuck in walls etc.
 
--add an enemy detection zone for the Player, so if the enemy AI turns to ATTACK mode, it should find the shortest path to the middle of the Player's detection zone, 
+-add an enemy detection zone for the Player, so if the enemy AI turns to ATTACK mode, it should find the shortest path to the Player's detection zone, 
 crouch down, shoot - if the Player moves and the Enemy is fully out of the Player's detection zone, then the Enemy should still stay in ATTACK mode and find the shortest path to
-the middle of the Player's detection zone - repeat until either the Player dies or the Enemy dies
+the Player's detection zone - repeat until either the Player dies or the Enemy dies
 
 -draw all 5 map layouts - preferably ones that are bigger in height
 
@@ -72,3 +70,5 @@ DONE:
 -implement the door opening, which enables the player to advance to the next level after finishing
 
 -use groups whereever I can
+
+-Player hp and ammo should reset to maximum when progressing to next level

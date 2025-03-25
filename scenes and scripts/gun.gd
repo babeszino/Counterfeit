@@ -2,14 +2,13 @@ extends Node2D
 
 class_name Gun
 
-@export var Bullet : PackedScene
-
 @onready var end_of_gun = $EndOfGun
 @onready var attack_cooldown = $AttackCooldown
 @onready var firing_effect = $FiringEffect
 @onready var firing_animation = $FiringAnimation
 @onready var reload_timer = $ReloadTimer
 
+var bullet_scene
 var max_ammo : int = 18
 var current_ammo : int = 18
 var is_reloading : bool = false
@@ -17,11 +16,7 @@ var is_reloading : bool = false
 
 func _ready() -> void:
 	current_ammo = max_ammo
-	
-	if Bullet == null:
-		Bullet = load("res://scenes and scripts/bullet.tscn")
-		if Bullet == null:
-			printerr("Could not load bullet scene")
+	bullet_scene = load("res://scenes and scripts/bullet.tscn")
 
 
 func _process(_delta: float) -> void:
@@ -43,13 +38,7 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	if !attack_cooldown.is_stopped():
 		return false
 	
-	if Bullet == null:
-		Bullet = load("res://scenes and scripts/bullet.tscn")
-		if Bullet == null:
-			push_error("Could not load bullet scene (shoot function)")
-			return false
-	
-	var bullet_instance = Bullet.instantiate()
+	var bullet_instance = bullet_scene.instantiate()
 	get_tree().root.add_child(bullet_instance)
 	bullet_instance.global_position = end_of_gun.global_position
 	
@@ -93,6 +82,7 @@ func _on_reload_timer_timeout() -> void:
 	current_ammo = max_ammo
 	is_reloading = false
 	print("Reload complete. Ammo: ", current_ammo)
+	
 
 
 func get_ammo_display() -> String:

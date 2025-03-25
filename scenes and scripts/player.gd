@@ -4,8 +4,8 @@ class_name Player
 
 @export var speed : float = 200.0
 
-@onready var health_point : Node2D = $HP
-@onready var gun :  = $Gun
+@onready var health_point = $HP
+@onready var gun = $Gun
 
 
 func _ready() -> void:
@@ -44,7 +44,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		gun.shoot()
 
 
-func handle_hit():
+func handle_hit() -> void:
 	health_point.hp -= 20
 	print("player hit! health: ", health_point.hp)
 	

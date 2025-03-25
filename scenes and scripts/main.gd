@@ -16,13 +16,12 @@ func _ready() -> void:
 		ui.set_player(player)
 
 
-func get_next_map():
-	if map_manager:
-		var next_index = (map_manager.current_map_index + 1) % map_manager.maps.size()
-		return next_index
+func get_next_map() -> int:
+	var next_index = (map_manager.current_map_index + 1) % map_manager.maps.size()
+	return next_index
 
 
-func load_next_map():
+func load_next_map() -> void:
 	if map_manager:
 		var next_index = get_next_map()
 		map_manager.load_map(next_index)

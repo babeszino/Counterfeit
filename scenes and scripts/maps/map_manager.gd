@@ -13,7 +13,7 @@ var current_map_instance
 var finish_door_container
 
 
-func _ready():
+func _ready() -> void:
 	var dir = DirAccess.open(maps_path)
 	dir.list_dir_begin()
 	
@@ -51,7 +51,7 @@ func randomize_map_order() -> void:
 	randomized_map_indexes.shuffle()
 
 
-func load_map(map_index):
+func load_map(map_index) -> void:
 	if map_index < 0 or map_index >= maps.size():
 		return
 	
@@ -72,6 +72,7 @@ func load_map(map_index):
 		await get_tree().process_frame
 		
 		position_player_on_map(current_map_instance)
+		reset_player_stats()
 		spawn_enemies(current_map_instance)
 		
 		await get_tree().process_frame
@@ -80,7 +81,7 @@ func load_map(map_index):
 		find_door(current_map_instance)
 
 
-func position_player_on_map(map_instance):
+func position_player_on_map(map_instance) -> void:
 	if map_instance == null:
 		return
 	
@@ -88,7 +89,7 @@ func position_player_on_map(map_instance):
 	player.global_position = spawn_point.global_position
 
 
-func spawn_enemies(map_instance):
+func spawn_enemies(map_instance) -> void:
 	if map_instance == null:
 		return
 	
@@ -103,7 +104,7 @@ func spawn_enemies(map_instance):
 			enemy.global_position = child.global_position
 
 
-func configure_enemy_detection():
+func configure_enemy_detection() -> void:
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	for enemy in enemies:
 		var detection_zone = enemy.get_node("Functionality/PlayerDetectionZone")
@@ -111,14 +112,14 @@ func configure_enemy_detection():
 		detection_zone.collision_mask = 2
 
 
-func find_door(map_instance):
+func find_door(map_instance) -> void:
 	if map_instance == null:
 		return
 	
 	finish_door_container = map_instance.get_node("FinishDoorContainer")
 	finish_door_container._ready()
 
-func load_next_map():
+func load_next_map() -> void:
 	current_map_sequence_position += 1
 	if current_map_sequence_position >= randomized_map_indexes.size():
 		show_game_completed_screen()
@@ -128,13 +129,22 @@ func load_next_map():
 	load_map(next_map_index)
 
 
-func _on_enemy_died():
+func reset_player_stats() -> void:
+	if player and is_instance_valid(player):
+		player.health_point.hp = 100
+		
+		var gun = player.get_node("Gun")
+		gun.current_ammo = gun.max_ammo
+		gun.is_reloading = false
+
+
+func _on_enemy_died() -> void:
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	if enemies.size() == 0:
 		finish_door_container.open()
 
 
-func show_game_completed_screen():
+func show_game_completed_screen() -> void:
 	if player != null:
 		player.queue_free()
 		player = null
