@@ -3,6 +3,7 @@ extends Node2D
 enum State { GUARD, ATTACK }
 
 @onready var player_detection_zone = $PlayerDetectionZone
+@onready var bullet_detection_zone = $BulletDetectionZone
 
 var player : CharacterBody2D = null
 var gun = null
@@ -96,6 +97,10 @@ func initialize(enemy_node, gun_node):
 	self.enemy = enemy_node
 	self.gun = gun_node
 	
+	if bullet_detection_zone:
+		bullet_detection_zone.collision_layer = 0
+		bullet_detection_zone.collision_mask = 8 # layer 8 - bullets
+	
 	should_patrol = false
 	patrol_timer = 2.0
 	
@@ -124,5 +129,14 @@ func set_state(new_state: int):
 
 func _on_player_detection_zone_body_entered(body: Node2D) -> void:
 	if body is Player:
-		set_state(State.ATTACK)
 		player = body
+
+
+func _on_bullet_detection_zone_area_entered(area: Area2D) -> void:
+	if area.is_in_group("bullet"):
+		if area.shooter_group == "player":
+			var player_nodes = get_tree().get_nodes_in_group("player")
+			if player_nodes.size() > 0:
+				player = player_nodes[0]
+				set_state(State.ATTACK)
+				print("enemy heard a bullet flying by")

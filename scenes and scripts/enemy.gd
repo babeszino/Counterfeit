@@ -23,6 +23,12 @@ func _ready() -> void:
 func handle_hit():
 	health_point.hp -= 20
 	print("enemy hit! health: ", health_point.hp)
+	
+	var player_nodes = get_tree().get_nodes_in_group("player")
+	if player_nodes.size() > 0:
+		functionality.player = player_nodes[0]
+		functionality.set_state(functionality.State.ATTACK)
+	
 	if health_point.hp <= 0:
 		queue_free()
 
