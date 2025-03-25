@@ -30,6 +30,12 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if player != null and enemy != null:
+		var direction = enemy.global_position.direction_to(player.global_position)
+		var distance = enemy.global_position.distance_to(player.global_position)
+		line_of_sight.target_position = direction * distance
+		line_of_sight.force_raycast_update()
+	
 	if patrol_timer > 0:
 		patrol_timer -= delta
 		
@@ -45,12 +51,6 @@ func _physics_process(delta: float) -> void:
 				default_position = enemy.global_position
 				patrol_top_point = default_position - Vector2(0, patrol_distance/2)
 				patrol_bottom_point = default_position + Vector2(0, patrol_distance/2)
-	
-	if player != null and enemy != null:
-		var direction = enemy.global_position.direction_to(player.global_position)
-		var distance = enemy.global_position.distance_to(player.global_position)
-		line_of_sight.target_position = direction * distance
-		line_of_sight.force_raycast_update()
 	
 	match current_state:
 		State.GUARD:
@@ -146,13 +146,24 @@ func has_line_of_sight_to_player() -> bool:
 	if player == null or enemy == null or line_of_sight == null:
 		return false
 	
+	var global_direction = (player.global_position - enemy.global_position).normalized()
+	var distance = enemy.global_position.distance_to(player.global_position)
+	
+	var local_direction = global_direction.rotated(-enemy.rotation)
+	
+	line_of_sight.target_position = local_direction * distance
+	line_of_sight.force_raycast_update()
+	
 	if line_of_sight.is_colliding():
 		var collider = line_of_sight.get_collider()
+		print("RayCast hit: ", collider.name)
 		
 		if collider == player or collider.is_in_group("player"):
+			print("Direct line of sight to player")
 			return true
-		
-		return false
+		else:
+			print("Wall blocking view")
+			return false
 	
 	return true
 
@@ -164,6 +175,8 @@ func _on_player_detection_zone_body_entered(body: Node2D) -> void:
 		if has_line_of_sight_to_player():
 			set_state(State.ATTACK)
 			print("enemy spotted player")
+		else:
+			print("enemy detected player but view blocked by wall")
 
 
 func _on_bullet_detection_zone_area_entered(area: Area2D) -> void:
