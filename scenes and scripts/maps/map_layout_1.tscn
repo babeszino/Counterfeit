@@ -192,6 +192,12 @@ position = Vector2(189, 384)
 [node name="EnemySpawn1" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(384, 376)
 
+[node name="EnemySpawn2" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(431, 376)
+
+[node name="EnemySpawn3" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(321, 376)
+
 [node name="FinishDoorContainer" type="Node2D" parent="."]
 position = Vector2(384, 312)
 script = ExtResource("2_5kihr")

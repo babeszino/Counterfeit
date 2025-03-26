@@ -73,7 +73,7 @@ func navigate_to_player(delta: float) -> void:
 	var direction = global_position.direction_to(next_position)
 	
 	var distance_to_player = global_position.distance_to(functionality.player.global_position)
-	if distance_to_player > 50.0:
+	if distance_to_player > 75.0:
 		functionality.enemy.velocity = direction * movement_speed
 	else:
 		functionality.enemy.velocity = Vector2.ZERO

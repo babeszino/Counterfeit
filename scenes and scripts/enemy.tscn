@@ -23,7 +23,6 @@ rotation = 4.71239
 texture = ExtResource("3_ev8f7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_ku7tn")
 
@@ -37,7 +36,6 @@ scale = Vector2(0.9, 0.9)
 script = ExtResource("5_005k8")
 
 [node name="PlayerDetectionZone" type="Area2D" parent="Functionality"]
-visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Functionality/PlayerDetectionZone"]
 scale = Vector2(1.68645, 0.6525)
@@ -48,7 +46,6 @@ scale = Vector2(30, 30)
 shape = SubResource("CircleShape2D_ujeph")
 
 [node name="BulletDetectionZone" type="Area2D" parent="Functionality"]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Functionality/BulletDetectionZone"]
 scale = Vector2(35, 35)

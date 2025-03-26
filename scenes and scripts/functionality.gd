@@ -9,6 +9,7 @@ enum State { GUARD, ATTACK }
 var player : CharacterBody2D = null
 var gun = null
 var enemy : CharacterBody2D = null
+var tracked_player : CharacterBody2D = null
 
 var current_state : int = State.GUARD
 var default_position : Vector2 = Vector2.ZERO
@@ -25,15 +26,32 @@ func _ready() -> void:
 	await get_tree().process_frame # wait for parent to load
 	current_state = State.GUARD
 	
+	if line_of_sight:
+		line_of_sight.enabled = true
+		line_of_sight.collision_mask = 1 | 2 # 1 - walls, 2 - player
+	
 	patrol_timer = 1.0
 	should_patrol = false
+	
+	var player_nodes = get_tree().get_nodes_in_group("player")
+	if player_nodes.size() > 0:
+		tracked_player = player_nodes[0]
 
 
 func _physics_process(delta: float) -> void:
-	if player != null and enemy != null:
-		var direction = enemy.global_position.direction_to(player.global_position)
-		var distance = enemy.global_position.distance_to(player.global_position)
-		line_of_sight.target_position = direction * distance
+	var player_nodes = get_tree().get_nodes_in_group("player")
+	var tracked_player = null
+	
+	if player_nodes.size() > 0:
+		tracked_player = player_nodes[0]
+	
+	if tracked_player != null and enemy != null:
+		var global_direction = (tracked_player.global_position - enemy.global_position).normalized()
+		var distance = enemy.global_position.distance_to(tracked_player.global_position)
+		
+		var local_direction = global_direction.rotated(-enemy.rotation)
+		
+		line_of_sight.target_position = local_direction * 5000
 		line_of_sight.force_raycast_update()
 	
 	if patrol_timer > 0:
@@ -51,6 +69,10 @@ func _physics_process(delta: float) -> void:
 				default_position = enemy.global_position
 				patrol_top_point = default_position - Vector2(0, patrol_distance/2)
 				patrol_bottom_point = default_position + Vector2(0, patrol_distance/2)
+		
+		if player != null and current_state == State.ATTACK:
+			if has_line_of_sight_to_player():
+				gun.shoot()
 	
 	match current_state:
 		State.GUARD:
@@ -112,6 +134,7 @@ func initialize(enemy_node, gun_node):
 	if line_of_sight:
 		line_of_sight.enabled = true
 		line_of_sight.collision_mask = 1 | 2 # 1 - walls and 2 - player
+		print("Raycast initialized with collision mask: ", str(line_of_sight.collision_mask))
 	
 	should_patrol = false
 	patrol_timer = 2.0
@@ -170,13 +193,27 @@ func has_line_of_sight_to_player() -> bool:
 
 func _on_player_detection_zone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		player = body
+		print("Player entered detection zone")
 		
-		if has_line_of_sight_to_player():
-			set_state(State.ATTACK)
-			print("enemy spotted player")
-		else:
-			print("enemy detected player but view blocked by wall")
+		var potential_player = body
+		
+		var global_direction = (potential_player.global_position - enemy.global_position).normalized()
+		var distance = enemy.global_position.distance_to(potential_player.global_position)
+		
+		var local_direction = global_direction.rotated(-enemy.rotation)
+		
+		line_of_sight.target_position = local_direction * 5000
+		line_of_sight.force_raycast_update()
+		
+		if line_of_sight.is_colliding():
+			var collider = line_of_sight.get_collider()
+			
+			if collider == potential_player or collider.is_in_group("player"):
+				player = potential_player
+				set_state(State.ATTACK)
+				print("enemy spotted player - line of sight confirmed")
+			else:
+				print("can see player but view blocked by wall")
 
 
 func _on_bullet_detection_zone_area_entered(area: Area2D) -> void:
