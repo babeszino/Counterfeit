@@ -100,7 +100,7 @@ func spawn_enemies(map_instance) -> void:
 			var enemy = preload("res://scenes and scripts/enemy.tscn").instantiate()
 			get_tree().root.add_child(enemy)
 			enemy.collision_layer = 4  # layer 4 for enemies
-			enemy.collision_mask = 1  # collide with world
+			enemy.collision_mask = 1 | 4 # 1 - world, 4 - enemies (each other)
 			enemy.global_position = child.global_position
 
 

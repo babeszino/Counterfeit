@@ -16,7 +16,7 @@ func _ready() -> void:
 	
 	# spawn_enemies() (map_manager.gd) felulirja a collision_layert es a collision_mask-ot valoszinu
 	collision_layer = 4
-	collision_mask = 1 | 2 | 8
+	collision_mask = 1 | 2 | 4 | 8 # 1 - world, 2 - player, 4 - enemies (each other), 8 - bullets
 	
 	gun.firing_effect.hide()
 	functionality.initialize(self, gun)
