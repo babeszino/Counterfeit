@@ -210,6 +210,7 @@ sprite_frames = SubResource("SpriteFrames_ynfqc")
 animation = &"open"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FinishDoorContainer/FinishDoor"]
+position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_fv0w6")
 
 [node name="DoorBody" type="StaticBody2D" parent="FinishDoorContainer"]

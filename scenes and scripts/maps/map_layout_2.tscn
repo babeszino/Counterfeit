@@ -179,13 +179,10 @@ tile_set = SubResource("TileSet_lq4ok")
 [node name="SpawnPoints" type="Node2D" parent="."]
 
 [node name="PlayerSpawn" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(192, 544)
 
 [node name="EnemySpawn1" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(368, 448)
 
 [node name="FinishDoorContainer" type="Node2D" parent="."]
-position = Vector2(368, 375)
 script = ExtResource("2_b8y2r")
 
 [node name="FinishDoor" type="Area2D" parent="FinishDoorContainer" groups=["finish_door"]]
@@ -196,6 +193,7 @@ sprite_frames = SubResource("SpriteFrames_ld03s")
 animation = &"open"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FinishDoorContainer/FinishDoor"]
+position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_oj2ry")
 
 [node name="DoorBody" type="StaticBody2D" parent="FinishDoorContainer"]

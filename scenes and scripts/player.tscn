@@ -28,4 +28,4 @@ scale = Vector2(0.9, 0.9)
 [node name="HP" parent="." instance=ExtResource("4_w2lfu")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(2.3, 2.3)

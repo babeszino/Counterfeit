@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://bwg1ixdndcarw"]
+[gd_scene load_steps=22 format=4 uid="uid://bwg1ixdndcarw"]
 
 [ext_resource type="Texture2D" uid="uid://baa2yb2kiyvvv" path="res://assets/map layouts/map_layout_3_tileset.png" id="1_0vt7j"]
 [ext_resource type="Script" path="res://scenes and scripts/maps/finish_door.gd" id="2_hpkre"]
@@ -146,6 +146,16 @@ vertices = PackedVector2Array(710, 234, 1062, 234, 1062, 310, 998, 310, 858, 278
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(7, 9, 10, 11), PackedInt32Array(8, 12, 13, 5), PackedInt32Array(14, 15, 16, 17, 18), PackedInt32Array(19, 20, 4), PackedInt32Array(21, 22, 23, 24), PackedInt32Array(21, 24, 25, 4), PackedInt32Array(25, 26, 27, 0), PackedInt32Array(4, 25, 0), PackedInt32Array(19, 4, 3, 5), PackedInt32Array(14, 18, 19, 5, 13), PackedInt32Array(8, 7, 11)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(896, 544, 1008, 544, 1008, 448, 960, 448, 960, 384, 944, 384, 944, 448, 848, 448, 848, 336, 896, 336, 896, 320, 848, 320, 848, 288, 560, 288, 560, 352, 496, 352, 496, 224, 608, 224, 608, 128, 720, 128, 720, 224, 1072, 224, 1072, 320, 1008, 320, 1008, 336, 1072, 336, 1072, 608, 896, 608)])
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_8egj3"]
+vertices = PackedVector2Array(586, 314, 822, 314, 822, 438, 758, 438, 586, 362, 394, 518, 394, 458, 470, 458, 470, 474, 758, 518, 714, 474, 714, 438, 506, 438, 550, 362, 506, 343, 550, 343)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(9, 5, 8, 10), PackedInt32Array(3, 9, 10, 11), PackedInt32Array(4, 3, 11), PackedInt32Array(4, 11, 12, 13), PackedInt32Array(13, 12, 14, 15)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(576, 352, 576, 304, 832, 304, 832, 448, 768, 448, 768, 528, 384, 528, 384, 448, 480, 448, 480, 464, 704, 464, 704, 448, 496, 448, 496, 333, 560, 333, 560, 352)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_naka2"]
+vertices = PackedVector2Array(470, 138, 470, 326, 374, 326, 394, 250, 374, 362, 470, 362, 470, 457, 394, 438, 394, 457, 298, 438, 298, 250, 394, 214, 234, 138, 234, 154, 234, 214, 234, 198, 170, 198, 170, 154)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(6, 8, 7), PackedInt32Array(4, 7, 9, 10), PackedInt32Array(2, 4, 10), PackedInt32Array(2, 10, 3), PackedInt32Array(0, 3, 11), PackedInt32Array(12, 0, 11, 13), PackedInt32Array(11, 14, 15), PackedInt32Array(13, 11, 15), PackedInt32Array(13, 15, 16, 17)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(384, 448, 288, 448, 288, 240, 384, 240, 384, 224, 224, 224, 224, 208, 160, 208, 160, 192, 160, 160, 160, 144, 224, 144, 224, 128, 480, 128, 480, 336, 384, 336, 384, 352, 480, 352, 480, 467, 384, 467)])
+
 [node name="MapLayout2" type="Node2D"]
 
 [node name="TileMapLayers" type="Node2D" parent="."]
@@ -166,6 +176,34 @@ tile_set = SubResource("TileSet_lq4ok")
 position = Vector2(951, 576)
 
 [node name="EnemySpawn1" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(896, 385)
+
+[node name="EnemySpawn2" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1040, 272)
+
+[node name="EnemySpawn3" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(664, 176)
+
+[node name="EnemySpawn4" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(528, 352)
+
+[node name="EnemySpawn5" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(640, 352)
+
+[node name="EnemySpawn6" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(768, 352)
+
+[node name="EnemySpawn7" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(432, 416)
+
+[node name="EnemySpawn8" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(336, 384)
+
+[node name="EnemySpawn9" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(432, 272)
+
+[node name="EnemySpawn10" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(320, 176)
 
 [node name="FinishDoorContainer" type="Node2D" parent="."]
 position = Vector2(152, 176)
@@ -180,6 +218,7 @@ sprite_frames = SubResource("SpriteFrames_ld03s")
 animation = &"open"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FinishDoorContainer/FinishDoor"]
+position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_oj2ry")
 
 [node name="DoorBody" type="StaticBody2D" parent="FinishDoorContainer"]
@@ -193,9 +232,9 @@ shape = SubResource("RectangleShape2D_oj2ry")
 navigation_polygon = SubResource("NavigationPolygon_7hvpe")
 
 [node name="NavRegion2" type="NavigationRegion2D" parent="NavRegionsContainer"]
+navigation_polygon = SubResource("NavigationPolygon_8egj3")
 
 [node name="NavRegion3" type="NavigationRegion2D" parent="NavRegionsContainer"]
-
-[node name="NavRegion4" type="NavigationRegion2D" parent="NavRegionsContainer"]
+navigation_polygon = SubResource("NavigationPolygon_naka2")
 
 [connection signal="body_entered" from="FinishDoorContainer/FinishDoor" to="FinishDoorContainer" method="_on_body_entered"]
