@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var player = $Player
 @onready var ui = $UI
+@onready var pause_menu = $PauseMenu
 @onready var map_manager = get_node("/root/MapManager")
 
 var current_map = null
@@ -14,6 +15,14 @@ func _ready() -> void:
 	
 	if player and ui:
 		ui.set_player(player)
+
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		if get_tree().paused:
+			pause_menu.resume_game()
+		else:
+			pause_menu.show_pause_menu()
 
 
 func get_next_map() -> int:
