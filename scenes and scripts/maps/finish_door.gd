@@ -12,12 +12,6 @@ func _ready():
 	door_is_open = false
 
 
-func _process(_delta):
-	var enemies = get_tree().get_nodes_in_group("enemy")
-	if enemies.size() == 0 and not door_is_open:
-		open()
-
-
 func open():
 	if door_is_open:
 		return

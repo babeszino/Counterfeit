@@ -1,12 +1,12 @@
 extends CanvasLayer
 
-@onready var health_bar_container = $TopContainer/HealthBarContainer
-@onready var health_bar1 = $TopContainer/HealthBarContainer/HealthBar1
-@onready var health_bar2 = $TopContainer/HealthBarContainer/HealthBar2
-@onready var health_bar3 = $TopContainer/HealthBarContainer/HealthBar3
-@onready var health_bar4 = $TopContainer/HealthBarContainer/HealthBar4
-@onready var health_bar5 = $TopContainer/HealthBarContainer/HealthBar5
-@onready var ammo_display = $BottomContainer/AmmoDisplay
+@onready var health_bar_container : Control = $TopContainer/HealthBarContainer
+@onready var health_bar1 : TextureRect = $TopContainer/HealthBarContainer/HealthBar1
+@onready var health_bar2 : TextureRect = $TopContainer/HealthBarContainer/HealthBar2
+@onready var health_bar3 : TextureRect = $TopContainer/HealthBarContainer/HealthBar3
+@onready var health_bar4 : TextureRect = $TopContainer/HealthBarContainer/HealthBar4
+@onready var health_bar5 : TextureRect = $TopContainer/HealthBarContainer/HealthBar5
+@onready var ammo_display : Label = $BottomContainer/AmmoDisplay
 
 var player = null
 

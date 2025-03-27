@@ -2,9 +2,9 @@ extends Control
 
 @onready var start_button = $VBoxContainer/StartButton
 @onready var quit_button = $VBoxContainer/QuitButton
+@onready var map_manager = get_node("/root/MapManager")
 
 var main_scene : String = "res://scenes and scripts/main.tscn"
-@onready var map_manager = get_node("/root/MapManager")
 
 
 func _ready() -> void:

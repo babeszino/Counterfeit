@@ -2,13 +2,7 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--draw all 5 map layouts - preferably ones that are bigger in height
-
--use $ instead of get_node because it's so not organized rn
-
 -restructure the whole project - scene-based architecture - it's too messy right now, the main scene and script is not even being used anymore - FinishDoor should be a separate scene for example
-
--add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
 -redraw the glock (currently named gun)
 
@@ -17,6 +11,8 @@ TO-DO:
 -add the guns into the game - come up with a logic: how and where should the player get each weapon -> 5 map, 5 weapons, you get one weapon/map
 
 -implement the knockback effect of the rocket launcher
+
+-add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
 -implement the score system - double, triple, multi kill bonus + multiplier after finishing the level as fast as you can
 
@@ -85,3 +81,9 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -setup z indexes properly in the editor instead (where it's in the code)
 
 -delete useless imports from the assets directory
+
+-draw all 5 map layouts - preferably ones that are bigger in height
+
+-check all groups and if they are necessary/used at all
+
+-use $ instead of get_node because it's so not organized rn

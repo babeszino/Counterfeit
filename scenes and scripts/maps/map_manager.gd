@@ -1,18 +1,20 @@
 extends Node
 
+@onready var pause_menu = ui.get_node("PauseMenu") if ui else null
+var player
+var ui
+var current_map_instance
+var finish_door_container
+var game_active = false
+
 var current_map_index : int = 0
 var current_map_sequence_position : int = 0
 var maps : Array = []
 var maps_path : String = "res://scenes and scripts/maps/"
 var randomized_map_indexes : Array = []
-var completion_scene = preload("res://scenes and scripts/game_completed_screen.tscn")
 
-var player
-var ui
-var pause_menu
-var current_map_instance
-var finish_door_container
-var game_active = false
+var completion_scene = preload("res://scenes and scripts/game_completed_screen.tscn")
+var enemy_count : int = 0
 
 
 func _ready() -> void:
@@ -198,12 +200,15 @@ func spawn_enemies(map_instance) -> void:
 		return
 	
 	var spawn_points_node = map_instance.get_node("SpawnPoints")
+	enemy_count = 0
 	
 	for child in spawn_points_node.get_children():
 		if "EnemySpawn" in child.name:
 			var enemy = preload("res://scenes and scripts/enemy.tscn").instantiate()
 			get_tree().root.add_child(enemy)
 			enemy.global_position = child.global_position
+			enemy.enemy_died.connect(_on_enemy_died)
+			enemy_count += 1
 
 
 func configure_enemy_detection() -> void:
@@ -240,7 +245,8 @@ func reset_player_stats() -> void:
 
 func _on_enemy_died() -> void:
 	var enemies = get_tree().get_nodes_in_group("enemy")
-	if enemies.size() == 0:
+	enemy_count -= 1
+	if enemy_count <= 0:
 		finish_door_container.open()
 
 

@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 signal enemy_died
 
-@export var hp : int = 100
 @export var movement_speed : float = 50.0
 
 @onready var gun = $Gun
@@ -38,7 +37,7 @@ func handle_hit():
 		update_path()
 	
 	if health_point.hp <= 0:
-		queue_free()
+		die()
 
 
 func die() -> void:
@@ -48,7 +47,6 @@ func die() -> void:
 
 func actor_setup() -> void:
 	await get_tree().physics_frame
-	
 	update_path()
 
 
