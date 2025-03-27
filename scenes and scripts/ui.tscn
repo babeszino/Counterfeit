@@ -82,3 +82,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("7_1veam")]
+
+[connection signal="main_menu_requested" from="PauseMenu" to="." method="_on_pause_menu_main_menu_requested"]
+[connection signal="quit_requested" from="PauseMenu" to="." method="_on_pause_menu_quit_requested"]
+[connection signal="resume_requested" from="PauseMenu" to="." method="_on_pause_menu_resume_requested"]

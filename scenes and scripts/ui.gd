@@ -17,10 +17,6 @@ func _ready() -> void:
 	
 	# connect to player (if it already exists)
 	find_player()
-	
-	pause_menu.resume_requested.connect(_on_pause_menu_resume)
-	pause_menu.main_menu_requested.connect(_on_pause_menu_main_menu)
-	pause_menu.quit_requested.connect(_on_pause_menu_quit)
 
 
 func _process(_delta: float) -> void:
@@ -81,19 +77,19 @@ func update_ammo_display(ammo_text: String) -> void:
 		ammo_display.text = ammo_text
 
 
-func _on_pause_menu_resume() -> void:
+func _on_pause_menu_resume_requested() -> void:
 	var map_manager = get_node("/root/MapManager")
 	if map_manager:
 		map_manager.resume_game()
 
 
-func _on_pause_menu_main_menu() -> void:
-	var map_manager = $"/root/MapManager"
+func _on_pause_menu_main_menu_requested() -> void:
+	var map_manager = get_node("/root/MapManager")
 	if map_manager:
 		map_manager.return_to_main_menu()
 
 
-func _on_pause_menu_quit() -> void:
-	var map_manager = $"/root/MapManager"
+func _on_pause_menu_quit_requested() -> void:
+	var map_manager = get_node("/root/MapManager")
 	if map_manager:
 		map_manager.quit_game()
