@@ -28,7 +28,6 @@ func _ready() -> void:
 	
 	if line_of_sight:
 		line_of_sight.enabled = true
-		line_of_sight.collision_mask = 1 | 2 # 1 - walls, 2 - player
 	
 	patrol_timer = 1.0
 	should_patrol = false
@@ -122,13 +121,8 @@ func initialize(enemy_node, gun_node):
 	self.enemy = enemy_node
 	self.gun = gun_node
 	
-	if bullet_detection_zone:
-		bullet_detection_zone.collision_layer = 0
-		bullet_detection_zone.collision_mask = 8 # layer 8 - bullets
-	
 	if line_of_sight:
 		line_of_sight.enabled = true
-		line_of_sight.collision_mask = 1 | 2 # 1 - walls and 2 - player
 	
 	should_patrol = false
 	patrol_timer = 2.0

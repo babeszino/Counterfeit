@@ -6,16 +6,9 @@ extends Node2D
 @onready var static_body = $DoorBody
 
 var door_is_open : bool = false
-var debug_timer = 0.0
 
 
 func _ready():
-	door_area.collision_layer = 0
-	door_area.collision_mask = 2
-	
-	static_body.collision_layer = 1
-	static_body.collision_mask = 0
-	
 	door_is_open = false
 
 

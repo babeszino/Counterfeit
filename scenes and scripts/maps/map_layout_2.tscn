@@ -242,7 +242,8 @@ position = Vector2(1056, 104)
 script = ExtResource("2_b8y2r")
 
 [node name="FinishDoor" type="Area2D" parent="FinishDoorContainer" groups=["finish_door"]]
-collision_mask = 3
+collision_layer = 0
+collision_mask = 2
 
 [node name="FinishDoorAnimation" type="AnimatedSprite2D" parent="FinishDoorContainer/FinishDoor"]
 sprite_frames = SubResource("SpriteFrames_ld03s")

@@ -10,7 +10,10 @@ radius = 47.0
 height = 100.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 10
 scale = Vector2(0.2, 0.2)
+collision_layer = 2
+collision_mask = 13
 script = ExtResource("1_j2an2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

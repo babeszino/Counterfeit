@@ -2,11 +2,11 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--setup collision layers and mask properly everywhere, now it's all over the place (but works)
-
 -draw all 5 map layouts - preferably ones that are bigger in height
 
--restructure the whole project - scene-based architecture - it's too messy right now, the main scene and script is not even being used anymore
+-use $ instead of get_node because it's so not organized rn
+
+-restructure the whole project - scene-based architecture - it's too messy right now, the main scene and script is not even being used anymore - FinishDoor should be a separate scene for example
 
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
@@ -79,3 +79,9 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -add pause screen - when pressing ESC, the screen should appear, and it should pause the game - should have 3 buttons: "Resume", "Return to main menu" and "Quit"
 
 -redraw the healthbar because it looks kinda bad to be honest
+
+-setup collision layers and mask properly everywhere, now it's all over the place (but works)
+
+-setup z indexes properly in the editor instead (where it's in the code)
+
+-delete useless imports from the assets directory

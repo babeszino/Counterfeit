@@ -8,7 +8,9 @@ radius = 1.0
 height = 6.0
 
 [node name="Bullet" type="Area2D" groups=["bullet"]]
+z_index = 15
 rotation = 1.5708
+collision_layer = 8
 script = ExtResource("1_ot1d2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -10,10 +10,6 @@ class_name Player
 
 
 func _ready() -> void:
-	z_index = 10
-	collision_layer = 2
-	collision_mask = 1 | 4 | 8
-	
 	gun.firing_effect.hide()
 
 

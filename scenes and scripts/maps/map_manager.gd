@@ -42,8 +42,6 @@ func start_game() -> void:
 	
 	player = preload("res://scenes and scripts/player.tscn").instantiate()
 	get_tree().root.add_child(player)
-	player.collision_layer = 2
-	player.collision_mask = 1 | 4 # 1 - world 4 - enemies
 	
 	ui = preload("res://scenes and scripts/ui.tscn").instantiate()
 	get_tree().root.add_child(ui)
@@ -205,8 +203,6 @@ func spawn_enemies(map_instance) -> void:
 		if "EnemySpawn" in child.name:
 			var enemy = preload("res://scenes and scripts/enemy.tscn").instantiate()
 			get_tree().root.add_child(enemy)
-			enemy.collision_layer = 4  # layer 4 for enemies
-			enemy.collision_mask = 1 | 4 # 1 - world, 4 - enemies (each other)
 			enemy.global_position = child.global_position
 
 
@@ -214,8 +210,6 @@ func configure_enemy_detection() -> void:
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	for enemy in enemies:
 		var detection_zone = enemy.get_node("Functionality/PlayerDetectionZone")
-		detection_zone.collision_layer = 0
-		detection_zone.collision_mask = 2
 
 
 func find_door(map_instance) -> void:

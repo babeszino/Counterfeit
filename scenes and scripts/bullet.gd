@@ -11,9 +11,6 @@ var shooter_group : String = ""
 
 func _ready() -> void:
 	despawn_timer.start()
-	
-	collision_layer = 8
-	collision_mask = 1 | 2 | 4
 
 
 func _process(delta: float) -> void:
@@ -33,10 +30,12 @@ func set_shooter(shooter: Node) -> void:
 	
 	if shooter.is_in_group("player"):
 		shooter_group = "player"
-		collision_mask = 1 | 4
+		set_collision_mask_value(2, false)
+		set_collision_mask_value(3, true)
 	elif shooter.is_in_group("enemy"):
 		shooter_group = "enemy"
-		collision_mask = 1 | 2
+		set_collision_mask_value(2, true)
+		set_collision_mask_value(3, false)
 
 
 func _on_despawn_timer_timeout() -> void:
