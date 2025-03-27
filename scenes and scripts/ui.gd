@@ -47,8 +47,7 @@ func update_health_bar(health: int) -> void:
 
 
 func update_ammo_display(ammo_text: String) -> void:
-	if ammo_display:
-		ammo_display.text = ammo_text
+	ammo_display.update_ammo(ammo_text)
 
 
 func _on_pause_menu_resume_requested() -> void:
