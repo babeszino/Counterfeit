@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var health_bar4 : TextureRect = $TopContainer/HealthBarContainer/HealthBar4
 @onready var health_bar5 : TextureRect = $TopContainer/HealthBarContainer/HealthBar5
 @onready var ammo_display : Label = $BottomContainer/AmmoDisplay
+@onready var pause_menu : Control = $PauseMenu
 
 var player = null
 
@@ -16,6 +17,10 @@ func _ready() -> void:
 	
 	# connect to player (if it already exists)
 	find_player()
+	
+	pause_menu.resume_requested.connect(_on_pause_menu_resume)
+	pause_menu.main_menu_requested.connect(_on_pause_menu_main_menu)
+	pause_menu.quit_requested.connect(_on_pause_menu_quit)
 
 
 func _process(_delta: float) -> void:
@@ -74,3 +79,21 @@ func update_health_bar(health: int) -> void:
 func update_ammo_display(ammo_text: String) -> void:
 	if ammo_display:
 		ammo_display.text = ammo_text
+
+
+func _on_pause_menu_resume() -> void:
+	var map_manager = get_node("/root/MapManager")
+	if map_manager:
+		map_manager.resume_game()
+
+
+func _on_pause_menu_main_menu() -> void:
+	var map_manager = $"/root/MapManager"
+	if map_manager:
+		map_manager.return_to_main_menu()
+
+
+func _on_pause_menu_quit() -> void:
+	var map_manager = $"/root/MapManager"
+	if map_manager:
+		map_manager.quit_game()

@@ -49,25 +49,6 @@ func start_game() -> void:
 	get_tree().root.add_child(ui)
 	ui.set_player(player)
 	pause_menu = ui.get_node("PauseMenu")
-	if pause_menu:
-		print("Pause menu found in UI")
-		pause_menu.hide()
-	
-		# need to connect the buttons
-		var resume_button = pause_menu.get_node("Panel/VBoxContainer/ResumeButton")
-		var main_menu_button = pause_menu.get_node("Panel/VBoxContainer/MainMenuButton")
-		var quit_button = pause_menu.get_node("Panel/VBoxContainer/QuitButton")
-		
-		if resume_button and !resume_button.is_connected("pressed", Callable(self, "resume_game")):
-			resume_button.pressed.connect(Callable(self, "resume_game"))
-			
-		if main_menu_button and !main_menu_button.is_connected("pressed", Callable(self, "return_to_main_menu")):
-			main_menu_button.pressed.connect(Callable(self, "return_to_main_menu"))
-			
-		if quit_button and !quit_button.is_connected("pressed", Callable(self, "quit_game")):
-			quit_button.pressed.connect(Callable(self, "quit_game"))
-	else:
-		print("ERROR: Pause menu not found in UI")
 	
 	# reset sequence
 	current_map_sequence_position = 0
