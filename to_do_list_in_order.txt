@@ -2,8 +2,6 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--redraw the healthbar because it looks kinda bad to be honest
-
 -setup collision layers and mask properly everywhere, now it's all over the place (but works)
 
 -draw all 5 map layouts - preferably ones that are bigger in height
@@ -79,3 +77,5 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -add a death screen
 
 -add pause screen - when pressing ESC, the screen should appear, and it should pause the game - should have 3 buttons: "Resume", "Return to main menu" and "Quit"
+
+-redraw the healthbar because it looks kinda bad to be honest
