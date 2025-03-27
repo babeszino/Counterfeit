@@ -6,6 +6,7 @@ class_name Player
 
 @onready var health_point = $HP
 @onready var gun = $Gun
+@onready var player_collision = $CollisionShape2D
 
 
 func _ready() -> void:
@@ -46,7 +47,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func handle_hit() -> void:
 	health_point.hp -= 20
-	print("player hit! health: ", health_point.hp)
 	
 	if health_point.hp <= 0:
-		queue_free()
+		var death_scene = load("res://scenes and scripts/death_screen.tscn")
+		if death_scene != null:
+			var death_screen_instance = death_scene.instantiate()
+			if death_screen_instance != null:
+				get_tree().root.add_child(death_screen_instance)
+		
+				get_tree().paused = true
+				visible = false
+				player_collision.set_deferred("disabled", true)

@@ -44,7 +44,6 @@ func find_player() -> void:
 
 func set_player(player_node) -> void:
 	player = player_node
-	print("UI connected to player")
 
 
 func hide_all_health_bars() -> void:

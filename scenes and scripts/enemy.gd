@@ -36,7 +36,6 @@ func _physics_process(delta: float) -> void:
 
 func handle_hit():
 	health_point.hp -= 50
-	print("enemy hit! health: ", health_point.hp)
 	
 	var player_nodes = get_tree().get_nodes_in_group("player")
 	if player_nodes.size() > 0:

@@ -2,13 +2,13 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
+-redraw the healthbar because it looks kinda bad to be honest
+
 -setup collision layers and mask properly everywhere, now it's all over the place (but works)
 
 -draw all 5 map layouts - preferably ones that are bigger in height
 
--add a death screen
-
--add pause screen - when pressing ESC, the screen should appear, and it should pause the game - should have 3 buttons: "Resume", "Return to main menu" and "Quit"
+-restructure the whole project - scene-based architecture - it's too messy right now, the main scene and script is not even being used anymore
 
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
@@ -75,3 +75,7 @@ crouch down, shoot - if the Player moves and the Enemy is fully out of the Playe
 the Player's detection zone - repeat until either the Player dies or the Enemy dies
 
 -fix enemies not colliding with each other
+
+-add a death screen
+
+-add pause screen - when pressing ESC, the screen should appear, and it should pause the game - should have 3 buttons: "Resume", "Return to main menu" and "Quit"

@@ -95,10 +95,19 @@ horizontal_alignment = 2
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="PauseMenu" type="CanvasLayer" parent="."]
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("7_fsgs2")
 
 [node name="Panel" type="Panel" parent="PauseMenu"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -170,3 +179,5 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_smb84")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_rnx2l")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_b5nh5")
 text = "Quit"
+
+[connection signal="visibility_changed" from="PauseMenu" to="PauseMenu" method="_on_visibility_changed"]

@@ -60,7 +60,6 @@ path_desired_distance = 4.0
 target_desired_distance = 4.0
 path_max_distance = 500.0
 avoidance_enabled = true
-debug_enabled = true
 
 [connection signal="body_entered" from="Functionality/PlayerDetectionZone" to="Functionality" method="_on_player_detection_zone_body_entered"]
 [connection signal="area_entered" from="Functionality/BulletDetectionZone" to="Functionality" method="_on_bullet_detection_zone_area_entered"]

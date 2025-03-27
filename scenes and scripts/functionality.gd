@@ -95,7 +95,6 @@ func _physics_process(delta: float) -> void:
 					else:
 						direction = Vector2(0, -1)
 					
-					# enemy faces the direction it is going
 					if direction != Vector2.ZERO:
 						var target_angle = direction.angle() + PI*2
 						enemy.rotation = lerp_angle(enemy.rotation, target_angle, 0.1)
@@ -110,15 +109,11 @@ func _physics_process(delta: float) -> void:
 			
 		State.ATTACK:
 			if player != null and gun != null:
-				# rotate in direction of player
 				var direction = enemy.global_position.direction_to(player.global_position)
 				enemy.rotation = lerp_angle(enemy.rotation, direction.angle(), 0.1)
 				
-				# shoot at player
 				if has_line_of_sight_to_player():
 					gun.shoot(direction)
-			else:
-				printerr("something went wrong, there is no player or gun")
 		_:
 			printerr("something went very wrong, it should either be GUARD or ATTACK")
 
@@ -134,7 +129,6 @@ func initialize(enemy_node, gun_node):
 	if line_of_sight:
 		line_of_sight.enabled = true
 		line_of_sight.collision_mask = 1 | 2 # 1 - walls and 2 - player
-		print("Raycast initialized with collision mask: ", str(line_of_sight.collision_mask))
 	
 	should_patrol = false
 	patrol_timer = 2.0
@@ -144,9 +138,6 @@ func initialize(enemy_node, gun_node):
 		patrol_top_point = default_position - Vector2(0, patrol_distance/2)
 		patrol_bottom_point = default_position + Vector2(0, patrol_distance/2)
 		enemy.velocity = Vector2.ZERO
-	
-	else:
-		printerr("something went wrong, enemy is probably null during initilzation")
 
 
 func set_state(new_state: int):
@@ -179,13 +170,10 @@ func has_line_of_sight_to_player() -> bool:
 	
 	if line_of_sight.is_colliding():
 		var collider = line_of_sight.get_collider()
-		print("RayCast hit: ", collider.name)
 		
 		if collider == player or collider.is_in_group("player"):
-			print("Direct line of sight to player")
 			return true
 		else:
-			print("Wall blocking view")
 			return false
 	
 	return true
@@ -193,8 +181,6 @@ func has_line_of_sight_to_player() -> bool:
 
 func _on_player_detection_zone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		print("Player entered detection zone")
-		
 		var potential_player = body
 		
 		var global_direction = (potential_player.global_position - enemy.global_position).normalized()
@@ -211,9 +197,6 @@ func _on_player_detection_zone_body_entered(body: Node2D) -> void:
 			if collider == potential_player or collider.is_in_group("player"):
 				player = potential_player
 				set_state(State.ATTACK)
-				print("enemy spotted player - line of sight confirmed")
-			else:
-				print("can see player but view blocked by wall")
 
 
 func _on_bullet_detection_zone_area_entered(area: Area2D) -> void:
@@ -222,4 +205,3 @@ func _on_bullet_detection_zone_area_entered(area: Area2D) -> void:
 		if player_nodes.size() > 0:
 			player = player_nodes[0]
 			set_state(State.ATTACK)
-			print("enemy heard a bullet flying by")

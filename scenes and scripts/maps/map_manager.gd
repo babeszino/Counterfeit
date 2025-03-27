@@ -9,8 +9,10 @@ var completion_scene = preload("res://scenes and scripts/game_completed_screen.t
 
 var player
 var ui
+var pause_menu
 var current_map_instance
 var finish_door_container
+var game_active = false
 
 
 func _ready() -> void:
@@ -26,6 +28,15 @@ func _ready() -> void:
 	maps.sort()
 
 
+func _input(event: InputEvent) -> void:
+	if game_active and event.is_action_pressed("ui_cancel"):
+		print("Esc pressed in map_manager.gd")
+		if get_tree().paused:
+			resume_game()
+		else:
+			pause_game()
+
+
 func start_game() -> void:
 	randomize_map_order()
 	
@@ -37,10 +48,105 @@ func start_game() -> void:
 	ui = preload("res://scenes and scripts/ui.tscn").instantiate()
 	get_tree().root.add_child(ui)
 	ui.set_player(player)
+	pause_menu = ui.get_node("PauseMenu")
+	if pause_menu:
+		print("Pause menu found in UI")
+		pause_menu.hide()
+	
+		# need to connect the buttons
+		var resume_button = pause_menu.get_node("Panel/VBoxContainer/ResumeButton")
+		var main_menu_button = pause_menu.get_node("Panel/VBoxContainer/MainMenuButton")
+		var quit_button = pause_menu.get_node("Panel/VBoxContainer/QuitButton")
+		
+		if resume_button and !resume_button.is_connected("pressed", Callable(self, "resume_game")):
+			resume_button.pressed.connect(Callable(self, "resume_game"))
+			
+		if main_menu_button and !main_menu_button.is_connected("pressed", Callable(self, "return_to_main_menu")):
+			main_menu_button.pressed.connect(Callable(self, "return_to_main_menu"))
+			
+		if quit_button and !quit_button.is_connected("pressed", Callable(self, "quit_game")):
+			quit_button.pressed.connect(Callable(self, "quit_game"))
+	else:
+		print("ERROR: Pause menu not found in UI")
 	
 	# reset sequence
 	current_map_sequence_position = 0
 	load_map(randomized_map_indexes[current_map_sequence_position])
+	
+	game_active = true
+
+
+func resume_game() -> void:
+	print("Resuming game")
+	get_tree().paused = false
+	if pause_menu:
+		pause_menu.hide()
+
+
+func pause_game() -> void:
+	print("Pausing game")
+	if pause_menu:
+		pause_menu.show()
+		var resume_button = pause_menu.get_node("Panel/VBoxContainer/ResumeButton")
+		if resume_button:
+			resume_button.grab_focus()
+	get_tree().paused = true
+
+
+func restart_game() -> void:
+	get_tree().paused = false
+	
+	if player:
+		player.queue_free()
+		player = null
+	
+	if ui:
+		ui.queue_free()
+		ui = null
+	
+	if current_map_instance:
+		current_map_instance.queue_free()
+		current_map_instance = null
+	
+	var enemies = get_tree().get_nodes_in_group("enemy")
+	for enemy in enemies:
+		enemy.queue_free()
+	
+	var bullets = get_tree().get_nodes_in_group("bullet")
+	for bullet in bullets:
+		bullet.queue_free()
+	
+	start_game()
+
+
+func return_to_main_menu() -> void:
+	print("Returning to main menu")
+	get_tree().paused = false
+	
+	if player:
+		player.queue_free()
+		player = null
+		
+	if ui:
+		ui.queue_free()
+		ui = null
+		
+	if current_map_instance:
+		current_map_instance.queue_free()
+		current_map_instance = null
+	
+	var enemies = get_tree().get_nodes_in_group("enemy")
+	for enemy in enemies:
+		enemy.queue_free()
+	
+	game_active = false
+	
+	var main_menu = load("res://scenes and scripts/main_menu.tscn").instantiate()
+	get_tree().root.add_child(main_menu)
+
+
+func quit_game() -> void:
+	get_tree().quit()
 
 
 func randomize_map_order() -> void:
