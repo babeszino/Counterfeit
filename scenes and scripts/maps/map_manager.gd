@@ -32,7 +32,6 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if game_active and event.is_action_pressed("ui_cancel"):
-		print("Esc pressed in map_manager.gd")
 		if get_tree().paused:
 			resume_game()
 		else:

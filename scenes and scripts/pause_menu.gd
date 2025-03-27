@@ -15,7 +15,6 @@ func _ready() -> void:
 
 func _on_visibility_changed() -> void:
 	if visible:
-		print("Pause menu became visible")
 		resume_button.grab_focus()
 
 

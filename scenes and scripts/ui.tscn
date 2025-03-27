@@ -1,11 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://csp3sn1jfrc4q"]
+[gd_scene load_steps=4 format=3 uid="uid://csp3sn1jfrc4q"]
 
 [ext_resource type="Script" path="res://scenes and scripts/ui.gd" id="1_qcsck"]
-[ext_resource type="Texture2D" uid="uid://b5pqhqmm6v1ss" path="res://assets/health bar/health_bar1.png" id="2_2g8wd"]
-[ext_resource type="Texture2D" uid="uid://hdkhuqft4d86" path="res://assets/health bar/health_bar2.png" id="3_xejby"]
-[ext_resource type="Texture2D" uid="uid://brth5qopckdqt" path="res://assets/health bar/health_bar3.png" id="4_dbiyy"]
-[ext_resource type="Texture2D" uid="uid://dhl4rek0yyj7s" path="res://assets/health bar/health_bar4.png" id="5_wmuqg"]
-[ext_resource type="Texture2D" uid="uid://d22bnsiyfr33x" path="res://assets/health bar/health_bar5.png" id="6_t8d63"]
+[ext_resource type="PackedScene" uid="uid://mshkucx6t227" path="res://scenes and scripts/health_display.tscn" id="2_cx6hi"]
 [ext_resource type="PackedScene" uid="uid://dlra1pyn3q201" path="res://scenes and scripts/pause_menu.tscn" id="7_1veam"]
 
 [node name="UI" type="CanvasLayer"]
@@ -19,44 +15,8 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HealthBarContainer" type="Control" parent="TopContainer"]
-custom_minimum_size = Vector2(320, 32)
+[node name="HealthDisplay" parent="TopContainer" instance=ExtResource("2_cx6hi")]
 layout_mode = 2
-
-[node name="HealthBar1" type="TextureRect" parent="TopContainer/HealthBarContainer"]
-layout_mode = 1
-offset_right = 320.0
-offset_bottom = 32.0
-texture = ExtResource("2_2g8wd")
-expand_mode = 1
-
-[node name="HealthBar2" type="TextureRect" parent="TopContainer/HealthBarContainer"]
-layout_mode = 1
-offset_right = 320.0
-offset_bottom = 32.0
-texture = ExtResource("3_xejby")
-expand_mode = 1
-
-[node name="HealthBar3" type="TextureRect" parent="TopContainer/HealthBarContainer"]
-layout_mode = 1
-offset_right = 320.0
-offset_bottom = 32.0
-texture = ExtResource("4_dbiyy")
-expand_mode = 1
-
-[node name="HealthBar4" type="TextureRect" parent="TopContainer/HealthBarContainer"]
-layout_mode = 1
-offset_right = 320.0
-offset_bottom = 32.0
-texture = ExtResource("5_wmuqg")
-expand_mode = 1
-
-[node name="HealthBar5" type="TextureRect" parent="TopContainer/HealthBarContainer"]
-layout_mode = 1
-offset_right = 320.0
-offset_bottom = 32.0
-texture = ExtResource("6_t8d63")
-expand_mode = 1
 
 [node name="BottomContainer" type="MarginContainer" parent="."]
 anchors_preset = 3
