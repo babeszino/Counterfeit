@@ -1,8 +1,7 @@
-[gd_scene load_steps=26 format=4 uid="uid://46nk824hq58e"]
+[gd_scene load_steps=14 format=4 uid="uid://46nk824hq58e"]
 
 [ext_resource type="Texture2D" uid="uid://bingxk3nwickf" path="res://assets/map layouts/map_layout_2_tileset.png" id="1_ucto0"]
-[ext_resource type="Texture2D" uid="uid://dr5ka3fb3e7sk" path="res://assets/map layouts/door_animation_spritesheet.png" id="2_8mvxh"]
-[ext_resource type="Script" path="res://scenes and scripts/maps/finish_door.gd" id="2_b8y2r"]
+[ext_resource type="PackedScene" uid="uid://b0sglxudbhfom" path="res://scenes and scripts/finish_door.tscn" id="2_rd2fw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m6qw8"]
 texture = ExtResource("1_ucto0")
@@ -82,80 +81,6 @@ texture = ExtResource("1_ucto0")
 [sub_resource type="TileSet" id="TileSet_lq4ok"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_yj1og")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x2bq2"]
-atlas = ExtResource("2_8mvxh")
-region = Rect2(0, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d0w3f"]
-atlas = ExtResource("2_8mvxh")
-region = Rect2(32, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qguc7"]
-atlas = ExtResource("2_8mvxh")
-region = Rect2(64, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2qjnf"]
-atlas = ExtResource("2_8mvxh")
-region = Rect2(96, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sisym"]
-atlas = ExtResource("2_8mvxh")
-region = Rect2(128, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_obkps"]
-atlas = ExtResource("2_8mvxh")
-region = Rect2(160, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jhv5b"]
-atlas = ExtResource("2_8mvxh")
-region = Rect2(192, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fyuyx"]
-atlas = ExtResource("2_8mvxh")
-region = Rect2(224, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r3nhr"]
-atlas = ExtResource("2_8mvxh")
-region = Rect2(256, 0, 32, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ld03s"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x2bq2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d0w3f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qguc7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2qjnf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sisym")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_obkps")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jhv5b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fyuyx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r3nhr")
-}],
-"loop": false,
-"name": &"open",
-"speed": 25.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oj2ry"]
-size = Vector2(32, 6)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_hkdlp"]
 vertices = PackedVector2Array(294, 282, 294, 326, 150, 326, 74, 282, 262, 566, 106, 566, 106, 522, 218, 522, 262, 362, 218, 438, 150, 362, 106, 438, 106, 326, 74, 326)
@@ -250,26 +175,8 @@ position = Vector2(944, 384)
 [node name="EnemySpawn13" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(944, 272)
 
-[node name="FinishDoorContainer" type="Node2D" parent="."]
+[node name="FinishDoorContainer" parent="." instance=ExtResource("2_rd2fw")]
 position = Vector2(1056, 104)
-script = ExtResource("2_b8y2r")
-
-[node name="FinishDoor" type="Area2D" parent="FinishDoorContainer"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="FinishDoorAnimation" type="AnimatedSprite2D" parent="FinishDoorContainer/FinishDoor"]
-sprite_frames = SubResource("SpriteFrames_ld03s")
-animation = &"open"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishDoorContainer/FinishDoor"]
-position = Vector2(0, -10)
-shape = SubResource("RectangleShape2D_oj2ry")
-
-[node name="DoorBody" type="StaticBody2D" parent="FinishDoorContainer"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishDoorContainer/DoorBody"]
-shape = SubResource("RectangleShape2D_oj2ry")
 
 [node name="NavRegionsContainer" type="Node2D" parent="."]
 
@@ -297,5 +204,3 @@ navigation_polygon = SubResource("NavigationPolygon_5x3va")
 
 [node name="NavRegion8" type="NavigationRegion2D" parent="NavRegionsContainer"]
 navigation_polygon = SubResource("NavigationPolygon_43l2l")
-
-[connection signal="body_entered" from="FinishDoorContainer/FinishDoor" to="FinishDoorContainer" method="_on_body_entered"]

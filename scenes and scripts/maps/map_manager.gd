@@ -222,7 +222,6 @@ func find_door(map_instance) -> void:
 		return
 	
 	finish_door_container = map_instance.get_node("FinishDoorContainer")
-	finish_door_container._ready()
 
 func load_next_map() -> void:
 	current_map_sequence_position += 1
