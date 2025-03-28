@@ -51,18 +51,18 @@ func update_ammo_display(ammo_text: String) -> void:
 
 
 func _on_pause_menu_resume_requested() -> void:
-	var map_manager = get_node("/root/MapManager")
-	if map_manager:
-		map_manager.resume_game()
+	var game_manager = get_node("/root/GameManager")
+	if game_manager:
+		game_manager.resume_game()
 
 
 func _on_pause_menu_main_menu_requested() -> void:
-	var map_manager = get_node("/root/MapManager")
-	if map_manager:
-		map_manager.return_to_main_menu()
+	var game_manager = get_node("/root/GameManager")
+	if game_manager:
+		game_manager.return_to_main_menu()
 
 
 func _on_pause_menu_quit_requested() -> void:
-	var map_manager = get_node("/root/MapManager")
-	if map_manager:
-		map_manager.quit_game()
+	var game_manager = get_node("/root/GameManager")
+	if game_manager:
+		game_manager.quit_game()

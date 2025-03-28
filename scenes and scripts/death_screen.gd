@@ -9,16 +9,16 @@ func _ready() -> void:
 
 
 func _on_new_game_button_pressed() -> void:
-	var map_manager = get_node("/root/MapManager")
-	if map_manager:
-		map_manager.restart_game()
+	var game_manager = get_node("/root/GameManager")
+	if game_manager:
+		game_manager.restart_game()
 	queue_free()
 
 
 func _on_main_menu_button_pressed() -> void:
-	var map_manager = get_node("/root/MapManager")
-	if map_manager:
-		map_manager.return_to_main_menu()
+	var game_manager = get_node("/root/GameManager")
+	if game_manager:
+		game_manager.return_to_main_menu()
 	queue_free()
 
 

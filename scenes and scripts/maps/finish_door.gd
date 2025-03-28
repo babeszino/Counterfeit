@@ -27,6 +27,6 @@ func open():
 
 func _on_body_entered(body):
 	if body.name == "Player" or body.is_in_group("player"):
-		var map_manager = get_tree().root.get_node_or_null("MapManager")
-		if map_manager:
-			map_manager.load_next_map()
+		var level_manager = get_node("/root/LevelManager")
+		if level_manager:
+			level_manager.call_deferred("load_next_map")

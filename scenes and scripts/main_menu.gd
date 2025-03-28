@@ -2,9 +2,7 @@ extends Control
 
 @onready var start_button = $VBoxContainer/StartButton
 @onready var quit_button = $VBoxContainer/QuitButton
-@onready var map_manager = get_node("/root/MapManager")
-
-var main_scene : String = "res://scenes and scripts/main.tscn"
+@onready var game_manager = get_node("/root/GameManager")
 
 
 func _ready() -> void:
@@ -24,11 +22,8 @@ func _process(_delta: float) -> void:
 
 
 func _on_start_button_pressed() -> void:
-	if map_manager:
-		map_manager.start_game()
-	
-	else:
-		print("map_manager var is null")
+	if game_manager:
+		game_manager.start_game()
 	
 	# hide main menu
 	visible = false

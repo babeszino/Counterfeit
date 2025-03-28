@@ -57,14 +57,12 @@ func start_game() -> void:
 
 
 func resume_game() -> void:
-	print("Resuming game")
 	get_tree().paused = false
 	if pause_menu:
 		pause_menu.hide()
 
 
 func pause_game() -> void:
-	print("Pausing game")
 	if pause_menu:
 		pause_menu.show()
 		var resume_button = pause_menu.get_node("Panel/VBoxContainer/ResumeButton")

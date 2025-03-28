@@ -22,9 +22,9 @@ func _process(_delta: float) -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
-	var main_scene = get_tree().root.get_node_or_null("Main")
-	if main_scene and main_scene.has_method("show_main_menu"):
-		main_scene.show_main_menu()
+	var game_manager = get_node("/root/GameManager")
+	if game_manager:
+		game_manager.show_main_menu()
 	
 	else:
 		get_tree().change_scene_to_file(main_menu)
