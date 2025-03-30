@@ -1,23 +1,27 @@
 extends Node2D
 
-class_name Gun
+class_name M4
 
-@onready var player_animation = $PlayerAnimation
-@onready var enemy_animation = $EnemyAnimation
 @onready var end_of_gun = $EndOfGun
 @onready var attack_cooldown = $AttackCooldown
 @onready var firing_animation = $FiringAnimation
 @onready var reload_timer = $ReloadTimer
+@onready var player_animation = $PlayerAnimation
+@onready var enemy_animation = $EnemyAnimation
 
 var bullet_scene
-var max_ammo : int = 18
-var current_ammo : int = 18
+var max_ammo : int = 30
+var current_ammo : int = 30
 var is_reloading : bool = false
+var weapon_name : String = "M4 Assault Rifle"
+var auto_fire : bool = true
 
 var current_animation : String = "idle"
 var is_shooting : bool = false
 var player_moving : bool = false
 var active_animation = null
+var is_enemy : bool = false
+var fire_button_held : bool = false
 
 
 func _ready() -> void:
@@ -26,6 +30,7 @@ func _ready() -> void:
 	
 	setup_weapon_owner()
 	
+	# Start with idle animation
 	if active_animation:
 		active_animation.play("idle")
 		current_animation = "idle"
@@ -38,15 +43,19 @@ func setup_weapon_owner() -> void:
 		player_animation.visible = true
 		enemy_animation.visible = false
 		active_animation = player_animation
-		
+		is_enemy = false
+	
 	elif parent and parent.is_in_group("enemy"):
 		player_animation.visible = false
 		enemy_animation.visible = true
 		active_animation = enemy_animation
-		
+		is_enemy = true
+	
 	else:
 		player_animation.visible = true
+		enemy_animation.visible = false
 		active_animation = player_animation
+		is_enemy = false
 
 
 func _process(_delta: float) -> void:
@@ -55,6 +64,9 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("reload") and !is_reloading and current_ammo < max_ammo:
 		reload()
+	
+	if !is_enemy and auto_fire and fire_button_held and can_shoot():
+		shoot()
 	
 	if is_shooting and attack_cooldown.is_stopped():
 		is_shooting = false
@@ -87,6 +99,11 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 			target_direction = gun_forward
 		else:
 			target_direction = mouse_direction
+		
+		# weapon spread
+		if auto_fire:
+			var spread = 0.03
+			target_direction = target_direction.rotated(randf_range(-spread, spread))
 	
 	bullet_instance.set_direction(target_direction)
 	
@@ -94,6 +111,7 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	
 	attack_cooldown.start()
 	firing_animation.play("FiringAnimation")
+	
 	is_shooting = true
 	if active_animation and current_animation != "shoot":
 		active_animation.play("shoot")
@@ -108,7 +126,6 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 func reload() -> void:
 	if !is_reloading and current_ammo < max_ammo:
 		is_reloading = true
-		print("Reloading...")
 		reload_timer.start()
 
 
@@ -120,7 +137,7 @@ func _on_reload_timer_timeout() -> void:
 	current_ammo = max_ammo
 	is_reloading = false
 	print("Reload complete. Ammo: ", current_ammo)
-	
+	update_animation_state()
 
 
 func get_ammo_display() -> String:
@@ -135,7 +152,7 @@ func set_player_moving(moving: bool) -> void:
 func update_animation_state() -> void:
 	if not active_animation:
 		return
-	
+		
 	if is_shooting:
 		if current_animation != "shoot":
 			active_animation.play("shoot")
@@ -148,12 +165,14 @@ func update_animation_state() -> void:
 	
 	else:
 		if current_animation != "idle":
-			if current_animation != "idle":
-				active_animation.play("idle")
-				current_animation = "idle"
-	
-	
-	
-	
-	
-	
+			active_animation.play("idle")
+			current_animation = "idle"
+
+
+func fire_pressed() -> void:
+	fire_button_held = true
+	shoot()
+
+
+func fire_released() -> void:
+	fire_button_held = false

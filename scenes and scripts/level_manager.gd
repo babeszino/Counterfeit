@@ -1,11 +1,19 @@
 extends Node
 
-# Map data
 var current_map_index : int = 0
 var current_map_sequence_position : int = 0
 var maps : Array = []
 var maps_path : String = "res://scenes and scripts/maps/"
 var randomized_map_indexes : Array = []
+
+var weapons = {
+	0: "res://scenes and scripts/glock18.tscn",
+	1: "res://scenes and scripts/m4.tscn",
+	2: "res://scenes and scripts/m4.tscn",
+	3: "res://scenes and scripts/m4.tscn",
+	4: "res://scenes and scripts/m4.tscn"
+}
+var rocket_launcher : String = ""
 
 var completion_scene = preload("res://scenes and scripts/game_completed_screen.tscn")
 var current_map_instance = null
@@ -64,6 +72,7 @@ func load_map(map_index) -> void:
 		
 		position_player_on_map()
 		reset_player_stats()
+		assign_weapon()
 		spawn_enemies()
 		
 		await get_tree().process_frame
@@ -102,6 +111,10 @@ func spawn_enemies() -> void:
 			get_tree().root.add_child(enemy)
 			enemy.global_position = child.global_position
 			enemy.enemy_died.connect(game_manager.on_enemy_died)
+			
+			if enemy.has_method("equip_weapon") and weapons.has(current_map_sequence_position):
+				enemy.equip_weapon(weapons[current_map_sequence_position])
+			
 			game_manager.register_enemy()
 
 
@@ -119,9 +132,10 @@ func reset_player_stats() -> void:
 	var player = game_manager.player
 	player.health_point.hp = 100
 	
-	var gun = player.get_node("Gun")
-	gun.current_ammo = gun.max_ammo
-	gun.is_reloading = false
+	var gun = player.get_node_or_null("Gun")
+	if gun != null:
+		gun.current_ammo = gun.max_ammo
+		gun.is_reloading = false
 
 
 func cleanup_current_map() -> void:
@@ -142,3 +156,19 @@ func show_game_completed_screen() -> void:
 	get_tree().root.add_child(game_completed_screen)
 	
 	current_map_sequence_position = 0
+
+
+func assign_weapon() -> void:
+	if !game_manager or !game_manager.player:
+		return
+	
+	var player = game_manager.player
+	
+	# special case - rocket launcher time!
+	if current_map_sequence_position == 4:
+		if player.has_method("equip_weapon"):
+			player.equip_weapon(rocket_launcher)
+	
+	else:
+		if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
+			player.equip_weapon(weapons[current_map_sequence_position])

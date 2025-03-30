@@ -26,8 +26,9 @@ func _process(_delta: float) -> void:
 			health_display.hide_all_health_bars()
 		
 		# display ammo
-		var gun = player.get_node("Gun")
-		update_ammo_display(gun.get_ammo_display())
+		var gun = player.get_node_or_null("Gun")
+		if gun != null:
+			update_ammo_display(gun.get_ammo_display())
 	else:
 		health_display.hide_all_health_bars()
 

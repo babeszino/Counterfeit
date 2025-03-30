@@ -5,13 +5,16 @@ class_name Player
 @export var speed : float = 200.0
 
 @onready var health_point : Node2D = $HP
-@onready var gun : Gun = $Gun
+@onready var gun = $Gun
 @onready var player_collision : CollisionShape2D = $CollisionShape2D
 @onready var player_animation : AnimatedSprite2D = $AnimatedSprite2D
+
+var current_animation : String = "idle"
 
 
 func _ready() -> void:
 	player_animation.play("idle")
+	current_animation = "idle"
 
 
 func _physics_process(_delta: float) -> void:
@@ -36,15 +39,21 @@ func _physics_process(_delta: float) -> void:
 	
 	look_at(get_global_mouse_position())
 	
-	update_animation(direction)
-	
 	if gun and gun.has_method("set_player_moving"):
 		gun.set_player_moving(direction != Vector2.ZERO)
+	
+	update_animation(direction)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_released("fire") and gun.can_shoot():
-		gun.shoot()
+	if event.is_action_released("fire"):
+		if gun.has_method("fire_pressed"):
+			gun.fire_pressed()
+		elif gun.has_method("can_shoot") and gun.can_shoot():
+			gun.shoot()
+	
+	if event.is_action_released("fire") and gun.has_method("fire_released"):
+		gun.fire_released()
 
 
 func update_animation(direction: Vector2) -> void:
@@ -76,3 +85,17 @@ func handle_hit() -> void:
 				get_tree().paused = true
 				visible = false
 				player_collision.set_deferred("disabled", true)
+
+
+func equip_weapon(weapon_scene_path: String) -> void:
+	if gun:
+		gun.queue_free()
+	
+	var weapon_scene = load(weapon_scene_path)
+	if weapon_scene:
+		gun = weapon_scene.instantiate()
+		add_child(gun)
+	
+	if weapon_scene:
+		gun = weapon_scene.instantiate()
+		add_child(gun)

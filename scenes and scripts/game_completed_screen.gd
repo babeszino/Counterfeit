@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 func _on_main_menu_button_pressed() -> void:
 	var game_manager = get_node("/root/GameManager")
 	if game_manager:
-		game_manager.show_main_menu()
+		game_manager.return_to_main_menu()
 	
 	else:
 		get_tree().change_scene_to_file(main_menu)

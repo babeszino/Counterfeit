@@ -11,6 +11,9 @@ signal enemy_died
 @onready var enemy_movement = $EnemyMovement
 @onready var enemy_animation = $AnimatedSprite2D
 
+var current_animation : String = "idle"
+var last_velocity : Vector2 = Vector2.ZERO
+
 
 func _ready() -> void:
 	if enemy_ai:
@@ -21,6 +24,9 @@ func _ready() -> void:
 	
 	enemy_animation.play("idle")
 	
+	enemy_animation.play("idle")
+	current_animation = "idle"
+	
 	call_deferred("actor_setup")
 
 
@@ -28,6 +34,8 @@ func _physics_process(delta: float) -> void:
 	if enemy_ai and enemy_ai.current_state == enemy_ai.State.ATTACK and enemy_ai.player:
 		navigate_to_player(delta)
 		move_and_slide()
+		
+		update_weapon_animation()
 		update_animation()
 
 
@@ -95,3 +103,22 @@ func update_animation() -> void:
 		enemy_animation.play("walk")
 	else:
 		enemy_animation.play("walk_sideways")
+
+
+func update_weapon_animation() -> void:
+	if gun and gun.has_method("set_player_moving"):
+		var is_moving = velocity.length() > 10.0
+		gun.set_player_moving(is_moving)
+
+
+func equip_weapon(weapon_scene_path: String) -> void:
+	if gun:
+		gun.queue_free()
+	
+	var weapon_scene = load(weapon_scene_path)
+	if weapon_scene:
+		gun = weapon_scene.instantiate()
+		add_child(gun)
+	
+	
+	
