@@ -9,6 +9,7 @@ signal enemy_died
 @onready var nav_agent = $NavigationAgent2D
 @onready var enemy_ai = $EnemyAI
 @onready var enemy_movement = $EnemyMovement
+@onready var enemy_animation = $AnimatedSprite2D
 
 
 func _ready() -> void:
@@ -20,6 +21,8 @@ func _ready() -> void:
 	if enemy_movement:
 		enemy_movement.initialize(self)
 	
+	enemy_animation.play("idle")
+	
 	call_deferred("actor_setup")
 
 
@@ -27,6 +30,7 @@ func _physics_process(delta: float) -> void:
 	if enemy_ai and enemy_ai.current_state == enemy_ai.State.ATTACK and enemy_ai.player:
 		navigate_to_player(delta)
 		move_and_slide()
+		update_animation()
 
 
 func handle_hit():
@@ -75,3 +79,19 @@ func navigate_to_player(delta: float) -> void:
 func update_path() -> void:
 	if enemy_ai and enemy_ai.player:
 		nav_agent.target_position = enemy_ai.player.global_position
+
+
+func update_animation() -> void:
+	if velocity.length() < 0.1:
+		enemy_animation.play("idle")
+	
+	var facing_direction = Vector2.RIGHT.rotated(rotation)
+	var forward_dot = facing_direction.dot(velocity.normalized())
+	
+	var right_vector = Vector2(facing_direction.y, -facing_direction.x)
+	var side_dot = right_vector.dot(velocity.normalized())
+	
+	if abs(forward_dot) > abs(side_dot):
+		enemy_animation.play("walk")
+	else:
+		enemy_animation.play("walk_sideways")

@@ -7,10 +7,13 @@ class_name Player
 @onready var health_point : Node2D = $HP
 @onready var gun : Gun = $Gun
 @onready var player_collision : CollisionShape2D = $CollisionShape2D
+@onready var player_animation : AnimatedSprite2D = $AnimatedSprite2D
 
 
 func _ready() -> void:
 	gun.firing_effect.hide()
+	
+	player_animation.play("idle")
 
 
 func _physics_process(_delta: float) -> void:
@@ -34,11 +37,29 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	
 	look_at(get_global_mouse_position())
+	
+	update_animation(direction)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("fire") and gun.can_shoot():
 		gun.shoot()
+
+
+func update_animation(direction: Vector2) -> void:
+	if direction == Vector2.ZERO:
+		player_animation.play("idle")
+		
+	var facing_direction = (get_global_mouse_position() - global_position).normalized()
+	var forward_dot = facing_direction.dot(direction)
+	
+	var right_vector = Vector2(facing_direction.y, -facing_direction.x)
+	var side_dot = right_vector.dot(direction)
+	
+	if abs(forward_dot) > abs(side_dot):
+		player_animation.play("walk")
+	else:
+		player_animation.play("walk_sideways")
 
 
 func handle_hit() -> void:

@@ -73,3 +73,4 @@ func patrol() -> void:
 	
 	enemy.velocity = direction * patrol_speed
 	enemy.move_and_slide()
+	enemy.update_animation()
