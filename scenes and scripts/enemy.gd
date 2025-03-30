@@ -13,8 +13,6 @@ signal enemy_died
 
 
 func _ready() -> void:
-	gun.firing_effect.hide()
-	
 	if enemy_ai:
 		enemy_ai.initialize(self, gun)
 	
@@ -72,6 +70,8 @@ func navigate_to_player(delta: float) -> void:
 	var distance_to_player = global_position.distance_to(enemy_ai.player.global_position)
 	if distance_to_player > 75.0:
 		velocity = direction * movement_speed
+		if gun and gun.has_method("set_player_moving"):
+			gun.set_player_moving(false)
 	else:
 		velocity = Vector2.ZERO
 

@@ -6,9 +6,15 @@ TO-DO:
 
 -implement the knockback effect of the rocket launcher
 
+-use an easier way to calculate the player/enemy move animations (something instead of dot)
+
+-add bleeding into the game when the player or an enemy gets shot
+
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
 -implement the score system - double, triple, multi kill bonus + multiplier after finishing the level as fast as you can
+
+-add a bar to the UI under the ammo display that shows the progress of the reloading
 
 -implement jumping between walls for the player - should have some good logic and a proper use
 

@@ -11,8 +11,6 @@ class_name Player
 
 
 func _ready() -> void:
-	gun.firing_effect.hide()
-	
 	player_animation.play("idle")
 
 
@@ -39,6 +37,9 @@ func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
 	
 	update_animation(direction)
+	
+	if gun and gun.has_method("set_player_moving"):
+		gun.set_player_moving(direction != Vector2.ZERO)
 
 
 func _unhandled_input(event: InputEvent) -> void:

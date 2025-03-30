@@ -72,5 +72,9 @@ func patrol() -> void:
 		enemy.rotation = lerp_angle(enemy.rotation, target_angle, 0.1)
 	
 	enemy.velocity = direction * patrol_speed
+	var gun = enemy.get_node_or_null("Gun")
+	if gun and gun.has_method("set_player_moving"):
+		gun.set_player_moving(direction != Vector2.ZERO)
+	
 	enemy.move_and_slide()
 	enemy.update_animation()

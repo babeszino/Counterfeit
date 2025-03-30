@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://drl42kv0lua0v" path="res://assets/player character/movement/walk/player_walk2.png" id="3_e65ov"]
 [ext_resource type="Texture2D" uid="uid://00ow3mrylhcc" path="res://assets/player character/movement/walk/player_walk3.png" id="4_0xk2h"]
 [ext_resource type="PackedScene" uid="uid://8qpliy80okbk" path="res://scenes and scripts/hp.tscn" id="4_w2lfu"]
-[ext_resource type="PackedScene" uid="uid://dxywyh2v0bi41" path="res://scenes and scripts/gun.tscn" id="4_w5o7n"]
+[ext_resource type="PackedScene" uid="uid://dxywyh2v0bi41" path="res://scenes and scripts/glock18.tscn" id="4_w5o7n"]
 [ext_resource type="Texture2D" uid="uid://cc5hb7d2ywjy8" path="res://assets/player character/movement/walk/player_walk4.png" id="5_4yjbl"]
 [ext_resource type="Texture2D" uid="uid://giq5jy1ttl0x" path="res://assets/player character/movement/walk/player_walk5.png" id="6_kxeae"]
 [ext_resource type="Texture2D" uid="uid://brgxe5ee6exs4" path="res://assets/player character/movement/walk/player_walk6.png" id="7_m63r2"]
@@ -104,16 +104,14 @@ script = ExtResource("1_j2an2")
 rotation = 4.71239
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_dqy66")
-animation = &"walk_sideways"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_ku7tn")
 
 [node name="Gun" parent="." instance=ExtResource("4_w5o7n")]
-position = Vector2(58, 12)
-scale = Vector2(0.9, 0.9)
 
 [node name="HP" parent="." instance=ExtResource("4_w2lfu")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.3, 2.3)
+zoom = Vector2(3.5, 3.5)
