@@ -20,10 +20,6 @@ func _ready() -> void:
 	if enemy_movement:
 		enemy_movement.initialize(self)
 	
-	# ezek valoszinu az inspector tab-on is editelhetok es onnan is mukodnek, majd tesztelni
-	nav_agent.path_desired_distance = 4.0
-	nav_agent.target_desired_distance = 4.0
-	
 	call_deferred("actor_setup")
 
 

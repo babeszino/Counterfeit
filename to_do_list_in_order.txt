@@ -2,12 +2,6 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--restructure the whole project - scene-based architecture - it's too messy right now, the main scene and script is not even being used anymore - FinishDoor should be a separate scene for example
-
--redraw the glock (currently named gun)
-
--draw the rest of the guns (baseball bat, double barrel shotgun, m4, rocket launcher)
-
 -add the guns into the game - come up with a logic: how and where should the player get each weapon -> 5 map, 5 weapons, you get one weapon/map
 
 -implement the knockback effect of the rocket launcher
@@ -17,6 +11,8 @@ TO-DO:
 -implement the score system - double, triple, multi kill bonus + multiplier after finishing the level as fast as you can
 
 -implement jumping between walls for the player - should have some good logic and a proper use
+
+-add sound effects to the game
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
 
@@ -87,3 +83,11 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -check all groups and if they are necessary/used at all
 
 -use $ instead of get_node because it's so not organized rn
+
+-restructure the whole project - scene-based architecture - it's too messy right now, the main scene and script is not even being used anymore - FinishDoor should be a separate scene for example
+
+-redraw the main character and the enemy character - add animations!
+
+-redraw the glock (currently named gun)
+
+-draw the rest of the guns (baseball bat, double barrel shotgun, m4, rocket launcher)

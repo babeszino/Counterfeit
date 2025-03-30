@@ -42,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func handle_hit() -> void:
-	health_point.hp -= 20
+	health_point.hp -= 1
 	
 	if health_point.hp <= 0:
 		var death_scene = load("res://scenes and scripts/death_screen.tscn")
