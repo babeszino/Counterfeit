@@ -77,7 +77,7 @@ func handle_hit() -> void:
 	if is_dying:
 		return
 	
-	health_point.hp -= 20
+	health_point.hp -= 1
 	
 	if health_point.hp <= 0:
 		is_dying = true

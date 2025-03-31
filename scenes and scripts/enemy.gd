@@ -44,6 +44,7 @@ func handle_hit():
 	if is_dying:
 		return
 	
+	print("Enemy took a hit!")
 	health_point.hp -= 50
 	
 	var player_nodes = get_tree().get_nodes_in_group("player")
@@ -130,6 +131,3 @@ func equip_weapon(weapon_scene_path: String) -> void:
 	
 	if enemy_ai:
 		enemy_ai.initialize(self, gun)
-	
-	
-	
