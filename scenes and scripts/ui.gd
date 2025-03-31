@@ -17,20 +17,30 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if player == null:
 		find_player()
+		return
 	
-	if is_instance_valid(player):
-		# display hp
-		if player.health_point != null:
-			update_health_bar(player.health_point.hp)
-		else:
-			health_display.hide_all_health_bars()
-		
-		# display ammo
-		var gun = player.get_node_or_null("Gun")
-		if gun != null:
-			update_ammo_display(gun.get_ammo_display())
+	if !is_instance_valid(player):
+		health_display.hide_all_health_bars()
+		update_ammo_display("-- / --")
+		return
+	
+	if player.health_point != null:
+		update_health_bar(player.health_point.hp)
 	else:
 		health_display.hide_all_health_bars()
+	
+	var gun = player.get_node_or_null("Gun")
+	if gun == null:
+		for child in player.get_children():
+			if child.has_method("get_ammo_display"):
+				gun = child
+				break
+	
+	if gun != null and gun.has_method("get_ammo_display"):
+		var ammo_text = gun.get_ammo_display()
+		update_ammo_display(ammo_text)
+	else:
+		update_ammo_display("-- / --")
 
 
 func find_player() -> void:

@@ -120,5 +120,8 @@ func equip_weapon(weapon_scene_path: String) -> void:
 		gun = weapon_scene.instantiate()
 		add_child(gun)
 	
+	if enemy_ai:
+		enemy_ai.initialize(self, gun)
+	
 	
 	

@@ -7,7 +7,7 @@ var maps_path : String = "res://scenes and scripts/maps/"
 var randomized_map_indexes : Array = []
 
 var weapons = {
-	0: "res://scenes and scripts/glock18.tscn",
+	0: "res://scenes and scripts/m4.tscn",
 	1: "res://scenes and scripts/m4.tscn",
 	2: "res://scenes and scripts/m4.tscn",
 	3: "res://scenes and scripts/m4.tscn",
@@ -165,10 +165,14 @@ func assign_weapon() -> void:
 	var player = game_manager.player
 	
 	# special case - rocket launcher time!
-	if current_map_sequence_position == 4:
-		if player.has_method("equip_weapon"):
-			player.equip_weapon(rocket_launcher)
+	#if current_map_sequence_position == 4:
+		#if player.has_method("equip_weapon"):
+			#player.equip_weapon(rocket_launcher)
 	
-	else:
-		if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
-			player.equip_weapon(weapons[current_map_sequence_position])
+	#else:
+		#if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
+			#player.equip_weapon(weapons[current_map_sequence_position])
+	
+	# alternate for testing - replace with above if rocket launcher is added
+	if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
+		player.equip_weapon(weapons[current_map_sequence_position])

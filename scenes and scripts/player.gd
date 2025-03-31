@@ -46,7 +46,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_released("fire"):
+	if event.is_action_pressed("fire"):
 		if gun.has_method("fire_pressed"):
 			gun.fire_pressed()
 		elif gun.has_method("can_shoot") and gun.can_shoot():
@@ -94,8 +94,5 @@ func equip_weapon(weapon_scene_path: String) -> void:
 	var weapon_scene = load(weapon_scene_path)
 	if weapon_scene:
 		gun = weapon_scene.instantiate()
-		add_child(gun)
-	
-	if weapon_scene:
-		gun = weapon_scene.instantiate()
+		gun.name = "Gun"
 		add_child(gun)

@@ -100,10 +100,10 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 		else:
 			target_direction = mouse_direction
 		
-		# weapon spread
-		if auto_fire:
-			var spread = 0.03
-			target_direction = target_direction.rotated(randf_range(-spread, spread))
+	# weapon spread
+	if auto_fire:
+		var spread = 0.08
+		target_direction = target_direction.rotated(randf_range(-spread, spread))
 	
 	bullet_instance.set_direction(target_direction)
 	
