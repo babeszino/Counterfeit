@@ -8,12 +8,12 @@ var randomized_map_indexes : Array = []
 
 var weapons = {
 	0: "res://scenes and scripts/baseball_bat.tscn",
-	1: "res://scenes and scripts/double_barrel_shotgun.tscn",
+	1: "res://scenes and scripts/glock18.tscn",
 	2: "res://scenes and scripts/double_barrel_shotgun.tscn",
-	3: "res://scenes and scripts/double_barrel_shotgun.tscn",
-	4: "res://scenes and scripts/double_barrel_shotgun.tscn"
+	3: "res://scenes and scripts/m4.tscn",
+	4: "res://scenes and scripts/m4.tscn"
 }
-var rocket_launcher : String = ""
+var rocket_launcher : String = "res://scenes and scripts/rocket_launcher.tscn"
 
 var completion_scene = preload("res://scenes and scripts/game_completed_screen.tscn")
 var current_map_instance = null
@@ -168,14 +168,14 @@ func assign_weapon() -> void:
 	var player = game_manager.player
 	
 	# special case - rocket launcher time!
-	#if current_map_sequence_position == 4:
-		#if player.has_method("equip_weapon"):
-			#player.equip_weapon(rocket_launcher)
+	if current_map_sequence_position == 4:
+		if player.has_method("equip_weapon"):
+			player.equip_weapon(rocket_launcher)
 	
-	#else:
-		#if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
-			#player.equip_weapon(weapons[current_map_sequence_position])
+	else:
+		if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
+			player.equip_weapon(weapons[current_map_sequence_position])
 	
 	# alternate for testing - replace with above if rocket launcher is added
-	if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
-		player.equip_weapon(weapons[current_map_sequence_position])
+	#if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
+		#player.equip_weapon(weapons[current_map_sequence_position])

@@ -26,7 +26,7 @@ TO-DO:
 
 -implement jumping between walls for the player - should have some good logic and a proper use
 
--maybe actually have a main scene that instances everything, instead of doing it all in code
+-restructuring - maybe actually have a main scene that instances everything, instead of doing it all in code
 
 -add sound effects to the game
 

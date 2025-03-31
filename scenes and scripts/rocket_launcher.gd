@@ -1,60 +1,31 @@
 extends Node2D
 
-class_name M4
+class_name RocketLauncher
 
 @onready var end_of_gun = $EndOfGun
 @onready var attack_cooldown = $AttackCooldown
 @onready var firing_animation = $FiringAnimation
 @onready var reload_timer = $ReloadTimer
 @onready var player_animation = $PlayerAnimation
-@onready var enemy_animation = $EnemyAnimation
 
-var bullet_scene
-var max_ammo : int = 30
-var current_ammo : int = 30
+var rocket_scene
+var max_ammo : int = 2
+var current_ammo : int = 2
 var is_reloading : bool = false
-var weapon_name : String = "M4 Assault Rifle"
-var auto_fire : bool = true
+var weapon_name : String = "Rocket Launcher"
+var auto_fire : bool = false
 
 var current_animation : String = "idle"
 var is_shooting : bool = false
 var player_moving : bool = false
-var active_animation = null
-var is_enemy : bool = false
-var fire_button_held : bool = false
 
 
 func _ready() -> void:
 	current_ammo = max_ammo
-	bullet_scene = load("res://scenes and scripts/bullet.tscn")
+	rocket_scene = load("res://scenes and scripts/rocket.tscn")
 	
-	setup_weapon_owner()
-	
-	if active_animation:
-		active_animation.play("idle")
-		current_animation = "idle"
-
-
-func setup_weapon_owner() -> void:
-	var parent = get_parent()
-	
-	if parent and parent.is_in_group("player"):
-		player_animation.visible = true
-		enemy_animation.visible = false
-		active_animation = player_animation
-		is_enemy = false
-	
-	elif parent and parent.is_in_group("enemy"):
-		player_animation.visible = false
-		enemy_animation.visible = true
-		active_animation = enemy_animation
-		is_enemy = true
-	
-	else:
-		player_animation.visible = true
-		enemy_animation.visible = false
-		active_animation = player_animation
-		is_enemy = false
+	player_animation.play("idle")
+	current_animation = "idle"
 
 
 func _process(_delta: float) -> void:
@@ -63,9 +34,6 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("reload") and !is_reloading and current_ammo < max_ammo:
 		reload()
-	
-	if !is_enemy and auto_fire and fire_button_held and can_shoot():
-		shoot()
 	
 	if is_shooting and attack_cooldown.is_stopped():
 		is_shooting = false
@@ -83,11 +51,11 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	if !attack_cooldown.is_stopped():
 		return false
 	
-	var bullet_instance = bullet_scene.instantiate()
-	get_tree().root.add_child(bullet_instance)
-	bullet_instance.global_position = end_of_gun.global_position
+	var rocket_instance = rocket_scene.instantiate()
+	get_tree().root.add_child(rocket_instance)
+	rocket_instance.global_position = end_of_gun.global_position
 	
-	bullet_instance.set_shooter(get_parent())
+	rocket_instance.set_shooter(get_parent())
 	
 	if target_direction == Vector2.ZERO:
 		var mouse_direction = (get_global_mouse_position() - global_position).normalized()
@@ -98,13 +66,8 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 			target_direction = gun_forward
 		else:
 			target_direction = mouse_direction
-		
-	# weapon spread
-	if auto_fire:
-		var spread = 0.08
-		target_direction = target_direction.rotated(randf_range(-spread, spread))
 	
-	bullet_instance.set_direction(target_direction)
+	rocket_instance.set_direction(target_direction)
 	
 	current_ammo -= 1
 	
@@ -112,8 +75,8 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	firing_animation.play("FiringAnimation")
 	
 	is_shooting = true
-	if active_animation and current_animation != "shoot":
-		active_animation.play("shoot")
+	if current_animation != "shoot":
+		player_animation.play("shoot")
 		current_animation = "shoot"
 	
 	if current_ammo <= 0:
@@ -148,29 +111,25 @@ func set_player_moving(moving: bool) -> void:
 
 
 func update_animation_state() -> void:
-	if not active_animation:
-		return
-		
 	if is_shooting:
 		if current_animation != "shoot":
-			active_animation.play("shoot")
+			player_animation.play("shoot")
 			current_animation = "shoot"
 	
 	elif player_moving:
 		if current_animation != "walk":
-			active_animation.play("walk")
+			player_animation.play("walk")
 			current_animation = "walk"
 	
 	else:
 		if current_animation != "idle":
-			active_animation.play("idle")
+			player_animation.play("idle")
 			current_animation = "idle"
 
 
 func fire_pressed() -> void:
-	fire_button_held = true
 	shoot()
 
 
 func fire_released() -> void:
-	fire_button_held = false
+	pass
