@@ -138,7 +138,7 @@ _data = {
 "RESET": SubResource("Animation_i456b")
 }
 
-[node name="M4" type="Node2D"]
+[node name="DoubleBarrel" type="Node2D"]
 script = ExtResource("1_hqisd")
 
 [node name="PlayerAnimation" type="AnimatedSprite2D" parent="."]

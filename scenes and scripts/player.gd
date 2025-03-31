@@ -10,6 +10,7 @@ class_name Player
 @onready var player_animation : AnimatedSprite2D = $AnimatedSprite2D
 
 var current_animation : String = "idle"
+var is_dying : bool = false
 
 
 func _ready() -> void:
@@ -73,9 +74,13 @@ func update_animation(direction: Vector2) -> void:
 
 
 func handle_hit() -> void:
+	if is_dying:
+		return
+	
 	health_point.hp -= 20
 	
 	if health_point.hp <= 0:
+		is_dying = true
 		var death_scene = load("res://scenes and scripts/death_screen.tscn")
 		if death_scene != null:
 			var death_screen_instance = death_scene.instantiate()

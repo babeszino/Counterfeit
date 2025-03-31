@@ -2,8 +2,6 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--fix the death screen
-
 -add the guns into the game - come up with a logic: how and where should the player get each weapon -> 5 map, 5 weapons, you get one weapon/map
 
 -implement the knockback effect of the rocket launcher
@@ -103,3 +101,5 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -redraw the glock (currently named gun)
 
 -draw the rest of the guns (baseball bat, double barrel shotgun, m4, rocket launcher)
+
+-fix the death screen
