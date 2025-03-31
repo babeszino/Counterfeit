@@ -8,6 +8,7 @@ class_name BaseballBat
 @onready var enemy_animation = $EnemyAnimation
 @onready var attack_area = $AttackArea
 @onready var damage_zone = $AttackArea/DamageZone
+@onready var attack_duration = $AttackDuration
 
 var weapon_name : String = "Baseball Bat"
 var damage : int = 50
@@ -62,15 +63,6 @@ func _physics_process(_delta: float) -> void:
 				_handle_hit(body)
 
 
-func _process(_delta: float) -> void:
-	if is_attacking and attack_cooldown.is_stopped():
-		is_attacking = false
-		damage_zone.disabled = true
-		attack_area.monitoring = false
-		hit_targets.clear()
-		update_animation_state()
-
-
 func attack() -> bool:
 	if !attack_cooldown.is_stopped():
 		return false
@@ -86,8 +78,31 @@ func attack() -> bool:
 		current_animation = "attack"
 	
 	attack_cooldown.start()
-	
+	attack_duration.start()
 	return true
+
+
+func _on_attack_duration_timeout() -> void:
+	end_attack_state()
+
+
+func _on_player_animation_animation_finished() -> void:
+	if current_animation == "attack" and active_animation == player_animation:
+		end_attack_state()
+
+
+func _on_enemy_animation_animation_finished() -> void:
+	if current_animation == "attack" and active_animation == enemy_animation:
+		end_attack_state()
+
+
+func end_attack_state() -> void:
+	if is_attacking:
+		is_attacking = false
+		damage_zone.disabled = true
+		attack_area.monitoring = false
+		hit_targets.clear()
+		update_animation_state()
 
 
 func can_attack() -> bool:
@@ -167,6 +182,9 @@ func cleanup() -> void:
 	
 	if firing_animation and firing_animation.is_inside_tree():
 		firing_animation.stop()
+	
+	if attack_duration and attack_duration.is_inside_tree():
+		attack_duration.stop()
 	
 	is_attacking = false
 	player_moving = false
