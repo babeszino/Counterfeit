@@ -73,7 +73,7 @@ func update_animation(direction: Vector2) -> void:
 
 
 func handle_hit() -> void:
-	health_point.hp -= 1
+	health_point.hp -= 20
 	
 	if health_point.hp <= 0:
 		var death_scene = load("res://scenes and scripts/death_screen.tscn")

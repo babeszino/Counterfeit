@@ -7,11 +7,11 @@ var maps_path : String = "res://scenes and scripts/maps/"
 var randomized_map_indexes : Array = []
 
 var weapons = {
-	0: "res://scenes and scripts/m4.tscn",
-	1: "res://scenes and scripts/m4.tscn",
-	2: "res://scenes and scripts/m4.tscn",
-	3: "res://scenes and scripts/m4.tscn",
-	4: "res://scenes and scripts/m4.tscn"
+	0: "res://scenes and scripts/double_barrel_shotgun.tscn",
+	1: "res://scenes and scripts/double_barrel_shotgun.tscn",
+	2: "res://scenes and scripts/double_barrel_shotgun.tscn",
+	3: "res://scenes and scripts/double_barrel_shotgun.tscn",
+	4: "res://scenes and scripts/double_barrel_shotgun.tscn"
 }
 var rocket_launcher : String = ""
 
@@ -61,6 +61,9 @@ func load_map(map_index) -> void:
 	
 	# remove old map (if exists)
 	cleanup_current_map()
+	
+	if game_manager:
+		game_manager.enemy_count = 0
 	
 	var map_scene = load(maps[map_index])
 	if map_scene:

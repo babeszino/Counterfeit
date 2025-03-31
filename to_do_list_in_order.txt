@@ -2,9 +2,15 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
+-fix the death screen
+
 -add the guns into the game - come up with a logic: how and where should the player get each weapon -> 5 map, 5 weapons, you get one weapon/map
 
 -implement the knockback effect of the rocket launcher
+
+-player's and enemy's gun instance - replace with a weapon placeholder scene or just remove
+
+-rename one of  load_map or load_maps functions to something else in level_manager.gd - too similar
 
 -use an easier way to calculate the player/enemy move animations (something instead of dot)
 

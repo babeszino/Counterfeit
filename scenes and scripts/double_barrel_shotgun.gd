@@ -1,23 +1,28 @@
 extends Node2D
 
-class_name Gun
+class_name DoubleBarrelShotgun
 
-@onready var player_animation = $PlayerAnimation
-@onready var enemy_animation = $EnemyAnimation
 @onready var end_of_gun = $EndOfGun
 @onready var attack_cooldown = $AttackCooldown
 @onready var firing_animation = $FiringAnimation
 @onready var reload_timer = $ReloadTimer
+@onready var player_animation = $PlayerAnimation
+@onready var enemy_animation = $EnemyAnimation
 
 var bullet_scene
-var max_ammo : int = 18
-var current_ammo : int = 18
+var max_ammo : int = 2
+var current_ammo : int = 2
 var is_reloading : bool = false
+var weapon_name : String = "Double Barrel Shotgun"
+var auto_fire : bool = false
+var pellet_count : int = 6  # pellets per shot
+var spread_angle : float = 0.6  # spread angle (radians!)
 
 var current_animation : String = "idle"
 var is_shooting : bool = false
 var player_moving : bool = false
 var active_animation = null
+var is_enemy : bool = false
 
 
 func _ready() -> void:
@@ -38,15 +43,19 @@ func setup_weapon_owner() -> void:
 		player_animation.visible = true
 		enemy_animation.visible = false
 		active_animation = player_animation
-		
+		is_enemy = false
+	
 	elif parent and parent.is_in_group("enemy"):
 		player_animation.visible = false
 		enemy_animation.visible = true
 		active_animation = enemy_animation
-		
+		is_enemy = true
+	
 	else:
 		player_animation.visible = true
+		enemy_animation.visible = false
 		active_animation = player_animation
+		is_enemy = false
 
 
 func _process(_delta: float) -> void:
@@ -72,12 +81,6 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	if !attack_cooldown.is_stopped():
 		return false
 	
-	var bullet_instance = bullet_scene.instantiate()
-	get_tree().root.add_child(bullet_instance)
-	bullet_instance.global_position = end_of_gun.global_position
-	
-	bullet_instance.set_shooter(get_parent())
-	
 	if target_direction == Vector2.ZERO:
 		var mouse_direction = (get_global_mouse_position() - global_position).normalized()
 		var gun_forward = Vector2.RIGHT.rotated(global_rotation)
@@ -88,12 +91,25 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 		else:
 			target_direction = mouse_direction
 	
-	bullet_instance.set_direction(target_direction)
+	# spawn more pellets (bullets) at once
+	for i in range(pellet_count):
+		var bullet_instance = bullet_scene.instantiate()
+		get_tree().root.add_child(bullet_instance)
+		bullet_instance.global_position = end_of_gun.global_position
+		
+		bullet_instance.set_shooter(get_parent())
+		
+		# random spread angle
+		var spread = randf_range(-spread_angle/2, spread_angle/2)
+		var pellet_direction = target_direction.rotated(spread)
+		
+		bullet_instance.set_direction(pellet_direction)
 	
 	current_ammo -= 1
 	
 	attack_cooldown.start()
 	firing_animation.play("FiringAnimation")
+	
 	is_shooting = true
 	if active_animation and current_animation != "shoot":
 		active_animation.play("shoot")
@@ -118,7 +134,7 @@ func can_shoot() -> bool:
 func _on_reload_timer_timeout() -> void:
 	current_ammo = max_ammo
 	is_reloading = false
-	
+	update_animation_state()
 
 
 func get_ammo_display() -> String:
@@ -133,7 +149,7 @@ func set_player_moving(moving: bool) -> void:
 func update_animation_state() -> void:
 	if not active_animation:
 		return
-	
+		
 	if is_shooting:
 		if current_animation != "shoot":
 			active_animation.play("shoot")
@@ -146,12 +162,13 @@ func update_animation_state() -> void:
 	
 	else:
 		if current_animation != "idle":
-			if current_animation != "idle":
-				active_animation.play("idle")
-				current_animation = "idle"
-	
-	
-	
-	
-	
-	
+			active_animation.play("idle")
+			current_animation = "idle"
+
+
+func fire_pressed() -> void:
+	shoot()
+
+
+func fire_released() -> void:
+	pass

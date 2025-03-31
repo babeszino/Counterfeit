@@ -12,7 +12,7 @@ var patrol_timer : float = 0.0
 
 
 func _ready() -> void:
-	patrol_timer = 1.0
+	patrol_timer = 0.5
 	should_patrol = false
 
 
@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 func initialize(enemy_node) -> void:
 	self.enemy = enemy_node
 	should_patrol = false
-	patrol_timer = 2.0
+	patrol_timer = 0.5
 	
 	if enemy != null:
 		default_position = enemy.global_position

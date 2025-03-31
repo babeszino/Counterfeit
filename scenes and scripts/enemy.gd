@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal enemy_died
 
-@export var movement_speed : float = 50.0
+@export var movement_speed : float = 75.0
 
 @onready var gun = $Gun
 @onready var health_point = $HP
@@ -13,6 +13,7 @@ signal enemy_died
 
 var current_animation : String = "idle"
 var last_velocity : Vector2 = Vector2.ZERO
+var is_dying : bool = false
 
 
 func _ready() -> void:
@@ -40,6 +41,9 @@ func _physics_process(delta: float) -> void:
 
 
 func handle_hit():
+	if is_dying:
+		return
+	
 	health_point.hp -= 50
 	
 	var player_nodes = get_tree().get_nodes_in_group("player")
@@ -49,10 +53,14 @@ func handle_hit():
 		update_path()
 	
 	if health_point.hp <= 0:
+		is_dying = true
 		die()
 
 
 func die() -> void:
+	if !is_dying:
+		return
+	
 	remove_from_group("enemy")
 	emit_signal("enemy_died")
 	queue_free()

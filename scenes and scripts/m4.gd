@@ -136,7 +136,6 @@ func can_shoot() -> bool:
 func _on_reload_timer_timeout() -> void:
 	current_ammo = max_ammo
 	is_reloading = false
-	print("Reload complete. Ammo: ", current_ammo)
 	update_animation_state()
 
 

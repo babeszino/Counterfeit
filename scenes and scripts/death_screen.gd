@@ -11,8 +11,9 @@ func _ready() -> void:
 func _on_new_game_button_pressed() -> void:
 	var game_manager = get_node("/root/GameManager")
 	if game_manager:
+		get_tree().paused = false
 		game_manager.restart_game()
-	queue_free()
+		queue_free()
 
 
 func _on_main_menu_button_pressed() -> void:
