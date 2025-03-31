@@ -9,8 +9,11 @@ class_name DoubleBarrelShotgun
 @onready var player_animation = $PlayerAnimation
 @onready var enemy_animation = $EnemyAnimation
 
+# balancing
 var player_damage : int = 30
 var enemy_damage : int = 10
+var player_cooldown : float = 0.08
+var enemy_cooldown : float = 1
 
 var bullet_scene
 var max_ammo : int = 2
@@ -47,12 +50,14 @@ func setup_weapon_owner() -> void:
 		enemy_animation.visible = false
 		active_animation = player_animation
 		is_enemy = false
+		attack_cooldown.wait_time = player_cooldown
 	
 	elif parent and parent.is_in_group("enemy"):
 		player_animation.visible = false
 		enemy_animation.visible = true
 		active_animation = enemy_animation
 		is_enemy = true
+		attack_cooldown.wait_time = enemy_cooldown
 	
 	else:
 		player_animation.visible = true

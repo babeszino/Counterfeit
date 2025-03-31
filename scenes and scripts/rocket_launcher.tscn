@@ -90,7 +90,7 @@ animation = &"shoot"
 position = Vector2(96, 24)
 
 [node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 0.08
+wait_time = 0.1
 one_shot = true
 
 [node name="FiringAnimation" type="AnimationPlayer" parent="."]

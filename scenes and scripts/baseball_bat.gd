@@ -10,8 +10,11 @@ class_name BaseballBat
 @onready var damage_zone = $AttackArea/DamageZone
 @onready var attack_duration = $AttackDuration
 
+# balancing
 var player_damage : int = 50
 var enemy_damage : int = 5
+var player_cooldown : float = 0.33
+var enemy_cooldown : float = 1
 
 var weapon_name : String = "Baseball Bat"
 var is_attacking : bool = false
@@ -42,6 +45,7 @@ func setup_weapon_owner() -> void:
 		active_animation = player_animation
 		is_enemy = false
 		attack_area.collision_mask = 4 # 4 - enemies
+		attack_cooldown.wait_time = player_cooldown
 		
 	elif parent and parent.is_in_group("enemy"):
 		player_animation.visible = false
@@ -49,6 +53,7 @@ func setup_weapon_owner() -> void:
 		active_animation = enemy_animation
 		is_enemy = true
 		attack_area.collision_mask = 2 # 2 - player
+		attack_cooldown.wait_time = enemy_cooldown
 		
 	else:
 		player_animation.visible = true

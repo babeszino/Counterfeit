@@ -9,8 +9,11 @@ class_name Gun
 @onready var firing_animation = $FiringAnimation
 @onready var reload_timer = $ReloadTimer
 
-var player_damage : int = 35
+#balancing
+var player_damage : int = 50
 var enemy_damage : int = 10
+var player_cooldown : float = 0.1
+var enemy_cooldown : float = 0.7
 
 var bullet_scene
 var max_ammo : int = 18
@@ -41,11 +44,13 @@ func setup_weapon_owner() -> void:
 		player_animation.visible = true
 		enemy_animation.visible = false
 		active_animation = player_animation
+		attack_cooldown.wait_time = player_cooldown
 		
 	elif parent and parent.is_in_group("enemy"):
 		player_animation.visible = false
 		enemy_animation.visible = true
 		active_animation = enemy_animation
+		attack_cooldown.wait_time = enemy_cooldown
 		
 	else:
 		player_animation.visible = true
