@@ -9,6 +9,9 @@ class_name Gun
 @onready var firing_animation = $FiringAnimation
 @onready var reload_timer = $ReloadTimer
 
+var player_damage : int = 35
+var enemy_damage : int = 10
+
 var bullet_scene
 var max_ammo : int = 18
 var current_ammo : int = 18
@@ -149,9 +152,15 @@ func update_animation_state() -> void:
 			if current_animation != "idle":
 				active_animation.play("idle")
 				current_animation = "idle"
+
+
+func get_damage() -> int:
+	var parent = get_parent()
+	if parent and parent.is_in_group("player"):
+		return player_damage
 	
+	elif parent and parent.is_in_group("enemy"):
+		return enemy_damage
 	
-	
-	
-	
-	
+	else:
+		return player_damage

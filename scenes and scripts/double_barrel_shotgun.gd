@@ -9,6 +9,9 @@ class_name DoubleBarrelShotgun
 @onready var player_animation = $PlayerAnimation
 @onready var enemy_animation = $EnemyAnimation
 
+var player_damage : int = 30
+var enemy_damage : int = 10
+
 var bullet_scene
 var max_ammo : int = 2
 var current_ammo : int = 2
@@ -172,3 +175,15 @@ func fire_pressed() -> void:
 
 func fire_released() -> void:
 	pass
+
+
+func get_damage() -> int:
+	var parent = get_parent()
+	if parent and parent.is_in_group("player"):
+		return player_damage
+	
+	elif parent and parent.is_in_group("enemy"):
+		return enemy_damage
+	
+	else:
+		return player_damage

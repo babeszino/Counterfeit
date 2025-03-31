@@ -8,6 +8,9 @@ class_name RocketLauncher
 @onready var reload_timer = $ReloadTimer
 @onready var player_animation = $PlayerAnimation
 
+var player_damage : int = 50
+var player_explosive_damage : int = 70
+
 var rocket_scene
 var max_ammo : int = 2
 var current_ammo : int = 2
@@ -133,3 +136,11 @@ func fire_pressed() -> void:
 
 func fire_released() -> void:
 	pass
+
+
+func get_damage() -> int:
+	return player_damage
+
+
+func get_explosive_damage() -> int:
+	return player_explosive_damage

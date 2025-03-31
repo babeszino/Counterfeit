@@ -51,7 +51,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nxspf"]
-radius = 46.0109
+radius = 64.0078
 
 [node name="Explosion" type="Area2D"]
 collision_layer = 0
@@ -61,8 +61,6 @@ script = ExtResource("1_2hya7")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_b4k1y")
 animation = &"explosion"
-frame = 3
-frame_progress = 0.968871
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_nxspf")

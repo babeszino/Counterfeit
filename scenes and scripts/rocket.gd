@@ -11,6 +11,8 @@ var bullet_shooter : Node = null
 var shooter_group : String = "player"
 var explosion_scene = preload("res://scenes and scripts/explosion.tscn")
 var exploded : bool = false
+var damage : int = 50
+var explosive_damage : int = 70
 
 
 func _ready() -> void:
@@ -32,6 +34,16 @@ func set_direction(direction: Vector2) -> void:
 
 func set_shooter(shooter: Node) -> void:
 	bullet_shooter = shooter
+	
+	var weapon = null
+	if shooter.has_node("Gun"):
+		weapon = shooter.get_node("Gun")
+	
+	if weapon:
+		if weapon.has_method("get_damage"):
+			damage = weapon.get_damage()
+		if weapon.has_method("get_explosive_damage"):
+			explosive_damage = weapon.get_explosive_damage()
 
 
 func _on_despawn_timer_timeout() -> void:
@@ -41,6 +53,9 @@ func _on_despawn_timer_timeout() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body == bullet_shooter:
 		return
+	
+	if body.has_method("handle_hit") and body != bullet_shooter:
+		body.handle_hit(damage)
 	
 	call_deferred("explode")
 
@@ -54,6 +69,7 @@ func explode() -> void:
 	get_tree().root.add_child(explosion_instance)
 	explosion_instance.global_position = global_position
 	explosion_instance.shooter_group = shooter_group
+	explosion_instance.damage = explosive_damage
 	
 	if collision_shape:
 		collision_shape.set_deferred("disabled", true)

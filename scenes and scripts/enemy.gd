@@ -40,12 +40,12 @@ func _physics_process(delta: float) -> void:
 		update_animation()
 
 
-func handle_hit():
+func handle_hit(damage_amount: int = 50):
 	if is_dying:
 		return
 	
-	print("Enemy took a hit!")
-	health_point.hp -= 50
+	health_point.hp -= damage_amount
+	print("Enemy took damage: ", damage_amount)
 	
 	var player_nodes = get_tree().get_nodes_in_group("player")
 	if player_nodes.size() > 0 and enemy_ai:

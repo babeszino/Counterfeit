@@ -10,8 +10,10 @@ class_name BaseballBat
 @onready var damage_zone = $AttackArea/DamageZone
 @onready var attack_duration = $AttackDuration
 
+var player_damage : int = 50
+var enemy_damage : int = 5
+
 var weapon_name : String = "Baseball Bat"
-var damage : int = 50
 var is_attacking : bool = false
 var player_moving : bool = false
 var current_animation : String = "idle"
@@ -166,10 +168,10 @@ func _handle_hit(body: Node2D) -> void:
 	
 	if is_enemy and body.is_in_group("player"):
 		if body.has_method("handle_hit"):
-			body.handle_hit()
+			body.handle_hit(enemy_damage)
 	elif !is_enemy and body.is_in_group("enemy"):
 		if body.has_method("handle_hit"):
-			body.handle_hit()
+			body.handle_hit(player_damage)
 
 
 func shoot(_target_direction: Vector2 = Vector2.ZERO) -> bool:

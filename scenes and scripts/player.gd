@@ -73,11 +73,12 @@ func update_animation(direction: Vector2) -> void:
 		player_animation.play("walk_sideways")
 
 
-func handle_hit() -> void:
+func handle_hit(damage_amount: int = 1) -> void:
 	if is_dying:
 		return
 	
-	health_point.hp -= 1
+	health_point.hp -= damage_amount
+	print("Player took damage: ", damage_amount)
 	
 	if health_point.hp <= 0:
 		is_dying = true
