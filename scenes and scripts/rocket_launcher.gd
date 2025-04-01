@@ -11,6 +11,8 @@ class_name RocketLauncher
 var player_damage : int = 50
 var player_explosive_damage : int = 70
 
+var knockback_force : float = 400
+
 var rocket_scene
 var max_ammo : int = 2
 var current_ammo : int = 2
@@ -54,23 +56,20 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	if !attack_cooldown.is_stopped():
 		return false
 	
+	var firing_direction = target_direction
+	if firing_direction == Vector2.ZERO:
+		firing_direction = (get_global_mouse_position() - global_position).normalized()
+	
 	var rocket_instance = rocket_scene.instantiate()
 	get_tree().root.add_child(rocket_instance)
 	rocket_instance.global_position = end_of_gun.global_position
-	
 	rocket_instance.set_shooter(get_parent())
+	rocket_instance.set_direction(firing_direction)
 	
-	if target_direction == Vector2.ZERO:
-		var mouse_direction = (get_global_mouse_position() - global_position).normalized()
-		var gun_forward = Vector2.RIGHT.rotated(global_rotation)
-		var angle_diff = abs(gun_forward.angle_to(mouse_direction))
-		
-		if angle_diff > PI/2:
-			target_direction = gun_forward
-		else:
-			target_direction = mouse_direction
-	
-	rocket_instance.set_direction(target_direction)
+	var parent = get_parent()
+	if parent and parent.is_in_group("player"):
+		if parent.has_method("apply_knockback"):
+			parent.apply_knockback(-firing_direction, knockback_force)
 	
 	current_ammo -= 1
 	

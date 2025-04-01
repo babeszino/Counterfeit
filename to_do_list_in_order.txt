@@ -2,7 +2,7 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--implement the knockback effect of the rocket launcher
+-fix the enemy weapons dealing 25 damage (all of them for some reason)
 
 -remove the "FiringAnimation" node from each weapon scene and every instance of it in scripts - not needed!
 
@@ -29,10 +29,6 @@ TO-DO:
 -add sound effects to the game
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
-
--add health bar to enemy players because why not
-
--don't shoot the whole cartridge - add animation to the bullet maybe (cartridge falling off to the side)?
 
 -organize the project directory - including the assets, scenes and scripts - maybe upgrade the project to Godot 4.4?
 
@@ -109,3 +105,5 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -fix the death screen
 
 -add the guns into the game - come up with a logic: how and where should the player get each weapon -> 5 map, 5 weapons, you get one weapon/map
+
+-implement the knockback effect of the rocket launcher

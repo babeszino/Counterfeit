@@ -12,6 +12,9 @@ class_name Player
 var current_animation : String = "idle"
 var is_dying : bool = false
 
+var knockback_velocity : Vector2 = Vector2.ZERO
+var knockback_fadeout : float = 0.8
+
 
 func _ready() -> void:
 	player_animation.play("idle")
@@ -35,7 +38,12 @@ func _physics_process(_delta: float) -> void:
 	
 	direction = direction.normalized()
 	
-	velocity = direction * speed
+	var movement_velocity = direction * speed
+	knockback_velocity *= knockback_fadeout
+	
+	
+	velocity = movement_velocity + knockback_velocity
+	#velocity = direction * speed
 	move_and_slide()
 	
 	look_at(get_global_mouse_position())
@@ -44,6 +52,10 @@ func _physics_process(_delta: float) -> void:
 		gun.set_player_moving(direction != Vector2.ZERO)
 	
 	update_animation(direction)
+
+
+func apply_knockback(knockback_direction: Vector2, force: float) -> void:
+	knockback_velocity += knockback_direction * force
 
 
 func _unhandled_input(event: InputEvent) -> void:

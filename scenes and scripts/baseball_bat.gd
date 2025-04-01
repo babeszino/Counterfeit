@@ -11,7 +11,7 @@ class_name BaseballBat
 @onready var attack_duration = $AttackDuration
 
 # balancing
-var player_damage : int = 50
+var player_damage : int = 100
 var enemy_damage : int = 5
 var player_cooldown : float = 0.33
 var enemy_cooldown : float = 1
