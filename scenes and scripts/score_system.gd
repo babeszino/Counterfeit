@@ -111,3 +111,14 @@ func reset_score() -> void:
 	
 	emit_signal("score_changed", score)
 	emit_signal("killstreak_updated", KillstreakType.NONE, 0)
+
+
+func apply_multiplier(multiplier: float) -> void:
+	var original_score = score
+	score = int(score * multiplier)
+	
+	print("Original score: ", original_score)
+	print("Applied multiplier: x", multiplier)
+	print("New score: ", score)
+	
+	emit_signal("score_changed", score)

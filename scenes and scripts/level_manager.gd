@@ -6,6 +6,12 @@ var maps : Array = []
 var maps_path : String = "res://scenes and scripts/maps/"
 var randomized_map_indexes : Array = []
 
+var level_start_time : float = 0.0
+var level_completion_time : float = 0.0
+var very_fast_times = [15.0, 15.0, 15.0, 15.0, 15.0]
+var fast_times = [18.5, 18.5, 18.5, 18.5, 18.5]
+var level_completion_stats = []
+
 var weapons = {
 	0: "res://scenes and scripts/baseball_bat.tscn",
 	1: "res://scenes and scripts/glock18.tscn",
@@ -78,12 +84,30 @@ func switch_to_map(map_index) -> void:
 		assign_weapon()
 		spawn_enemies()
 		
+		start_level_timer()
+		
 		await get_tree().process_frame
 		
 		find_door()
 
 
 func load_next_map() -> void:
+	var multiplier = calculate_score_multiplier()
+	
+	level_completion_stats.append({
+		"level": current_map_sequence_position + 1,
+		"time": level_completion_time,
+		"multiplier": multiplier
+	})
+	
+	var score_system = get_node_or_null("/root/ScoreSystem")
+	if score_system:
+		score_system.apply_multiplier(multiplier)
+	
+	print("Level completed in: ", level_completion_time, " seconds")
+	print("Score multiplier: x", multiplier)
+	
+	
 	current_map_sequence_position += 1
 	if current_map_sequence_position >= randomized_map_indexes.size():
 		show_game_completed_screen()
@@ -182,3 +206,24 @@ func assign_weapon() -> void:
 	else:
 		if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
 			player.equip_weapon(weapons[current_map_sequence_position])
+
+
+func start_level_timer() -> void:
+	level_start_time = Time.get_ticks_msec() / 1000
+
+
+func calculate_score_multiplier() -> float:
+	level_completion_time = (Time.get_ticks_msec() / 1000) - level_start_time
+	
+	var very_fast_threshold = 15.0
+	var fast_threshold = 18.5
+	
+	if current_map_sequence_position < very_fast_times.size():
+		very_fast_threshold = very_fast_times[current_map_sequence_position]
+	
+	if level_completion_time <= very_fast_threshold:
+		return 1.5
+	elif level_completion_time <= fast_threshold:
+		return 1.25
+	else:
+		return 1.0

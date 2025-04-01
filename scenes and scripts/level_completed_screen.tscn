@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://co3lp6ftwcm8x"]
+
+[node name="LevelCompletedScreen" type="CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
