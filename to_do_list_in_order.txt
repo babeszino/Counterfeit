@@ -2,8 +2,6 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--player's and enemy's gun instance - replace with a weapon placeholder scene or just remove
-
 -rename one of load_map or load_maps functions to something else in level_manager.gd - too similar
 
 -use an easier way to calculate the player/enemy move animations (something instead of dot)
@@ -107,3 +105,5 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -fix the enemy weapons dealing 25 damage (all of them for some reason)
 
 -remove the "FiringAnimation" node from each weapon scene and every instance of it in scripts - not needed!
+
+-player's and enemy's gun instance - replace with a weapon placeholder scene or just remove

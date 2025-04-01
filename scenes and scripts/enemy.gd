@@ -4,12 +4,13 @@ signal enemy_died
 
 @export var movement_speed : float = 75.0
 
-@onready var gun = $Gun
 @onready var health_point = $HP
 @onready var nav_agent = $NavigationAgent2D
 @onready var enemy_ai = $EnemyAI
 @onready var enemy_movement = $EnemyMovement
 @onready var enemy_animation = $AnimatedSprite2D
+
+var gun = null
 
 var current_animation : String = "idle"
 var last_velocity : Vector2 = Vector2.ZERO

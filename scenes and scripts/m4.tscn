@@ -137,7 +137,7 @@ animation = &"idle"
 rotation = 4.71239
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_3pugb")
-animation = &"idle"
+animation = &"shoot"
 
 [node name="EndOfGun" type="Marker2D" parent="."]
 position = Vector2(96, 0)

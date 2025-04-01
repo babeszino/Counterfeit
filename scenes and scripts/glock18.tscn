@@ -89,6 +89,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("14_c48kp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8b0nm")
 }],
 "loop": false,
 "name": &"shoot",

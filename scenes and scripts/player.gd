@@ -5,9 +5,10 @@ class_name Player
 @export var speed : float = 200.0
 
 @onready var health_point : Node2D = $HP
-@onready var gun = $Gun
 @onready var player_collision : CollisionShape2D = $CollisionShape2D
 @onready var player_animation : AnimatedSprite2D = $AnimatedSprite2D
+
+var gun = null
 
 var current_animation : String = "idle"
 var is_dying : bool = false
