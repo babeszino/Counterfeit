@@ -10,7 +10,7 @@ class_name DoubleBarrelShotgun
 
 # balancing
 var player_damage : int = 45
-var enemy_damage : int = 5
+var enemy_damage : int = 2
 var player_cooldown : float = 0.08
 var enemy_cooldown : float = 1
 

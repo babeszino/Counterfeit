@@ -2,8 +2,6 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--add a crosshair that replaces the cursor
-
 -implement the score system - double, triple, multi kill bonus + multiplier after finishing the level as fast as you can
 
 -add a bar to the UI under the ammo display that shows the progress of the reloading
@@ -111,3 +109,5 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -use an easier way to calculate the player/enemy move animations (something instead of dot)
 
 -add bleeding into the game when the player or an enemy gets shot
+
+-add a crosshair that replaces the cursor
