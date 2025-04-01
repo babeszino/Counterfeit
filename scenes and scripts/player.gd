@@ -73,14 +73,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func update_animation(direction: Vector2) -> void:
 	if direction == Vector2.ZERO:
 		player_animation.play("idle")
-		
+		return
+	
 	var facing_direction = (get_global_mouse_position() - global_position).normalized()
-	var forward_dot = facing_direction.dot(direction)
+	var angle = abs(facing_direction.angle_to(direction))
 	
-	var right_vector = Vector2(facing_direction.y, -facing_direction.x)
-	var side_dot = right_vector.dot(direction)
-	
-	if abs(forward_dot) > abs(side_dot):
+	if angle < PI/4 or angle > 3*PI/4:
 		player_animation.play("walk")
 	else:
 		player_animation.play("walk_sideways")

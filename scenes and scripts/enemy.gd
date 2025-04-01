@@ -106,14 +106,13 @@ func update_path() -> void:
 func update_animation() -> void:
 	if velocity.length() < 0.1:
 		enemy_animation.play("idle")
+		return
 	
 	var facing_direction = Vector2.RIGHT.rotated(rotation)
-	var forward_dot = facing_direction.dot(velocity.normalized())
+	var moving_direction = velocity.normalized()
+	var angle = abs(facing_direction.angle_to(moving_direction))
 	
-	var right_vector = Vector2(facing_direction.y, -facing_direction.x)
-	var side_dot = right_vector.dot(velocity.normalized())
-	
-	if abs(forward_dot) > abs(side_dot):
+	if angle < PI/4 or angle > 3*PI/4:
 		enemy_animation.play("walk")
 	else:
 		enemy_animation.play("walk_sideways")

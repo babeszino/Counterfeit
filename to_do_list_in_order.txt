@@ -2,10 +2,6 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--rename one of load_map or load_maps functions to something else in level_manager.gd - too similar
-
--use an easier way to calculate the player/enemy move animations (something instead of dot)
-
 -add bleeding into the game when the player or an enemy gets shot
 
 -add a crosshair that replaces the cursor
@@ -107,3 +103,7 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -remove the "FiringAnimation" node from each weapon scene and every instance of it in scripts - not needed!
 
 -player's and enemy's gun instance - replace with a weapon placeholder scene or just remove
+
+-rename one of load_map or load_maps functions to something else in level_manager.gd - too similar
+
+-use an easier way to calculate the player/enemy move animations (something instead of dot)

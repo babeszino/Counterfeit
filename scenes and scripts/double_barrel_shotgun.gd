@@ -9,7 +9,7 @@ class_name DoubleBarrelShotgun
 @onready var enemy_animation = $EnemyAnimation
 
 # balancing
-var player_damage : int = 30
+var player_damage : int = 45
 var enemy_damage : int = 5
 var player_cooldown : float = 0.08
 var enemy_cooldown : float = 1
