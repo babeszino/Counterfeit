@@ -3,7 +3,6 @@ extends Node2D
 class_name BaseballBat
 
 @onready var attack_cooldown = $AttackCooldown
-@onready var firing_animation = $FiringAnimation
 @onready var player_animation = $PlayerAnimation
 @onready var enemy_animation = $EnemyAnimation
 @onready var attack_area = $AttackArea
@@ -186,9 +185,6 @@ func shoot(_target_direction: Vector2 = Vector2.ZERO) -> bool:
 func cleanup() -> void:
 	if attack_cooldown and attack_cooldown.is_inside_tree():
 		attack_cooldown.stop()
-	
-	if firing_animation and firing_animation.is_inside_tree():
-		firing_animation.stop()
 	
 	if attack_duration and attack_duration.is_inside_tree():
 		attack_duration.stop()

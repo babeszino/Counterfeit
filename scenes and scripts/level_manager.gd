@@ -7,7 +7,7 @@ var maps_path : String = "res://scenes and scripts/maps/"
 var randomized_map_indexes : Array = []
 
 var weapons = {
-	0: "res://scenes and scripts/rocket_launcher.tscn",
+	0: "res://scenes and scripts/baseball_bat.tscn",
 	1: "res://scenes and scripts/glock18.tscn",
 	2: "res://scenes and scripts/double_barrel_shotgun.tscn",
 	3: "res://scenes and scripts/m4.tscn",

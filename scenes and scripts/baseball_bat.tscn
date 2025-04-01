@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://uhngxdfe4pyn"]
+[gd_scene load_steps=37 format=3 uid="uid://uhngxdfe4pyn"]
 
 [ext_resource type="Script" path="res://scenes and scripts/baseball_bat.gd" id="1_oh6xh"]
 [ext_resource type="Texture2D" uid="uid://t82qqyb8x17j" path="res://assets/player character/weapons/1_baseball bat/attack/player_baseball_bat_attack1.png" id="2_m8bi1"]
@@ -172,20 +172,6 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="Animation" id="Animation_6od3m"]
-resource_name = "FiringAnimation"
-length = 0.05
-step = 0.05
-
-[sub_resource type="Animation" id="Animation_i456b"]
-length = 0.001
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tes11"]
-_data = {
-"FiringAnimation": SubResource("Animation_6od3m"),
-"RESET": SubResource("Animation_i456b")
-}
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1oa0m"]
 size = Vector2(76, 118.5)
 
@@ -211,11 +197,6 @@ one_shot = true
 [node name="AttackDuration" type="Timer" parent="."]
 wait_time = 0.33
 one_shot = true
-
-[node name="FiringAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_tes11")
-}
 
 [node name="AttackArea" type="Area2D" parent="."]
 

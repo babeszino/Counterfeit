@@ -31,8 +31,10 @@ func set_shooter(shooter: Node) -> void:
 	bullet_shooter = shooter
 	
 	var weapon = null
-	if shooter.has_node("Gun"):
-		weapon = shooter.get_node("Gun")
+	for child in shooter.get_children():
+		if child.has_method("get_damage"):
+			weapon = child
+			break
 	
 	if weapon and weapon.has_method("get_damage"):
 		damage = weapon.get_damage()

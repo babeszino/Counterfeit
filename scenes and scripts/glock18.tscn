@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dxywyh2v0bi41"]
+[gd_scene load_steps=24 format=3 uid="uid://dxywyh2v0bi41"]
 
 [ext_resource type="Script" path="res://scenes and scripts/glock18.gd" id="1_ws8qo"]
 [ext_resource type="Texture2D" uid="uid://6g1ts33dnrpc" path="res://assets/player character/weapons/2_glock18/walk/player_glock18_walk1.png" id="2_tgrti"]
@@ -124,20 +124,6 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="Animation" id="Animation_6od3m"]
-resource_name = "FiringAnimation"
-length = 0.05
-step = 0.05
-
-[sub_resource type="Animation" id="Animation_i456b"]
-length = 0.001
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tes11"]
-_data = {
-"FiringAnimation": SubResource("Animation_6od3m"),
-"RESET": SubResource("Animation_i456b")
-}
-
 [node name="Glock18" type="Node2D"]
 script = ExtResource("1_ws8qo")
 
@@ -159,11 +145,6 @@ position = Vector2(78, 0)
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-
-[node name="FiringAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_tes11")
-}
 
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 1.2

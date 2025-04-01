@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dq6mrfih01xxj"]
+[gd_scene load_steps=13 format=3 uid="uid://dq6mrfih01xxj"]
 
 [ext_resource type="Script" path="res://scenes and scripts/rocket_launcher.gd" id="1_3vuew"]
 [ext_resource type="Texture2D" uid="uid://wcf8kp6dcmbe" path="res://assets/player character/weapons/5_rocket launcher/walk/player_rocket_launcher_walk1.png" id="2_o1n4c"]
@@ -63,20 +63,6 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="Animation" id="Animation_6od3m"]
-resource_name = "FiringAnimation"
-length = 0.05
-step = 0.05
-
-[sub_resource type="Animation" id="Animation_i456b"]
-length = 0.001
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tes11"]
-_data = {
-"FiringAnimation": SubResource("Animation_6od3m"),
-"RESET": SubResource("Animation_i456b")
-}
-
 [node name="RocketLauncher" type="Node2D"]
 script = ExtResource("1_3vuew")
 
@@ -92,11 +78,6 @@ position = Vector2(96, 24)
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-
-[node name="FiringAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_tes11")
-}
 
 [node name="ReloadTimer" type="Timer" parent="."]
 one_shot = true

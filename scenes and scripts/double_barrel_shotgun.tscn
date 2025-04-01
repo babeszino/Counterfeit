@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bq3eon7ux0sq3"]
+[gd_scene load_steps=24 format=3 uid="uid://bq3eon7ux0sq3"]
 
 [ext_resource type="Script" path="res://scenes and scripts/double_barrel_shotgun.gd" id="1_hqisd"]
 [ext_resource type="Texture2D" uid="uid://csr70hssc4cw4" path="res://assets/player character/weapons/3_double barrel/walk/player_double_barrel_walk1.png" id="2_3p46a"]
@@ -89,6 +89,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("14_mj8e0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_kaasw")
 }],
 "loop": false,
 "name": &"shoot",
@@ -124,20 +127,6 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="Animation" id="Animation_6od3m"]
-resource_name = "FiringAnimation"
-length = 0.05
-step = 0.05
-
-[sub_resource type="Animation" id="Animation_i456b"]
-length = 0.001
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tes11"]
-_data = {
-"FiringAnimation": SubResource("Animation_6od3m"),
-"RESET": SubResource("Animation_i456b")
-}
-
 [node name="DoubleBarrel" type="Node2D"]
 script = ExtResource("1_hqisd")
 
@@ -151,7 +140,7 @@ animation = &"walk"
 rotation = 4.71239
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_3pugb")
-animation = &"walk"
+animation = &"shoot"
 
 [node name="EndOfGun" type="Marker2D" parent="."]
 position = Vector2(81, 0)
@@ -159,11 +148,6 @@ position = Vector2(81, 0)
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.08
 one_shot = true
-
-[node name="FiringAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_tes11")
-}
 
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 1.35

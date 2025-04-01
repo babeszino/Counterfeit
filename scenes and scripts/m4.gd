@@ -4,7 +4,6 @@ class_name M4
 
 @onready var end_of_gun = $EndOfGun
 @onready var attack_cooldown = $AttackCooldown
-@onready var firing_animation = $FiringAnimation
 @onready var reload_timer = $ReloadTimer
 @onready var player_animation = $PlayerAnimation
 @onready var enemy_animation = $EnemyAnimation
@@ -117,7 +116,6 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	current_ammo -= 1
 	
 	attack_cooldown.start()
-	firing_animation.play("FiringAnimation")
 	
 	is_shooting = true
 	if active_animation and current_animation != "shoot":
