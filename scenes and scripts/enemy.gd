@@ -85,8 +85,12 @@ func navigate_to_player(delta: float) -> void:
 	var next_position = nav_agent.get_next_path_position()
 	var direction = global_position.direction_to(next_position)
 	
+	var attack_distance = 75.0
+	if gun is BaseballBat:
+		attack_distance = 15.0
+	
 	var distance_to_player = global_position.distance_to(enemy_ai.player.global_position)
-	if distance_to_player > 75.0:
+	if distance_to_player > attack_distance:
 		velocity = direction * movement_speed
 		if gun and gun.has_method("set_player_moving"):
 			gun.set_player_moving(false)

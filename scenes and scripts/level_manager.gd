@@ -22,11 +22,11 @@ var game_manager = null
 
 
 func _ready() -> void:
-	load_maps()
+	find_existing_maps()
 	game_manager = get_node_or_null("/root/GameManager")
 
 
-func load_maps() -> void:
+func find_existing_maps() -> void:
 	var dir = DirAccess.open(maps_path)
 	dir.list_dir_begin()
 	
@@ -50,10 +50,10 @@ func randomize_map_order() -> void:
 func start_sequence() -> void:
 	randomize_map_order()
 	current_map_sequence_position = 0
-	load_map(randomized_map_indexes[current_map_sequence_position])
+	switch_to_map(randomized_map_indexes[current_map_sequence_position])
 
 
-func load_map(map_index) -> void:
+func switch_to_map(map_index) -> void:
 	if map_index < 0 or map_index >= maps.size():
 		return
 	
@@ -90,7 +90,7 @@ func load_next_map() -> void:
 		return
 	
 	var next_map_index = randomized_map_indexes[current_map_sequence_position]
-	load_map(next_map_index)
+	switch_to_map(next_map_index)
 
 
 func position_player_on_map() -> void:
@@ -178,7 +178,3 @@ func assign_weapon() -> void:
 	else:
 		if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
 			player.equip_weapon(weapons[current_map_sequence_position])
-	
-	# alternate for testing - replace with above if rocket launcher is added
-	#if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
-		#player.equip_weapon(weapons[current_map_sequence_position])
