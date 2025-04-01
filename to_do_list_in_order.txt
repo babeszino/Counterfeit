@@ -4,6 +4,8 @@ TO-DO:
 
 -implement the score system - double, triple, multi kill bonus + multiplier after finishing the level as fast as you can
 
+-save the ScoreContainer from UI.tscn as a separate scene maybe
+
 -add a bar to the UI under the ammo display that shows the progress of the reloading
 
 -implement jumping between walls for the player - should have some good logic and a proper use

@@ -3,12 +3,29 @@ extends CanvasLayer
 @onready var health_display : Control = $TopContainer/HealthDisplay
 @onready var ammo_display : Label = $BottomContainer/AmmoDisplay
 @onready var pause_menu : Control = $PauseMenu
+@onready var score_display : Label = $ScoreContainer/VBoxContainer/ScoreDisplay
+@onready var killstreak_display : Label = $ScoreContainer/VBoxContainer/KillstreakDisplay
+
+var killstreak_timer : Timer
 
 var player = null
 
 
 func _ready() -> void:
 	health_display.hide_all_health_bars()
+	
+	killstreak_timer = Timer.new()
+	killstreak_timer.wait_time = 2.0
+	killstreak_timer.one_shot = true
+	killstreak_timer.timeout.connect(_on_killstreak_timer_timeout)
+	add_child(killstreak_timer)
+	
+	var score_system = get_node("/root/ScoreSystem")
+	if score_system:
+		score_system.connect("score_changed", Callable(self, "update_score_display"))
+		score_system.connect("killstreak_updated", Callable(self, "update_killstreak_display"))
+	
+	killstreak_display.visible = false
 	
 	# connect to player (if it already exists)
 	find_player()
@@ -59,6 +76,41 @@ func update_health_bar(health: int) -> void:
 
 func update_ammo_display(ammo_text: String) -> void:
 	ammo_display.update_ammo(ammo_text)
+
+
+func update_score_display(new_score: int) -> void:
+	score_display.text = str(new_score)
+
+
+func update_killstreak_display(streak_type: int, streak_count: int) -> void:
+	match streak_type:
+		0: # NOTHING
+			killstreak_display.visible = false
+			killstreak_timer.stop()
+		1: # SINGLE_KILL
+			killstreak_display.text = "Single kill!"
+			killstreak_display.visible = true
+			killstreak_timer.start()
+		2: # DOUBLE_KILL
+			killstreak_display.text = "Double Kill!"
+			killstreak_display.visible = true
+			killstreak_timer.start()
+		3: # TRIPLE_KILL
+			killstreak_display.text = "Triple Kill!"
+			killstreak_display.visible = true
+			killstreak_timer.start()
+		4: # MULTI_KILL
+			killstreak_display.text = "MULTI KILL!"
+			killstreak_display.visible = true
+			killstreak_timer.start()
+	
+	var tween = create_tween()
+	tween.tween_property(killstreak_display, "scale", Vector2(1.2, 1.2), 0.1)
+	tween.tween_property(killstreak_display, "scale", Vector2(1.0, 1.0), 0.1)
+
+
+func _on_killstreak_timer_timeout() -> void:
+	killstreak_display.visible = false
 
 
 func _on_pause_menu_resume_requested() -> void:

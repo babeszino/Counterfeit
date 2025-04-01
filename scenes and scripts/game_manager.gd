@@ -40,6 +40,10 @@ func start_game() -> void:
 	ui.set_player(player)
 	pause_menu = ui.get_node("PauseMenu")
 	
+	var score_system = get_node_or_null("/root/ScoreSystem")
+	if score_system:
+		score_system.reset_score()
+	
 	if level_manager:
 		level_manager.start_sequence()
 	
@@ -52,6 +56,10 @@ func restart_game() -> void:
 	enemy_count = 0
 	
 	cleanup_entities()
+	
+	var score_system = get_node_or_null("/root/ScoreSystem")
+	if score_system:
+		score_system.reset_score()
 	
 	start_game()
 
@@ -118,6 +126,10 @@ func cleanup_entities() -> void:
 	var bullets = get_tree().get_nodes_in_group("bullet")
 	for bullet in bullets:
 		bullet.queue_free()
+	
+	var rockets = get_tree().get_nodes_in_group("rocket")
+	for rocket in rockets:
+		rocket.queue_free()
 	
 	if level_manager:
 		level_manager.cleanup_current_map()

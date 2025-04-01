@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scenes and scripts/game_manager.gd"
 LevelManager="*res://scenes and scripts/level_manager.gd"
+ScoreSystem="*res://scenes and scripts/score_system.gd"
 
 [display]
 
