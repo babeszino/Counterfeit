@@ -8,8 +8,10 @@ class_name Player
 @onready var player_collision : CollisionShape2D = $CollisionShape2D
 @onready var player_animation : AnimatedSprite2D = $AnimatedSprite2D
 
-var gun = null
+var bleeding_effect_scene = preload("res://scenes and scripts/bleed_effect.tscn")
+var bloodstain_scene = preload("res://scenes and scripts/bloodstain.tscn")
 
+var gun = null
 var current_animation : String = "idle"
 var is_dying : bool = false
 
@@ -90,9 +92,13 @@ func handle_hit(damage_amount: int = 1) -> void:
 	
 	health_point.hp -= damage_amount
 	print("Player took damage: ", damage_amount)
+	spawn_bleeding_effect()
 	
 	if health_point.hp <= 0:
 		is_dying = true
+		
+		spawn_bloodstain()
+		
 		var death_scene = load("res://scenes and scripts/death_screen.tscn")
 		if death_scene != null:
 			var death_screen_instance = death_scene.instantiate()
@@ -113,3 +119,16 @@ func equip_weapon(weapon_scene_path: String) -> void:
 		gun = weapon_scene.instantiate()
 		gun.name = "Gun"
 		add_child(gun)
+
+
+func spawn_bleeding_effect() -> void:
+	var effect = bleeding_effect_scene.instantiate()
+	get_tree().root.add_child(effect)
+	effect.global_position = global_position
+	effect.initialize(self, scale)
+
+
+func spawn_bloodstain() -> void:
+	var bloodstain = bloodstain_scene.instantiate()
+	get_tree().root.add_child(bloodstain)
+	bloodstain.global_position = global_position

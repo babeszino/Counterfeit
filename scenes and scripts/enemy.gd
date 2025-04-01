@@ -10,8 +10,10 @@ signal enemy_died
 @onready var enemy_movement = $EnemyMovement
 @onready var enemy_animation = $AnimatedSprite2D
 
-var gun = null
+var bleeding_effect_scene = preload("res://scenes and scripts/bleed_effect.tscn")
+var bloodstain_scene = preload("res://scenes and scripts/bloodstain.tscn")
 
+var gun = null
 var current_animation : String = "idle"
 var last_velocity : Vector2 = Vector2.ZERO
 var is_dying : bool = false
@@ -47,6 +49,7 @@ func handle_hit(damage_amount: int = 50):
 	
 	health_point.hp -= damage_amount
 	print("Enemy took damage: ", damage_amount)
+	spawn_bleeding_effect()
 	
 	var player_nodes = get_tree().get_nodes_in_group("player")
 	if player_nodes.size() > 0 and enemy_ai:
@@ -56,6 +59,7 @@ func handle_hit(damage_amount: int = 50):
 	
 	if health_point.hp <= 0:
 		is_dying = true
+		spawn_bloodstain()
 		die()
 
 
@@ -135,3 +139,16 @@ func equip_weapon(weapon_scene_path: String) -> void:
 	
 	if enemy_ai:
 		enemy_ai.initialize(self, gun)
+
+
+func spawn_bleeding_effect() -> void:
+	var effect = bleeding_effect_scene.instantiate()
+	get_tree().root.add_child(effect)
+	effect.global_position = global_position
+	effect.initialize(self, scale)
+
+
+func spawn_bloodstain() -> void:
+	var bloodstain = bloodstain_scene.instantiate()
+	get_tree().root.add_child(bloodstain)
+	bloodstain.global_position = global_position

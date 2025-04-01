@@ -131,7 +131,7 @@ func _on_player_detection_zone_body_entered(body: Node2D) -> void:
 
 
 func _on_bullet_detection_zone_area_entered(area: Area2D) -> void:
-	if area.is_in_group("bullet") and area.shooter_group == "player":
+	if (area.is_in_group("bullet") or area.is_in_group("rocket")) and area.shooter_group == "player":
 		var player_nodes = get_tree().get_nodes_in_group("player")
 		if player_nodes.size() > 0:
 			player = player_nodes[0]

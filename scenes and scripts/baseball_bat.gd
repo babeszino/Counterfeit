@@ -11,7 +11,7 @@ class_name BaseballBat
 
 # balancing
 var player_damage : int = 100
-var enemy_damage : int = 5
+var enemy_damage : int = 10
 var player_cooldown : float = 0.33
 var enemy_cooldown : float = 1
 
@@ -127,7 +127,7 @@ func set_player_moving(moving: bool) -> void:
 func update_animation_state() -> void:
 	if not active_animation:
 		return
-		
+	
 	if is_attacking:
 		if current_animation != "attack":
 			active_animation.play("attack")

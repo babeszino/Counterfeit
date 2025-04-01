@@ -22,11 +22,11 @@ animations = [{
 radius = 0.75
 height = 4.0
 
-[node name="Rocket" type="Area2D" groups=["bullet"]]
+[node name="Rocket" type="Area2D" groups=["rocket"]]
 z_index = 15
 rotation = 1.5708
 scale = Vector2(0.5, 0.5)
-collision_layer = 0
+collision_layer = 8
 collision_mask = 5
 script = ExtResource("1_pwtjy")
 

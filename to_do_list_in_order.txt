@@ -2,11 +2,7 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--add bleeding into the game when the player or an enemy gets shot
-
 -add a crosshair that replaces the cursor
-
--add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
 -implement the score system - double, triple, multi kill bonus + multiplier after finishing the level as fast as you can
 
@@ -14,11 +10,17 @@ TO-DO:
 
 -implement jumping between walls for the player - should have some good logic and a proper use
 
--restructuring - maybe actually have a main scene that instances everything, instead of doing it all in code
+-add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
 -add sound effects to the game
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
+
+-take a look at rocket.gd - is the set_shooter function even needed? only the player can be the shooter
+
+-restructuring - maybe actually have a main scene that instances everything, instead of doing it all in code
+
+-look at all the instancing in code - maybe all of it could be done in the editor instead?
 
 -organize the project directory - including the assets, scenes and scripts - maybe upgrade the project to Godot 4.4?
 
@@ -107,3 +109,5 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -rename one of load_map or load_maps functions to something else in level_manager.gd - too similar
 
 -use an easier way to calculate the player/enemy move animations (something instead of dot)
+
+-add bleeding into the game when the player or an enemy gets shot

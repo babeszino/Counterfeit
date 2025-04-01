@@ -148,6 +148,10 @@ func cleanup_current_map() -> void:
 	if current_map_instance:
 		current_map_instance.queue_free()
 		current_map_instance = null
+	
+	var bloodstains = get_tree().get_nodes_in_group("bloodstain")
+	for bloodstain in bloodstains:
+		bloodstain.queue_free()
 
 
 func show_game_completed_screen() -> void:
