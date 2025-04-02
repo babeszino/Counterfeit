@@ -35,9 +35,6 @@ func set_direction(direction: Vector2) -> void:
 func set_shooter(shooter: Node) -> void:
 	bullet_shooter = shooter
 	
-	if shooter.is_in_group("player"):
-		shooter_group
-	
 	var weapon = null
 	if shooter.has_node("Gun"):
 		weapon = shooter.get_node("Gun")
