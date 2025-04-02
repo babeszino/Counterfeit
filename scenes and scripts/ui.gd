@@ -5,6 +5,8 @@ extends CanvasLayer
 @onready var pause_menu : Control = $PauseMenu
 @onready var score_display : Label = $ScoreContainer/VBoxContainer/ScoreDisplay
 @onready var killstreak_display : Label = $ScoreContainer/VBoxContainer/KillstreakDisplay
+@onready var timer_label : Label = $TimerContainer/TimerLabel
+var level_start_time : float = 0
 
 var killstreak_timer : Timer
 
@@ -58,6 +60,12 @@ func _process(_delta: float) -> void:
 		update_ammo_display(ammo_text)
 	else:
 		update_ammo_display("-- / --")
+	
+	var level_manager = get_node_or_null("/root/LevelManager")
+	if level_manager and level_manager.level_start_time > 0:
+		var current_time = Time.get_ticks_msec() / 1000.0
+		var elapsed_time = current_time - level_manager.level_start_time
+		update_timer(elapsed_time)
 
 
 func find_player() -> void:
@@ -129,3 +137,9 @@ func _on_pause_menu_quit_requested() -> void:
 	var game_manager = get_node("/root/GameManager")
 	if game_manager:
 		game_manager.quit_game()
+
+
+func update_timer(elapsed_seconds: float) -> void:
+	var minutes = int(elapsed_seconds) / 60
+	var seconds = int(elapsed_seconds) % 60
+	timer_label.text = "Time: " + str(minutes) + ":" + str(seconds).pad_zeros(2)

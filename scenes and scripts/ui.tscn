@@ -78,6 +78,25 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="TimerContainer" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="TimerLabel" type="Label" parent="TimerContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 48
+text = "Time: 0:00"
+horizontal_alignment = 2
+
 [connection signal="main_menu_requested" from="PauseMenu" to="." method="_on_pause_menu_main_menu_requested"]
 [connection signal="quit_requested" from="PauseMenu" to="." method="_on_pause_menu_quit_requested"]
 [connection signal="resume_requested" from="PauseMenu" to="." method="_on_pause_menu_resume_requested"]

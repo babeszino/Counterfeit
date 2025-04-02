@@ -21,7 +21,8 @@ var weapons = {
 }
 var rocket_launcher : String = "res://scenes and scripts/rocket_launcher.tscn"
 
-var completion_scene = preload("res://scenes and scripts/game_completed_screen.tscn")
+var level_completed_screen = preload("res://scenes and scripts/level_completed_screen.tscn")
+var game_completion_scene = preload("res://scenes and scripts/game_completed_screen.tscn")
 var current_map_instance = null
 var finish_door_container = null
 var game_manager = null
@@ -94,19 +95,30 @@ func switch_to_map(map_index) -> void:
 func load_next_map() -> void:
 	var multiplier = calculate_score_multiplier()
 	
-	level_completion_stats.append({
-		"level": current_map_sequence_position + 1,
-		"time": level_completion_time,
-		"multiplier": multiplier
-	})
+	var score_system = get_node_or_null("/root/ScoreSystem")
+	var current_score = 0
+	var multiplied_score = 0
+	
+	if score_system:
+		current_score = score_system.score
+		multiplied_score = int(current_score * multiplier)
+	
+	get_tree().paused = true
+	
+	var screen = level_completed_screen.instantiate()
+	get_tree().root.add_child(screen)
+	
+	screen.setup(level_completion_time, multiplier, current_score, multiplied_score)
+	
+	screen.connect("continue_pressed", Callable(self, '_on_completion_screen_continue'))
+
+
+func _on_completion_screen_continue(multiplier: float) -> void:
+	get_tree().paused = false
 	
 	var score_system = get_node_or_null("/root/ScoreSystem")
 	if score_system:
 		score_system.apply_multiplier(multiplier)
-	
-	print("Level completed in: ", level_completion_time, " seconds")
-	print("Score multiplier: x", multiplier)
-	
 	
 	current_map_sequence_position += 1
 	if current_map_sequence_position >= randomized_map_indexes.size():
@@ -186,7 +198,7 @@ func show_game_completed_screen() -> void:
 		current_map_instance.queue_free()
 		current_map_instance = null
 	
-	var game_completed_screen = completion_scene.instantiate()
+	var game_completed_screen = game_completion_scene.instantiate()
 	get_tree().root.add_child(game_completed_screen)
 	
 	current_map_sequence_position = 0
@@ -209,7 +221,7 @@ func assign_weapon() -> void:
 
 
 func start_level_timer() -> void:
-	level_start_time = Time.get_ticks_msec() / 1000
+	level_start_time = Time.get_ticks_msec() / 1000.0
 
 
 func calculate_score_multiplier() -> float:
