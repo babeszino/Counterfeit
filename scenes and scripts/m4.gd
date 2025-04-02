@@ -2,6 +2,8 @@ extends Node2D
 
 class_name M4
 
+signal reload_started
+
 @onready var end_of_gun = $EndOfGun
 @onready var attack_cooldown = $AttackCooldown
 @onready var reload_timer = $ReloadTimer
@@ -132,6 +134,7 @@ func reload() -> void:
 	if !is_reloading and current_ammo < max_ammo:
 		is_reloading = true
 		reload_timer.start()
+		emit_signal("reload_started", reload_timer.wait_time)
 
 
 func can_shoot() -> bool:

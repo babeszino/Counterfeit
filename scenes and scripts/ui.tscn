@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://csp3sn1jfrc4q"]
+[gd_scene load_steps=6 format=3 uid="uid://csp3sn1jfrc4q"]
 
 [ext_resource type="Script" path="res://scenes and scripts/ui.gd" id="1_qcsck"]
 [ext_resource type="PackedScene" uid="uid://mshkucx6t227" path="res://scenes and scripts/health_display.tscn" id="2_cx6hi"]
 [ext_resource type="PackedScene" uid="uid://b3mel4ctnym63" path="res://scenes and scripts/ammo_display.tscn" id="3_8han1"]
+[ext_resource type="PackedScene" uid="uid://c6t3uji20phab" path="res://scenes and scripts/score_display.tscn" id="5_wsrlm"]
 [ext_resource type="PackedScene" uid="uid://dlra1pyn3q201" path="res://scenes and scripts/pause_menu.tscn" id="7_1veam"]
 
 [node name="UI" type="CanvasLayer"]
@@ -37,46 +38,7 @@ layout_mode = 2
 
 [node name="PauseMenu" parent="." instance=ExtResource("7_1veam")]
 
-[node name="ScoreContainer" type="MarginContainer" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_top = 20.0
-offset_right = 20.0
-offset_bottom = 60.0
-grow_horizontal = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_right = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScoreContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="ScoreDisplay" type="Label" parent="ScoreContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 7
-theme_override_font_sizes/font_size = 64
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="KillstreakDisplay" type="Label" parent="ScoreContainer/VBoxContainer"]
-custom_minimum_size = Vector2(300, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 48
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="ScoreDisplay" parent="." instance=ExtResource("5_wsrlm")]
 
 [node name="TimerContainer" type="MarginContainer" parent="."]
 anchors_preset = 1

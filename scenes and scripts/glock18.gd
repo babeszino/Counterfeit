@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Gun
 
+signal reload_started
+
 @onready var player_animation = $PlayerAnimation
 @onready var enemy_animation = $EnemyAnimation
 @onready var end_of_gun = $EndOfGun
@@ -115,6 +117,7 @@ func reload() -> void:
 	if !is_reloading and current_ammo < max_ammo:
 		is_reloading = true
 		reload_timer.start()
+		emit_signal("reload_started", reload_timer.wait_time)
 
 
 func can_shoot() -> bool:

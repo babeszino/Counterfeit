@@ -2,9 +2,9 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--save the ScoreContainer from UI.tscn as a separate scene maybe
+-take a look at rocket.gd - is the set_shooter function even needed? only the player can be the shooter
 
--add a bar to the UI under the ammo display that shows the progress of the reloading
+-fix the reload progress bar changing sizes
 
 -implement jumping between walls for the player - should have some good logic and a proper use
 
@@ -13,8 +13,6 @@ TO-DO:
 -add sound effects to the game
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
-
--take a look at rocket.gd - is the set_shooter function even needed? only the player can be the shooter
 
 -restructuring - maybe actually have a main scene that instances everything, instead of doing it all in code
 
@@ -113,3 +111,7 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -add a crosshair that replaces the cursor
 
 -implement the score system - double, triple, multi kill bonus + multiplier after finishing the level as fast as you can
+
+-add a bar to the UI under the ammo display that shows the progress of the reloading
+
+-save the ScoreContainer from UI.tscn as a separate scene maybe
