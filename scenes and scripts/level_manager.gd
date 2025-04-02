@@ -8,9 +8,9 @@ var randomized_map_indexes : Array = []
 
 var level_start_time : float = 0.0
 var level_completion_time : float = 0.0
+var total_time : float = 0.0
 var very_fast_times = [15.0, 15.0, 15.0, 15.0, 15.0]
 var fast_times = [18.5, 18.5, 18.5, 18.5, 18.5]
-var level_completion_stats = []
 
 var weapons = {
 	0: "res://scenes and scripts/baseball_bat.tscn",
@@ -102,6 +102,8 @@ func load_next_map() -> void:
 	if score_system:
 		current_score = score_system.score
 		multiplied_score = int(current_score * multiplier)
+	
+	total_time += level_completion_time
 	
 	get_tree().paused = true
 	
@@ -198,8 +200,17 @@ func show_game_completed_screen() -> void:
 		current_map_instance.queue_free()
 		current_map_instance = null
 	
+	var score_system = get_node_or_null("/root/ScoreSystem")
+	var final_score = 0
+	
+	if score_system:
+		final_score = score_system.score
+	
 	var game_completed_screen = game_completion_scene.instantiate()
 	get_tree().root.add_child(game_completed_screen)
+	
+	if game_completed_screen.has_method("setup_statistics"):
+		game_completed_screen.setup_statistics(final_score, total_time)
 	
 	current_map_sequence_position = 0
 
