@@ -16,6 +16,10 @@ TO-DO:
 
 -look at all the instancing in code - maybe all of it could be done in the editor instead?
 
+-rework all the codes where necessary, maybe use constants in some places?
+
+-take care of all the errors in the debugger
+
 -organize the project directory - including the assets, scenes and scripts - maybe upgrade the project to Godot 4.4?
 
 ///////////////////////////////////////////////////////////
