@@ -43,10 +43,8 @@ func _physics_process(_delta: float) -> void:
 	
 	var movement_velocity = direction * speed
 	knockback_velocity *= knockback_fadeout
-	
-	
 	velocity = movement_velocity + knockback_velocity
-	#velocity = direction * speed
+	
 	move_and_slide()
 	
 	look_at(get_global_mouse_position())

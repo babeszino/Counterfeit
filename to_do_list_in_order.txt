@@ -2,13 +2,15 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--implement jumping between walls for the player - should have some good logic and a proper use
-
 -add a wall jumping effect (simple grey smoke type of thing)
 
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
+-rebuild all of the maps
+
 -add sound effects to the game
+
+-make enemies return to original position and patrol state when losing line of sight to player for a few seconds
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
 
@@ -121,3 +123,7 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -take a look at rocket.gd - is the set_shooter function even needed? only the player can be the shooter
 
 -fix the reload progress bar changing sizes
+
+-implement jumping between walls for the player - should have some good logic and a proper use
+
+-create a separate player_movement.gd script for player movement related things?
