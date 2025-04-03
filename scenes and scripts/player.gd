@@ -91,7 +91,6 @@ func handle_hit(damage_amount: int = 1) -> void:
 		return
 	
 	health_point.hp -= damage_amount
-	print("Player took damage: ", damage_amount)
 	spawn_bleeding_effect()
 	
 	if health_point.hp <= 0:

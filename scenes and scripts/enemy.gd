@@ -48,7 +48,6 @@ func handle_hit(damage_amount: int = 50):
 		return
 	
 	health_point.hp -= damage_amount
-	print("Enemy took damage: ", damage_amount)
 	spawn_bleeding_effect()
 	
 	var player_nodes = get_tree().get_nodes_in_group("player")

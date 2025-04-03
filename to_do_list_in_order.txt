@@ -2,9 +2,9 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--fix the reload progress bar changing sizes
-
 -implement jumping between walls for the player - should have some good logic and a proper use
+
+-add a wall jumping effect (simple grey smoke type of thing)
 
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
@@ -115,3 +115,5 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -save the ScoreContainer from UI.tscn as a separate scene maybe
 
 -take a look at rocket.gd - is the set_shooter function even needed? only the player can be the shooter
+
+-fix the reload progress bar changing sizes
