@@ -123,6 +123,31 @@ func _on_completion_screen_continue(multiplier: float) -> void:
 		score_system.apply_multiplier(multiplier)
 	
 	current_map_sequence_position += 1
+	
+	if current_map_sequence_position == 2 or current_map_sequence_position == 4:
+		var transition_scene_load = load("res://scenes and scripts/transition_animation.tscn")
+		if transition_scene_load:
+			var transition_scene = transition_scene_load.instantiate()
+			get_tree().root.add_child(transition_scene)
+			
+			var animation_to_play = "mid_game"
+			if current_map_sequence_position == 4:
+				animation_to_play = "end_game"
+			
+			transition_scene.set_animation(animation_to_play)
+			transition_scene.connect("animation_completed", Callable(self, "_on_transition_animation_completed"))
+			
+			return
+	
+	if current_map_sequence_position >= randomized_map_indexes.size():
+		show_game_completed_screen()
+		return
+	
+	var next_map_index = randomized_map_indexes[current_map_sequence_position]
+	switch_to_map(next_map_index)
+
+
+func _on_transition_animation_completed() -> void:
 	if current_map_sequence_position >= randomized_map_indexes.size():
 		show_game_completed_screen()
 		return

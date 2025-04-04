@@ -23,6 +23,7 @@ ScoreSystem="*res://scenes and scripts/score_system.gd"
 
 [display]
 
+window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="res://assets/crosshair/cursor_crosshair.png"
 
 [gui]
