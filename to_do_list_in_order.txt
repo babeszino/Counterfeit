@@ -2,15 +2,11 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--add a wall jumping effect (simple grey smoke type of thing)
-
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
 -rebuild all of the maps
 
 -add sound effects to the game
-
--make enemies return to original position and patrol state when losing line of sight to player for a few seconds
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
 
