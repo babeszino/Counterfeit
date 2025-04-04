@@ -4,8 +4,6 @@ TO-DO:
 
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
--rebuild all of the maps
-
 -add sound effects to the game
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
@@ -123,3 +121,5 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -implement jumping between walls for the player - should have some good logic and a proper use
 
 -create a separate player_movement.gd script for player movement related things?
+
+-rebuild all of the maps
