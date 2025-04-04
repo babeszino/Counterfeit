@@ -9,8 +9,8 @@ var randomized_map_indexes : Array = []
 var level_start_time : float = 0.0
 var level_completion_time : float = 0.0
 var total_time : float = 0.0
-var very_fast_times = [15.0, 15.0, 15.0, 15.0, 15.0]
-var fast_times = [18.5, 18.5, 18.5, 18.5, 18.5]
+var very_fast_times : Array = [16.0, 19.0, 16.0, 17.0, 18.0] # x1.5 times
+var fast_times : Array = [20.0, 23.0, 20.0, 21.0, 22.0] # x1.25 times
 
 var weapons = {
 	0: "res://scenes and scripts/baseball_bat.tscn",
@@ -238,15 +238,20 @@ func start_level_timer() -> void:
 func calculate_score_multiplier() -> float:
 	level_completion_time = (Time.get_ticks_msec() / 1000) - level_start_time
 	
-	var very_fast_threshold = 15.0
-	var fast_threshold = 18.5
+	var very_fast_threshold = 15.0 # default
+	var fast_threshold = 18.5 # default
 	
-	if current_map_sequence_position < very_fast_times.size():
-		very_fast_threshold = very_fast_times[current_map_sequence_position]
+	if current_map_sequence_position < randomized_map_indexes.size():
+		var map_index = randomized_map_indexes[current_map_sequence_position]
+		
+		if map_index < very_fast_times.size():
+			fast_threshold = fast_times[map_index]
 	
 	if level_completion_time <= very_fast_threshold:
 		return 1.5
+	
 	elif level_completion_time <= fast_threshold:
 		return 1.25
+	
 	else:
 		return 1.0
