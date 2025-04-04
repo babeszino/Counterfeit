@@ -129,34 +129,34 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_mcyd5")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_nd1yk"]
-vertices = PackedVector2Array(310, 230, 250, 230, 250, 186, 266, 186, 310, 26, 266, 70, 138, 26, 138, 70)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 4, 5, 7)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(128, 16, 320, 16, 320, 240, 240, 240, 240, 176, 256, 176, 256, 80, 128, 80)])
+vertices = PackedVector2Array(320, 16, 320, 240, 240, 240, 256, 176, 240, 176, 256, 80, 128, 16, 128, 80)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 3), PackedInt32Array(0, 3, 5), PackedInt32Array(6, 0, 5, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(118, 16, 118, 6, 170, 6, 330, 6, 330, 250, 230, 250, 230, 176, 230, 166, 246, 166, 246, 90, 170, 90, 118, 90, 118, 80)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0owov"]
-vertices = PackedVector2Array(214, 230, 74, 230, 74, 186, 214, 186)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(224, 176, 64, 176, 64, 240, 96, 240, 144, 240, 176, 240, 224, 240)])
+vertices = PackedVector2Array(224, 176, 224, 240, 186, 240, 186, 230, 64, 176, 64, 230)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(234, 166, 54, 166, 54, 240, 96, 240, 144, 240, 176, 240, 176, 250, 234, 250)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_6v7ex"]
-vertices = PackedVector2Array(154, 266, 154, 231, 166, 231, 166, 310, 134, 310, 86, 266, 134, 346, 278, 346, 278, 394, 202, 374, 314, 394, 314, 346, 374, 346, 374, 422, 202, 422, 166, 374, 106, 346, 166, 422, 74, 422, 74, 346, 106, 310, 74, 310, 74, 231, 86, 231)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(10, 13, 14, 8), PackedInt32Array(8, 14, 9), PackedInt32Array(6, 9, 15, 16), PackedInt32Array(15, 17, 18, 19, 16), PackedInt32Array(4, 6, 16, 20), PackedInt32Array(5, 4, 20), PackedInt32Array(5, 20, 21), PackedInt32Array(5, 21, 22, 23)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(64, 221, 96, 221, 96, 256, 144, 256, 144, 221, 176, 221, 176, 320, 144, 320, 144, 336, 288, 336, 288, 384, 304, 384, 304, 336, 384, 336, 384, 432, 192, 432, 192, 384, 176, 384, 176, 432, 64, 432, 64, 336, 96, 336, 96, 320, 64, 320)])
+vertices = PackedVector2Array(154, 231, 185, 231, 185, 240, 176, 240, 154, 266, 176, 310, 134, 310, 86, 266, 134, 346, 278, 346, 278, 394, 202, 374, 314, 394, 314, 336, 384, 336, 384, 432, 202, 432, 166, 374, 106, 346, 166, 422, 74, 422, 74, 346, 106, 310, 64, 310, 64, 231, 86, 231)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(12, 13, 14, 15), PackedInt32Array(12, 15, 16, 10), PackedInt32Array(10, 16, 11), PackedInt32Array(8, 11, 17, 18), PackedInt32Array(17, 19, 20, 21, 18), PackedInt32Array(6, 8, 18, 22), PackedInt32Array(7, 6, 22), PackedInt32Array(7, 22, 23, 24), PackedInt32Array(25, 7, 24)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(54, 221, 96, 221, 96, 256, 144, 256, 144, 221, 195, 221, 195, 250, 186, 250, 186, 320, 144, 320, 144, 336, 288, 336, 288, 384, 304, 384, 304, 326, 394, 326, 394, 442, 192, 442, 192, 384, 176, 384, 176, 432, 64, 432, 64, 336, 96, 336, 96, 320, 54, 320)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5oehc"]
-vertices = PackedVector2Array(598, 250, 598, 310, 566, 310, 490, 250, 566, 346, 598, 346, 598, 422, 490, 394, 410, 422, 410, 346, 454, 346, 454, 394, 490, 346, 522, 346, 522, 310, 490, 310)
+vertices = PackedVector2Array(598, 250, 598, 310, 566, 310, 490, 250, 566, 346, 598, 346, 598, 432, 490, 394, 400, 432, 400, 336, 454, 336, 454, 394, 490, 346, 522, 346, 522, 310, 490, 310)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(6, 8, 11, 7), PackedInt32Array(7, 12, 13), PackedInt32Array(4, 7, 13, 2), PackedInt32Array(2, 13, 14), PackedInt32Array(3, 2, 14), PackedInt32Array(3, 14, 15)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(400, 336, 464, 336, 464, 384, 480, 384, 480, 336, 512, 336, 512, 320, 480, 320, 480, 240, 512, 240, 576, 240, 608, 240, 608, 320, 576, 320, 576, 336, 608, 336, 608, 432, 400, 432)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(390, 326, 464, 326, 464, 384, 480, 384, 480, 336, 512, 336, 512, 320, 480, 320, 480, 240, 512, 240, 576, 240, 608, 240, 608, 320, 576, 320, 576, 336, 608, 336, 608, 442, 390, 442)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_4lokc"]
-vertices = PackedVector2Array(710, 154, 710, 230, 598, 230, 586, 214, 598, 249, 586, 249, 502, 214, 502, 249, 490, 249, 490, 154)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 3), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(6, 9, 0, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(512, 259, 480, 259, 480, 144, 720, 144, 720, 240, 608, 240, 608, 259, 576, 259, 576, 224, 512, 224)])
+vertices = PackedVector2Array(720, 144, 720, 240, 598, 240, 586, 214, 598, 249, 586, 249, 490, 144, 502, 214, 490, 249, 502, 249)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 3), PackedInt32Array(6, 0, 3, 7), PackedInt32Array(8, 6, 7, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(512, 259, 480, 259, 480, 134, 730, 134, 730, 250, 608, 250, 608, 259, 576, 259, 576, 224, 512, 224)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_y1x6m"]
-vertices = PackedVector2Array(870, 442, 934, 442, 934, 522, 826, 566, 1030, 522, 1030, 566, 826, 346, 870, 406, 890, 346, 934, 406, 934, 154, 890, 310, 826, 310, 826, 230, 746, 154, 746, 230)
+vertices = PackedVector2Array(870, 442, 934, 442, 934, 522, 826, 566, 1030, 522, 1030, 566, 826, 346, 870, 406, 890, 346, 934, 406, 934, 144, 890, 310, 826, 310, 826, 240, 736, 144, 736, 240)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 3), PackedInt32Array(0, 3, 6, 7), PackedInt32Array(7, 6, 8, 9), PackedInt32Array(10, 9, 8, 11), PackedInt32Array(11, 12, 13, 10), PackedInt32Array(14, 10, 13, 15)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(736, 144, 944, 144, 944, 416, 880, 416, 880, 432, 944, 432, 944, 512, 1040, 512, 1040, 528, 1040, 560, 1040, 576, 816, 576, 816, 336, 880, 336, 880, 320, 816, 320, 816, 240, 736, 240)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(726, 134, 944, 134, 944, 416, 880, 416, 880, 432, 944, 432, 944, 512, 1040, 512, 1040, 528, 1040, 560, 1040, 576, 816, 576, 816, 336, 880, 336, 880, 320, 816, 320, 816, 250, 726, 250)])
 
 [node name="MapLayout1" type="Node2D"]
 

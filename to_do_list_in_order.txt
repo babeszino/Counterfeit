@@ -4,6 +4,8 @@ TO-DO:
 
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
 
+-set the multiplier times
+
 -add sound effects to the game
 
 -add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
