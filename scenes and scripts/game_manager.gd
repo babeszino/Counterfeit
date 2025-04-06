@@ -10,6 +10,7 @@ signal enemy_killed
 @onready var level_manager = $"../LevelManager"
 @onready var ui_container = $"../../UIContainer"
 @onready var state_manager = $"../GameStateManager"
+@onready var ui_manager = $"../UIManager"
 
 var player = null
 var ui = null
@@ -44,9 +45,9 @@ func start_game() -> void:
 	if player:
 		player.activate()
 	
-	if ui:
-		ui.set_player(player)
-		ui.show_game_ui()
+	if ui_manager:
+		ui_manager.set_player(player)
+		ui_manager.show_game_ui()
 	
 	var score_system = $"../ScoreSystem"
 	if score_system:
@@ -82,15 +83,15 @@ func restart_game() -> void:
 func pause_game() -> void:
 	emit_signal("game_paused")
 	
-	if pause_menu:
-		pause_menu.show()
+	if ui_manager:
+		ui_manager.show_pause_menu()
 
 
 func resume_game() -> void:
 	emit_signal("game_resumed")
 	
-	if pause_menu:
-		pause_menu.hide()
+	if ui_manager:
+		ui_manager.hide_pause_menu()
 
 
 func return_to_main_menu() -> void:
@@ -102,8 +103,8 @@ func return_to_main_menu() -> void:
 	
 	game_active = false
 	
-	if ui and ui.has_method("hide_game_ui"):
-		ui.hide_game_ui()
+	if ui_manager:
+		ui_manager.hide_all_game_ui()
 	
 	if pause_menu:
 		pause_menu.hide()
