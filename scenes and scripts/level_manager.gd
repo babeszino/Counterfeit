@@ -259,14 +259,19 @@ func assign_weapon() -> void:
 	if !player:
 		return
 	
-	# special case - rocket launcher time!
-	if current_map_sequence_position == 4:
-		if player.has_method("equip_weapon"):
-			player.equip_weapon(rocket_launcher)
-	
-	else:
-		if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
-			player.equip_weapon(weapons[current_map_sequence_position])
+	var weapon_manager = $"../WeaponManager"
+	if weapon_manager:
+		var weapon = weapon_manager.get_weapon_for_level(current_map_sequence_position)
+		if weapon and player.has_method("equip_weapon"):
+			player.equip_weapon(weapon)
+	#else:
+		## Fallback to old method if weapon manager doesn't exist
+		#if current_map_sequence_position == 4:
+			#if player.has_method("equip_weapon"):
+				#player.equip_weapon(rocket_launcher)
+		#else:
+			#if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
+				#player.equip_weapon(weapons[current_map_sequence_position])
 
 
 func start_level_timer() -> void:

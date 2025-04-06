@@ -1,11 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpoyniwfq3c1j"]
+[gd_scene load_steps=13 format=3 uid="uid://bpoyniwfq3c1j"]
 
 [ext_resource type="Script" path="res://scenes and scripts/game_manager.gd" id="1_0koby"]
 [ext_resource type="Script" path="res://scenes and scripts/main.gd" id="1_tvtuk"]
 [ext_resource type="Script" path="res://scenes and scripts/level_manager.gd" id="2_27cet"]
 [ext_resource type="Script" path="res://scenes and scripts/score_system.gd" id="3_kgbpd"]
 [ext_resource type="PackedScene" uid="uid://csp3sn1jfrc4q" path="res://scenes and scripts/ui.tscn" id="4_2ah3j"]
+[ext_resource type="Script" path="res://scenes and scripts/weapon_manager.gd" id="4_x53i6"]
 [ext_resource type="PackedScene" uid="uid://c70c3tbs3toos" path="res://scenes and scripts/player.tscn" id="6_80dge"]
+[ext_resource type="PackedScene" uid="uid://uhngxdfe4pyn" path="res://scenes and scripts/baseball_bat.tscn" id="7_kignq"]
+[ext_resource type="PackedScene" uid="uid://dxywyh2v0bi41" path="res://scenes and scripts/glock18.tscn" id="8_efc6u"]
+[ext_resource type="PackedScene" uid="uid://bq3eon7ux0sq3" path="res://scenes and scripts/double_barrel_shotgun.tscn" id="9_sx26o"]
+[ext_resource type="PackedScene" uid="uid://bet0ig2ohlwoa" path="res://scenes and scripts/m4.tscn" id="10_mo187"]
+[ext_resource type="PackedScene" uid="uid://dq6mrfih01xxj" path="res://scenes and scripts/rocket_launcher.tscn" id="11_kpmhb"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_tvtuk")
@@ -17,6 +23,9 @@ script = ExtResource("1_0koby")
 
 [node name="LevelManager" type="Node" parent="Managers"]
 script = ExtResource("2_27cet")
+
+[node name="WeaponManager" type="Node" parent="Managers"]
+script = ExtResource("4_x53i6")
 
 [node name="ScoreSystem" type="Node" parent="Managers"]
 script = ExtResource("3_kgbpd")
@@ -30,3 +39,15 @@ script = ExtResource("3_kgbpd")
 [node name="PlayerContainer" type="Node2D" parent="."]
 
 [node name="Player" parent="PlayerContainer" instance=ExtResource("6_80dge")]
+
+[node name="WeaponsContainer" type="Node" parent="."]
+
+[node name="BaseballBat" parent="WeaponsContainer" instance=ExtResource("7_kignq")]
+
+[node name="Glock18" parent="WeaponsContainer" instance=ExtResource("8_efc6u")]
+
+[node name="DoubleBarrel" parent="WeaponsContainer" instance=ExtResource("9_sx26o")]
+
+[node name="M4" parent="WeaponsContainer" instance=ExtResource("10_mo187")]
+
+[node name="RocketLauncher" parent="WeaponsContainer" instance=ExtResource("11_kpmhb")]
