@@ -14,6 +14,7 @@ var bloodstain_scene = preload("res://scenes and scripts/bloodstain.tscn")
 var gun = null
 var current_animation : String = "idle"
 var is_dying : bool = false
+var is_active : bool = false
 
 var knockback_velocity : Vector2 = Vector2.ZERO
 var knockback_fadeout : float = 0.8
@@ -22,6 +23,8 @@ var knockback_fadeout : float = 0.8
 func _ready() -> void:
 	player_animation.play("idle")
 	current_animation = "idle"
+	
+	deactivate()
 
 
 func _physics_process(_delta: float) -> void:
@@ -131,3 +134,35 @@ func spawn_bloodstain() -> void:
 	var bloodstain = bloodstain_scene.instantiate()
 	get_tree().root.add_child(bloodstain)
 	bloodstain.global_position = global_position
+
+
+func activate(spawn_position = null) -> void:
+	is_active = true
+	if spawn_position:
+		global_position = spawn_position
+	
+	visible = true
+	set_process(true)
+	set_physics_process(true)
+	player_collision.set_deferred("disabled", false)
+	
+	if has_node("Camera2D"):
+		$Camera2D.enabled = true
+	
+	health_point.hp = 100
+	is_dying = false
+
+
+func deactivate() -> void:
+	is_active = false
+	visible = false
+	set_process(false)
+	set_physics_process(false)
+	player_collision.set_deferred("disabled", true)
+	
+	if has_node("Camera2D"):
+		$Camera2D.enabled = false
+	
+	if gun:
+		gun.queue_free()
+		gun = null

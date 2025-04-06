@@ -40,11 +40,9 @@ func start_game() -> void:
 	
 	emit_signal("game_started")
 	
-	for child in player_container.get_children():
-		child.queue_free()
-	
-	player = preload("res://scenes and scripts/player.tscn").instantiate()
-	player_container.add_child(player)
+	player = player_container.get_node("Player")
+	if player:
+		player.activate()
 	
 	if ui:
 		ui.set_player(player)
@@ -74,6 +72,9 @@ func restart_game() -> void:
 	var score_system = $"../ScoreSystem"
 	if score_system:
 		score_system.reset_score()
+	
+	if player:
+		player.activate()
 	
 	start_game()
 
@@ -133,8 +134,7 @@ func on_enemy_died() -> void:
 
 func cleanup_entities() -> void:
 	if player:
-		player.queue_free()
-		player = null
+		player.deactivate()
 	
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	for enemy in enemies:
