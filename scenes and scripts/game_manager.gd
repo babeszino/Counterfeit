@@ -9,6 +9,7 @@ signal enemy_killed
 @onready var player_container = $"../../PlayerContainer"
 @onready var level_manager = $"../LevelManager"
 @onready var ui_container = $"../../UIContainer"
+@onready var state_manager = $"../GameStateManager"
 
 var player = null
 var ui = null
@@ -28,11 +29,10 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if game_active and event.is_action_pressed("ui_cancel"):
-		if get_tree().paused:
-			resume_game()
-		
-		else:
+		if state_manager and state_manager.is_playing():
 			pause_game()
+		elif state_manager and state_manager.is_paused():
+			resume_game()
 
 
 func start_game() -> void:
@@ -80,19 +80,17 @@ func restart_game() -> void:
 
 
 func pause_game() -> void:
-	get_tree().paused = true
+	emit_signal("game_paused")
 	
 	if pause_menu:
 		pause_menu.show()
 
 
 func resume_game() -> void:
-	get_tree().paused = false
+	emit_signal("game_resumed")
 	
 	if pause_menu:
 		pause_menu.hide()
-	
-	emit_signal("game_resumed")
 
 
 func return_to_main_menu() -> void:
