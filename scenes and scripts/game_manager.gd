@@ -6,23 +6,31 @@ signal game_resumed
 signal game_over
 signal enemy_killed
 
+@onready var player_container = $"../../PlayerContainer"
+@onready var level_manager = $"../LevelManager"
+@onready var ui_container = $"../../UIContainer"
+
 var player = null
 var ui = null
 var pause_menu = null
 var enemy_count = 0
 var game_active = false
-var level_manager = null
 
 
 func _ready() -> void:
 	enemy_count = 0
-	level_manager = get_node_or_null("/root/LevelManager")
+	
+	if ui_container.get_child_count() > 0:
+		ui = ui_container.get_child(0)
+		if ui and ui.has_node("PauseMenu"):
+			pause_menu = ui.get_node("PauseMenu")
 
 
 func _input(event: InputEvent) -> void:
 	if game_active and event.is_action_pressed("ui_cancel"):
 		if get_tree().paused:
 			resume_game()
+		
 		else:
 			pause_game()
 
@@ -32,15 +40,17 @@ func start_game() -> void:
 	
 	emit_signal("game_started")
 	
+	for child in player_container.get_children():
+		child.queue_free()
+	
 	player = preload("res://scenes and scripts/player.tscn").instantiate()
-	get_tree().root.add_child(player)
+	player_container.add_child(player)
 	
-	ui = preload("res://scenes and scripts/ui.tscn").instantiate()
-	get_tree().root.add_child(ui)
-	ui.set_player(player)
-	pause_menu = ui.get_node("PauseMenu")
+	if ui:
+		ui.set_player(player)
+		ui.show_game_ui()
 	
-	var score_system = get_node_or_null("/root/ScoreSystem")
+	var score_system = $"../ScoreSystem"
 	if score_system:
 		score_system.reset_score()
 	
@@ -48,6 +58,10 @@ func start_game() -> void:
 		level_manager.start_sequence()
 	
 	game_active = true
+	
+	var main_menu = get_node_or_null("/root/Main/Menu")
+	if main_menu:
+		main_menu.queue_free()
 
 
 func restart_game() -> void:
@@ -57,7 +71,7 @@ func restart_game() -> void:
 	
 	cleanup_entities()
 	
-	var score_system = get_node_or_null("/root/ScoreSystem")
+	var score_system = $"../ScoreSystem"
 	if score_system:
 		score_system.reset_score()
 	
@@ -89,8 +103,15 @@ func return_to_main_menu() -> void:
 	
 	game_active = false
 	
-	var main_menu = load("res://scenes and scripts/main_menu.tscn").instantiate()
-	get_tree().root.add_child(main_menu)
+	if ui and ui.has_method("hide_game_ui"):
+		ui.hide_game_ui()
+	
+	if pause_menu:
+		pause_menu.hide()
+	
+	var main = get_node("/root/Main")
+	if main and main.has_method("show_main_menu"):
+		main.show_main_menu()
 
 
 func quit_game() -> void:
@@ -114,10 +135,6 @@ func cleanup_entities() -> void:
 	if player:
 		player.queue_free()
 		player = null
-	
-	if ui:
-		ui.queue_free()
-		ui = null
 	
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	for enemy in enemies:

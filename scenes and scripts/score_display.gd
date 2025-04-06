@@ -14,7 +14,7 @@ func _ready():
 	
 	killstreak_display.visible = false
 	
-	var score_system = get_node("/root/ScoreSystem")
+	var score_system = get_node_or_null("/root/Main/Managers/ScoreSystem")
 	if score_system:
 		score_system.connect("score_changed", Callable(self, "update_score"))
 		score_system.connect("killstreak_updated", Callable(self, "update_killstreak"))

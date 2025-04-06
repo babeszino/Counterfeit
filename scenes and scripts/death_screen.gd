@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func _on_new_game_button_pressed() -> void:
-	var game_manager = get_node("/root/GameManager")
+	var game_manager = get_node("/root/Main/Managers/GameManager")
 	if game_manager:
 		get_tree().paused = false
 		game_manager.restart_game()
@@ -17,7 +17,7 @@ func _on_new_game_button_pressed() -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
-	var game_manager = get_node("/root/GameManager")
+	var game_manager = get_node("/root/Main/Managers/GameManager")
 	if game_manager:
 		game_manager.return_to_main_menu()
 	queue_free()

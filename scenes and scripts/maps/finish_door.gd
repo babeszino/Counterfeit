@@ -1,3 +1,4 @@
+# scenes and scripts/maps/finish_door.gd
 extends Node2D
 
 @onready var door_animation = $FinishDoor/FinishDoorAnimation
@@ -27,6 +28,6 @@ func open():
 
 func _on_body_entered(body):
 	if body.name == "Player" or body.is_in_group("player"):
-		var level_manager = get_node("/root/LevelManager")
+		var level_manager = get_node("/root/Main/Managers/LevelManager")
 		if level_manager:
 			level_manager.call_deferred("load_next_map")

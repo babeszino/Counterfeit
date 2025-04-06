@@ -41,7 +41,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
-	var game_manager = get_node("/root/GameManager")
+	var game_manager = get_node_or_null("/root/Main/Managers/GameManager")
 	if game_manager:
 		game_manager.return_to_main_menu()
 	

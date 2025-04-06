@@ -11,8 +11,10 @@ var waiting_for_input = false
 
 
 func _ready():
-	animation.play(animation_name)
+	# wait a bit for the animation_name to properly set
+	await get_tree().create_timer(0.05).timeout
 	
+	animation.play(animation_name)
 	animation_timer.start()
 
 

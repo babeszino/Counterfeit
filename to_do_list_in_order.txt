@@ -2,10 +2,6 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--add sound effects to the game
-
--add some cool stuff to the UI, like displaying the current weapon, showing an icon of the type of ammo it uses
-
 -restructuring - maybe actually have a main scene that instances everything, instead of doing it all in code
 
 -look at all the instancing in code - maybe all of it could be done in the editor instead?

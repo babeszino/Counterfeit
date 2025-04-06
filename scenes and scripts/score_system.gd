@@ -3,6 +3,8 @@ extends Node
 signal score_changed(new_score)
 signal killstreak_updated(streak_type, streak_count)
 
+@onready var game_manager = $"../GameManager"
+
 enum KillstreakType {
 	NONE,
 	SINGLE_KILL,
@@ -41,9 +43,11 @@ func _ready() -> void:
 	multi_kill_timer.timeout.connect(_on_multi_kill_timer_timeout)
 	add_child(multi_kill_timer)
 	
-	var game_manager = get_node("/root/GameManager")
+	await get_tree().process_frame
+	
 	if game_manager:
-		game_manager.connect("enemy_killed", Callable(self, "register_kill"))
+		if !game_manager.is_connected("enemy_killed", Callable(self, "register_kill")):
+			game_manager.connect("enemy_killed", Callable(self, "register_kill"))
 
 
 func register_kill() -> void:

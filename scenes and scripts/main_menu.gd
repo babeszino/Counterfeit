@@ -1,8 +1,9 @@
 extends Control
 
+signal start_game_pressed
+
 @onready var start_button = $VBoxContainer/StartButton
 @onready var quit_button = $VBoxContainer/QuitButton
-@onready var game_manager = get_node("/root/GameManager")
 
 
 func _ready() -> void:
@@ -22,8 +23,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_start_button_pressed() -> void:
-	if game_manager:
-		game_manager.start_game()
+	emit_signal("start_game_pressed")
 	
 	# hide main menu
 	visible = false

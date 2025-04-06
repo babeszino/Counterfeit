@@ -100,8 +100,10 @@ func handle_hit(damage_amount: int = 1) -> void:
 		if death_scene != null:
 			var death_screen_instance = death_scene.instantiate()
 			if death_screen_instance != null:
-				get_tree().root.add_child(death_screen_instance)
-		
+				var main_node = get_node_or_null("/root/Main")
+				if main_node:
+					main_node.add_child(death_screen_instance)
+				
 				get_tree().paused = true
 				visible = false
 				player_collision.set_deferred("disabled", true)

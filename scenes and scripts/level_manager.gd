@@ -1,5 +1,9 @@
 extends Node
 
+@onready var level_container = $"../../LevelContainer"
+@onready var player_container = $"../../PlayerContainer"
+@onready var game_manager = $"../GameManager"
+
 var current_map_index : int = 0
 var current_map_sequence_position : int = 0
 var maps : Array = []
@@ -25,12 +29,10 @@ var level_completed_screen = preload("res://scenes and scripts/level_completed_s
 var game_completion_scene = preload("res://scenes and scripts/game_completed_screen.tscn")
 var current_map_instance = null
 var finish_door_container = null
-var game_manager = null
 
 
 func _ready() -> void:
 	find_existing_maps()
-	game_manager = get_node_or_null("/root/GameManager")
 
 
 func find_existing_maps() -> void:
@@ -76,7 +78,7 @@ func switch_to_map(map_index) -> void:
 	if map_scene:
 		current_map_instance = map_scene.instantiate()
 		current_map_instance.name = "current_map"
-		add_child(current_map_instance)
+		level_container.add_child(current_map_instance)
 		
 		await get_tree().process_frame
 		
@@ -95,7 +97,7 @@ func switch_to_map(map_index) -> void:
 func load_next_map() -> void:
 	var multiplier = calculate_score_multiplier()
 	
-	var score_system = get_node_or_null("/root/ScoreSystem")
+	var score_system = $"../ScoreSystem"
 	var current_score = 0
 	var multiplied_score = 0
 	
@@ -118,7 +120,7 @@ func load_next_map() -> void:
 func _on_completion_screen_continue(multiplier: float) -> void:
 	get_tree().paused = false
 	
-	var score_system = get_node_or_null("/root/ScoreSystem")
+	var score_system = $"../ScoreSystem"
 	if score_system:
 		score_system.apply_multiplier(multiplier)
 	
@@ -157,12 +159,14 @@ func _on_transition_animation_completed() -> void:
 
 
 func position_player_on_map() -> void:
-	if !game_manager or !game_manager.player or !current_map_instance:
+	var player = game_manager.player if game_manager else null
+	
+	if !player or !current_map_instance:
 		return
 	
 	var spawn_point = current_map_instance.get_node_or_null("SpawnPoints/PlayerSpawn")
 	if spawn_point:
-		game_manager.player.global_position = spawn_point.global_position
+		player.global_position = spawn_point.global_position
 
 
 func spawn_enemies() -> void:
@@ -170,11 +174,13 @@ func spawn_enemies() -> void:
 		return
 	
 	var spawn_points = current_map_instance.get_node_or_null("SpawnPoints")
+	if not spawn_points:
+		return
 	
 	for child in spawn_points.get_children():
 		if "EnemySpawn" in child.name:
 			var enemy = preload("res://scenes and scripts/enemy.tscn").instantiate()
-			get_tree().root.add_child(enemy)
+			level_container.add_child(enemy)
 			enemy.global_position = child.global_position
 			enemy.enemy_died.connect(game_manager.on_enemy_died)
 			
@@ -192,10 +198,11 @@ func find_door() -> void:
 
 
 func reset_player_stats() -> void:
-	if !game_manager or !game_manager.player:
+	var player = game_manager.player if game_manager else null
+	
+	if !player:
 		return
 		
-	var player = game_manager.player
 	player.health_point.hp = 100
 	
 	var gun = player.get_node_or_null("Gun")
@@ -225,7 +232,13 @@ func show_game_completed_screen() -> void:
 		current_map_instance.queue_free()
 		current_map_instance = null
 	
-	var score_system = get_node_or_null("/root/ScoreSystem")
+	var ui_container = get_node_or_null("/root/Main/UIContainer")
+	if ui_container:
+		var ui_instance = ui_container.get_child(0)
+		if ui_instance:
+			ui_instance.hide_game_ui()
+	
+	var score_system = $"../ScoreSystem"
 	var final_score = 0
 	
 	if score_system:
@@ -241,10 +254,10 @@ func show_game_completed_screen() -> void:
 
 
 func assign_weapon() -> void:
-	if !game_manager or !game_manager.player:
-		return
+	var player = game_manager.player if game_manager else null
 	
-	var player = game_manager.player
+	if !player:
+		return
 	
 	# special case - rocket launcher time!
 	if current_map_sequence_position == 4:
