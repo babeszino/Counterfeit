@@ -63,7 +63,8 @@ animations = [{
 script = ExtResource("1_foxfm")
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
-position = Vector2(576, 324)
+position = Vector2(640, 360)
+scale = Vector2(1.12, 1.12)
 sprite_frames = SubResource("SpriteFrames_0hft8")
 animation = &"end_game"
 
