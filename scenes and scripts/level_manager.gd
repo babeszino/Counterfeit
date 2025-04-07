@@ -132,7 +132,6 @@ func _on_completion_screen_continue(multiplier: float) -> void:
 				animation_to_play = "end_game"
 			
 			ui_manager.show_transition_animation(animation_to_play)
-			
 			return
 	
 	if current_map_sequence_position >= randomized_map_indexes.size():
@@ -225,12 +224,6 @@ func show_game_completed_screen() -> void:
 	if current_map_instance:
 		current_map_instance.queue_free()
 		current_map_instance = null
-	
-	var ui_container = get_node_or_null("/root/Main/UIContainer")
-	if ui_container:
-		var ui_instance = ui_container.get_child(0)
-		if ui_instance:
-			ui_instance.hide_game_ui()
 	
 	var score_system = $"../ScoreSystem"
 	var final_score = 0

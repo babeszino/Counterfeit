@@ -56,6 +56,8 @@ process_mode = 3
 [node name="PauseMenu" parent="UIContainer" instance=ExtResource("12_tdus4")]
 
 [node name="HUD" parent="UIContainer" instance=ExtResource("4_2ah3j")]
+visible = false
+mouse_filter = 2
 
 [node name="LevelContainer" type="Node" parent="."]
 

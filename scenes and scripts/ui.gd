@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 @onready var health_display : Control = $TopContainer/HealthDisplay
 @onready var ammo_display : Label = $BottomContainer/AmmoDisplay
