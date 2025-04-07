@@ -127,13 +127,17 @@ func update_weapon_animation() -> void:
 		gun.set_player_moving(is_moving)
 
 
-func equip_weapon(weapon_scene_path: String) -> void:
+func equip_weapon(weapon_scene_path_or_instance) -> void:
 	if gun:
 		gun.queue_free()
 	
-	var weapon_scene = load(weapon_scene_path)
-	if weapon_scene:
-		gun = weapon_scene.instantiate()
+	var weapon_instance = null
+	
+	if weapon_scene_path_or_instance is Node:
+		weapon_instance = weapon_scene_path_or_instance
+	
+	if weapon_instance:
+		gun = weapon_instance
 		add_child(gun)
 	
 	if enemy_ai:

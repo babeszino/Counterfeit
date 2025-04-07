@@ -1,8 +1,11 @@
 extends Node
 
+signal map_ready(map_instance, sequence_position)
+
 @onready var level_container = $"../../LevelContainer"
 @onready var player_container = $"../../PlayerContainer"
 @onready var game_manager = $"../GameManager"
+@onready var enemy_manager = $"../EnemyManager"
 
 var current_map_index : int = 0
 var current_map_sequence_position : int = 0
@@ -68,7 +71,6 @@ func switch_to_map(map_index) -> void:
 	
 	current_map_index = map_index
 	
-	# remove old map (if exists)
 	cleanup_current_map()
 	
 	if game_manager:
@@ -85,11 +87,10 @@ func switch_to_map(map_index) -> void:
 		position_player_on_map()
 		reset_player_stats()
 		assign_weapon()
-		spawn_enemies()
+		
+		emit_signal("map_ready", current_map_instance, current_map_sequence_position)
 		
 		start_level_timer()
-		
-		await get_tree().process_frame
 		
 		find_door()
 
@@ -264,14 +265,6 @@ func assign_weapon() -> void:
 		var weapon = weapon_manager.get_weapon_for_level(current_map_sequence_position)
 		if weapon and player.has_method("equip_weapon"):
 			player.equip_weapon(weapon)
-	#else:
-		## Fallback to old method if weapon manager doesn't exist
-		#if current_map_sequence_position == 4:
-			#if player.has_method("equip_weapon"):
-				#player.equip_weapon(rocket_launcher)
-		#else:
-			#if weapons.has(current_map_sequence_position) and player.has_method("equip_weapon"):
-				#player.equip_weapon(weapons[current_map_sequence_position])
 
 
 func start_level_timer() -> void:

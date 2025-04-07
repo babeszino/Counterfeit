@@ -11,6 +11,7 @@ signal enemy_killed
 @onready var ui_container = $"../../UIContainer"
 @onready var state_manager = $"../GameStateManager"
 @onready var ui_manager = $"../UIManager"
+@onready var enemy_manager = $"../EnemyManager"
 
 var player = null
 var ui = null
@@ -135,9 +136,8 @@ func cleanup_entities() -> void:
 	if player:
 		player.deactivate()
 	
-	var enemies = get_tree().get_nodes_in_group("enemy")
-	for enemy in enemies:
-		enemy.queue_free()
+	if enemy_manager:
+		enemy_manager.clear_enemies()
 	
 	var bullets = get_tree().get_nodes_in_group("bullet")
 	for bullet in bullets:

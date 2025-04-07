@@ -112,14 +112,14 @@ func handle_hit(damage_amount: int = 1) -> void:
 				player_collision.set_deferred("disabled", true)
 
 
-func equip_weapon(weapon_scene_path_or_instance) -> void:
+func equip_weapon(weapon_scene_instance) -> void:
 	if gun:
 		gun.queue_free()
 	
 	var weapon_instance = null
 	
-	if weapon_scene_path_or_instance is Node:
-		weapon_instance = weapon_scene_path_or_instance
+	if weapon_scene_instance is Node:
+		weapon_instance = weapon_scene_instance
 	
 	if weapon_instance:
 		gun = weapon_instance
