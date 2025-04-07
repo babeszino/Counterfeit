@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bpoyniwfq3c1j"]
+[gd_scene load_steps=23 format=3 uid="uid://bpoyniwfq3c1j"]
 
 [ext_resource type="Script" path="res://scenes and scripts/game_manager.gd" id="1_0koby"]
 [ext_resource type="Script" path="res://scenes and scripts/main.gd" id="1_tvtuk"]
@@ -15,7 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://dxywyh2v0bi41" path="res://scenes and scripts/glock18.tscn" id="8_efc6u"]
 [ext_resource type="PackedScene" uid="uid://bq3eon7ux0sq3" path="res://scenes and scripts/double_barrel_shotgun.tscn" id="9_sx26o"]
 [ext_resource type="PackedScene" uid="uid://bet0ig2ohlwoa" path="res://scenes and scripts/m4.tscn" id="10_mo187"]
+[ext_resource type="PackedScene" uid="uid://4qfu5in5a81x" path="res://scenes and scripts/main_menu.tscn" id="11_b7vdj"]
 [ext_resource type="PackedScene" uid="uid://dq6mrfih01xxj" path="res://scenes and scripts/rocket_launcher.tscn" id="11_kpmhb"]
+[ext_resource type="PackedScene" uid="uid://dlra1pyn3q201" path="res://scenes and scripts/pause_menu.tscn" id="12_tdus4"]
+[ext_resource type="PackedScene" uid="uid://btjcobe1ly1xk" path="res://scenes and scripts/death_screen.tscn" id="13_saobv"]
+[ext_resource type="PackedScene" uid="uid://co3lp6ftwcm8x" path="res://scenes and scripts/level_completed_screen.tscn" id="14_h2lbo"]
+[ext_resource type="PackedScene" uid="uid://c1cow4bdg8cnn" path="res://scenes and scripts/game_completed_screen.tscn" id="15_qvvd5"]
+[ext_resource type="PackedScene" uid="uid://7l507ctbvla4" path="res://scenes and scripts/transition_animation.tscn" id="16_yia16"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_tvtuk")
@@ -48,7 +54,50 @@ script = ExtResource("3_kgbpd")
 
 [node name="UIContainer" type="CanvasLayer" parent="."]
 
-[node name="UI" parent="UIContainer" instance=ExtResource("4_2ah3j")]
+[node name="HUD" type="Control" parent="UIContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" parent="UIContainer/HUD" instance=ExtResource("4_2ah3j")]
+
+[node name="Menus" type="Control" parent="UIContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" parent="UIContainer/Menus" instance=ExtResource("11_b7vdj")]
+layout_mode = 1
+
+[node name="PauseMenu" parent="UIContainer/Menus" instance=ExtResource("12_tdus4")]
+layout_mode = 1
+
+[node name="Overlays" type="Control" parent="UIContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeathScreen" parent="UIContainer/Overlays" instance=ExtResource("13_saobv")]
+visible = false
+
+[node name="LevelCompletedScreen" parent="UIContainer/Overlays" instance=ExtResource("14_h2lbo")]
+visible = false
+
+[node name="GameCompletedScreen" parent="UIContainer/Overlays" instance=ExtResource("15_qvvd5")]
+visible = false
+layout_mode = 1
+
+[node name="TransitionAnimation" parent="UIContainer/Overlays" instance=ExtResource("16_yia16")]
+visible = false
 
 [node name="LevelContainer" type="Node" parent="."]
 
@@ -71,3 +120,8 @@ script = ExtResource("3_kgbpd")
 [node name="M4" parent="WeaponsContainer" instance=ExtResource("10_mo187")]
 
 [node name="RocketLauncher" parent="WeaponsContainer" instance=ExtResource("11_kpmhb")]
+
+[connection signal="start_game_pressed" from="UIContainer/Menus/MainMenu" to="." method="_on_main_menu_start_game_pressed"]
+[connection signal="main_menu_requested" from="UIContainer/Menus/PauseMenu" to="Managers/UIManager" method="_on_pause_menu_main_menu_requested"]
+[connection signal="quit_requested" from="UIContainer/Menus/PauseMenu" to="Managers/UIManager" method="_on_pause_menu_quit_requested"]
+[connection signal="resume_requested" from="UIContainer/Menus/PauseMenu" to="Managers/UIManager" method="_on_pause_menu_resume_requested"]

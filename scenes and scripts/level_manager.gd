@@ -110,12 +110,9 @@ func load_next_map() -> void:
 	
 	get_tree().paused = true
 	
-	var screen = level_completed_screen.instantiate()
-	get_tree().root.add_child(screen)
-	
-	screen.setup(level_completion_time, multiplier, current_score, multiplied_score)
-	
-	screen.connect("continue_pressed", Callable(self, '_on_completion_screen_continue'))
+	var ui_manager = get_node_or_null("/root/Main/Managers/UIManager") 
+	if ui_manager and ui_manager.has_method("show_level_completed_screen"):
+		ui_manager.show_level_completed_screen(level_completion_time, multiplier, current_score, multiplied_score)
 
 
 func _on_completion_screen_continue(multiplier: float) -> void:
@@ -128,17 +125,13 @@ func _on_completion_screen_continue(multiplier: float) -> void:
 	current_map_sequence_position += 1
 	
 	if current_map_sequence_position == 2 or current_map_sequence_position == 4:
-		var transition_scene_load = load("res://scenes and scripts/transition_animation.tscn")
-		if transition_scene_load:
-			var transition_scene = transition_scene_load.instantiate()
-			get_tree().root.add_child(transition_scene)
-			
+		var ui_manager = get_node_or_null("/root/Main/Managers/UIManager")
+		if ui_manager and ui_manager.has_method("show_transition_animation"):
 			var animation_to_play = "mid_game"
 			if current_map_sequence_position == 4:
 				animation_to_play = "end_game"
 			
-			transition_scene.set_animation(animation_to_play)
-			transition_scene.connect("animation_completed", Callable(self, "_on_transition_animation_completed"))
+			ui_manager.show_transition_animation(animation_to_play)
 			
 			return
 	
@@ -245,11 +238,9 @@ func show_game_completed_screen() -> void:
 	if score_system:
 		final_score = score_system.score
 	
-	var game_completed_screen = game_completion_scene.instantiate()
-	get_tree().root.add_child(game_completed_screen)
-	
-	if game_completed_screen.has_method("setup_statistics"):
-		game_completed_screen.setup_statistics(final_score, total_time)
+	var ui_manager = get_node_or_null("/root/Main/Managers/UIManager")
+	if ui_manager and ui_manager.has_method("show_game_completed_screen"):
+		ui_manager.show_game_completed_screen(final_score, total_time)
 	
 	current_map_sequence_position = 0
 

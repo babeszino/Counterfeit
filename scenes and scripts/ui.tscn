@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://csp3sn1jfrc4q"]
+[gd_scene load_steps=5 format=3 uid="uid://csp3sn1jfrc4q"]
 
 [ext_resource type="Script" path="res://scenes and scripts/ui.gd" id="1_qcsck"]
 [ext_resource type="PackedScene" uid="uid://mshkucx6t227" path="res://scenes and scripts/health_display.tscn" id="2_cx6hi"]
 [ext_resource type="PackedScene" uid="uid://b3mel4ctnym63" path="res://scenes and scripts/ammo_display.tscn" id="3_8han1"]
 [ext_resource type="PackedScene" uid="uid://c6t3uji20phab" path="res://scenes and scripts/score_display.tscn" id="5_wsrlm"]
-[ext_resource type="PackedScene" uid="uid://dlra1pyn3q201" path="res://scenes and scripts/pause_menu.tscn" id="7_1veam"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_qcsck")
@@ -36,8 +35,6 @@ theme_override_constants/margin_bottom = 30
 [node name="AmmoDisplay" parent="BottomContainer" instance=ExtResource("3_8han1")]
 layout_mode = 2
 
-[node name="PauseMenu" parent="." instance=ExtResource("7_1veam")]
-
 [node name="ScoreDisplay" parent="." instance=ExtResource("5_wsrlm")]
 
 [node name="TimerContainer" type="MarginContainer" parent="."]
@@ -58,7 +55,3 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 48
 text = "Time: 0:00"
 horizontal_alignment = 2
-
-[connection signal="main_menu_requested" from="PauseMenu" to="." method="_on_pause_menu_main_menu_requested"]
-[connection signal="quit_requested" from="PauseMenu" to="." method="_on_pause_menu_quit_requested"]
-[connection signal="resume_requested" from="PauseMenu" to="." method="_on_pause_menu_resume_requested"]

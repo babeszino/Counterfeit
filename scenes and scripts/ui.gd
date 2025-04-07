@@ -128,10 +128,12 @@ func show_game_ui() -> void:
 
 
 func hide_game_ui() -> void:
-	health_display.visible = false
-	ammo_display.visible = false
-	timer_label.visible = false
-	
+	if health_display:
+		health_display.visible = false
+	if ammo_display:
+		ammo_display.visible = false
+	if timer_label:
+		timer_label.visible = false
 	if score_display:
 		score_display.visible = false
 	

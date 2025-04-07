@@ -84,15 +84,15 @@ func restart_game() -> void:
 func pause_game() -> void:
 	emit_signal("game_paused")
 	
-	if ui_manager:
-		ui_manager.show_pause_menu()
+	if state_manager:
+		state_manager.change_state(state_manager.GameState.PAUSED)
 
 
 func resume_game() -> void:
 	emit_signal("game_resumed")
 	
-	if ui_manager:
-		ui_manager.hide_pause_menu()
+	if state_manager:
+		state_manager.change_state(state_manager.GameState.PLAYING)
 
 
 func return_to_main_menu() -> void:
@@ -104,15 +104,8 @@ func return_to_main_menu() -> void:
 	
 	game_active = false
 	
-	if ui_manager:
-		ui_manager.hide_all_game_ui()
-	
-	if pause_menu:
-		pause_menu.hide()
-	
-	var main = get_node("/root/Main")
-	if main and main.has_method("show_main_menu"):
-		main.show_main_menu()
+	if state_manager:
+		state_manager.change_state(state_manager.GameState.MAIN_MENU)
 
 
 func quit_game() -> void:

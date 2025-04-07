@@ -99,17 +99,12 @@ func handle_hit(damage_amount: int = 1) -> void:
 		
 		spawn_bloodstain()
 		
-		var death_scene = load("res://scenes and scripts/death_screen.tscn")
-		if death_scene != null:
-			var death_screen_instance = death_scene.instantiate()
-			if death_screen_instance != null:
-				var main_node = get_node_or_null("/root/Main")
-				if main_node:
-					main_node.add_child(death_screen_instance)
-				
-				get_tree().paused = true
-				visible = false
-				player_collision.set_deferred("disabled", true)
+		var ui_manager = get_node_or_null("/root/Main/Managers/UIManager")
+		if ui_manager and ui_manager.has_method("show_death_screen"):
+			ui_manager.show_death_screen()
+			get_tree().paused = true
+			visible = false
+			player_collision.set_deferred("disabled", true)
 
 
 func equip_weapon(weapon_scene_instance) -> void:
