@@ -12,9 +12,9 @@ signal reload_started
 
 # balancing
 var player_damage : int = 35
-var enemy_damage : int = 5
+var enemy_damage : int = 3
 var player_cooldown : float = 0.08
-var enemy_cooldown : float = 0.8
+var enemy_cooldown : float = 0.15
 
 var bullet_scene
 var max_ammo : int = 30
@@ -92,12 +92,6 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	if !attack_cooldown.is_stopped():
 		return false
 	
-	var bullet_instance = bullet_scene.instantiate()
-	get_tree().root.add_child(bullet_instance)
-	bullet_instance.global_position = end_of_gun.global_position
-	
-	bullet_instance.set_shooter(get_parent())
-	
 	if target_direction == Vector2.ZERO:
 		var mouse_direction = (get_global_mouse_position() - global_position).normalized()
 		var gun_forward = Vector2.RIGHT.rotated(global_rotation)
@@ -113,7 +107,9 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 		var spread = 0.08
 		target_direction = target_direction.rotated(randf_range(-spread, spread))
 	
-	bullet_instance.set_direction(target_direction)
+	var projectile_manager = get_tree().root.get_node_or_null("Main/Managers/ProjectileManager")
+	if projectile_manager:
+		projectile_manager.spawn_bullet(end_of_gun.global_position, target_direction, get_parent())
 	
 	current_ammo -= 1
 	

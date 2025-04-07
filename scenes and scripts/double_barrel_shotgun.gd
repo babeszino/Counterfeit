@@ -101,18 +101,13 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 			target_direction = mouse_direction
 	
 	# spawn more pellets (bullets) at once
+	var projectile_manager = get_tree().root.get_node_or_null("Main/Managers/ProjectileManager")
 	for i in range(pellet_count):
-		var bullet_instance = bullet_scene.instantiate()
-		get_tree().root.add_child(bullet_instance)
-		bullet_instance.global_position = end_of_gun.global_position
-		
-		bullet_instance.set_shooter(get_parent())
-		
-		# random spread angle
 		var spread = randf_range(-spread_angle/2, spread_angle/2)
 		var pellet_direction = target_direction.rotated(spread)
 		
-		bullet_instance.set_direction(pellet_direction)
+		if projectile_manager:
+			projectile_manager.spawn_bullet(end_of_gun.global_position, pellet_direction, get_parent())
 	
 	current_ammo -= 1
 	

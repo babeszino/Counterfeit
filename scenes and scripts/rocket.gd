@@ -65,11 +65,9 @@ func explode() -> void:
 		return
 	exploded = true
 	
-	var explosion_instance = explosion_scene.instantiate()
-	get_tree().root.add_child(explosion_instance)
-	explosion_instance.global_position = global_position
-	explosion_instance.shooter_group = shooter_group
-	explosion_instance.damage = explosive_damage
+	var projectile_manager = get_tree().root.get_node_or_null("Main/Managers/ProjectileManager")
+	if projectile_manager:
+		projectile_manager.spawn_explosion(global_position, shooter_group, explosive_damage)
 	
 	if collision_shape:
 		collision_shape.set_deferred("disabled", true)

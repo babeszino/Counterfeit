@@ -61,11 +61,9 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	if firing_direction == Vector2.ZERO:
 		firing_direction = (get_global_mouse_position() - global_position).normalized()
 	
-	var rocket_instance = rocket_scene.instantiate()
-	get_tree().root.add_child(rocket_instance)
-	rocket_instance.global_position = end_of_gun.global_position
-	rocket_instance.set_shooter(get_parent())
-	rocket_instance.set_direction(firing_direction)
+	var projectile_manager = get_tree().root.get_node_or_null("Main/Managers/ProjectileManager")
+	if projectile_manager:
+		projectile_manager.spawn_rocket(end_of_gun.global_position, firing_direction, get_parent())
 	
 	var parent = get_parent()
 	if parent and parent.is_in_group("player"):

@@ -139,13 +139,9 @@ func cleanup_entities() -> void:
 	if enemy_manager:
 		enemy_manager.clear_enemies()
 	
-	var bullets = get_tree().get_nodes_in_group("bullet")
-	for bullet in bullets:
-		bullet.queue_free()
-	
-	var rockets = get_tree().get_nodes_in_group("rocket")
-	for rocket in rockets:
-		rocket.queue_free()
+	var projectile_manager = $"../ProjectileManager"
+	if projectile_manager:
+		projectile_manager.clear_projectiles()
 	
 	if level_manager:
 		level_manager.cleanup_current_map()

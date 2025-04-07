@@ -124,7 +124,6 @@ path_max_distance = 500.0
 avoidance_enabled = true
 
 [node name="EnemyAI" type="Node2D" parent="."]
-visible = false
 script = ExtResource("5_nmkbx")
 
 [node name="PlayerDetectionZone" type="Area2D" parent="EnemyAI"]

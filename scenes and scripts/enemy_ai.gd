@@ -71,7 +71,12 @@ func process_attack_state(delta: float) -> void:
 		enemy.rotation = lerp_angle(enemy.rotation, direction.angle(), 0.1)
 		
 		if has_line_of_sight_to_player():
-			gun.shoot(direction)
+			if gun.get("auto_fire") == true:
+				if gun.has_method("can_shoot") and gun.can_shoot():
+					gun.shoot(direction)
+			
+			else:
+				gun.shoot(direction)
 
 
 func initialize(enemy_node, gun_node):

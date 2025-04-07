@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bpoyniwfq3c1j"]
+[gd_scene load_steps=17 format=3 uid="uid://bpoyniwfq3c1j"]
 
 [ext_resource type="Script" path="res://scenes and scripts/game_manager.gd" id="1_0koby"]
 [ext_resource type="Script" path="res://scenes and scripts/main.gd" id="1_tvtuk"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scenes and scripts/game_state_manager.gd" id="5_34edo"]
 [ext_resource type="PackedScene" uid="uid://c70c3tbs3toos" path="res://scenes and scripts/player.tscn" id="6_80dge"]
 [ext_resource type="Script" path="res://scenes and scripts/ui_manager.gd" id="6_d2ka2"]
+[ext_resource type="Script" path="res://scenes and scripts/projectile_manager.gd" id="6_de2v6"]
 [ext_resource type="PackedScene" uid="uid://uhngxdfe4pyn" path="res://scenes and scripts/baseball_bat.tscn" id="7_kignq"]
 [ext_resource type="PackedScene" uid="uid://dxywyh2v0bi41" path="res://scenes and scripts/glock18.tscn" id="8_efc6u"]
 [ext_resource type="PackedScene" uid="uid://bq3eon7ux0sq3" path="res://scenes and scripts/double_barrel_shotgun.tscn" id="9_sx26o"]
@@ -33,6 +34,9 @@ script = ExtResource("4_bx2m0")
 [node name="WeaponManager" type="Node" parent="Managers"]
 script = ExtResource("4_x53i6")
 
+[node name="ProjectileManager" type="Node" parent="Managers"]
+script = ExtResource("6_de2v6")
+
 [node name="GameStateManager" type="Node" parent="Managers"]
 script = ExtResource("5_34edo")
 
@@ -53,6 +57,8 @@ script = ExtResource("3_kgbpd")
 [node name="Player" parent="PlayerContainer" instance=ExtResource("6_80dge")]
 
 [node name="EnemyContainer" type="Node" parent="."]
+
+[node name="ProjectileContainer" type="Node" parent="."]
 
 [node name="WeaponsContainer" type="Node" parent="."]
 
