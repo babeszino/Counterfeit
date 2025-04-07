@@ -102,9 +102,10 @@ func handle_hit(damage_amount: int = 1) -> void:
 		var ui_manager = get_node_or_null("/root/Main/Managers/UIManager")
 		if ui_manager and ui_manager.has_method("show_death_screen"):
 			ui_manager.show_death_screen()
-			get_tree().paused = true
-			visible = false
-			player_collision.set_deferred("disabled", true)
+		
+		get_tree().paused = true
+		visible = false
+		player_collision.set_deferred("disabled", true)
 
 
 func equip_weapon(weapon_scene_instance) -> void:

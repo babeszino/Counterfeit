@@ -2,13 +2,14 @@ extends Node
 
 @onready var game_manager = $Managers/GameManager
 @onready var ui_manager = $Managers/UIManager
-@onready var state_manager = $Managers/GameStateManager
+
 
 func _ready() -> void:
 	await get_tree().process_frame
 	
-	if state_manager:
-		state_manager.change_state(state_manager.GameState.MAIN_MENU)
+	if ui_manager:
+		ui_manager.show_main_menu()
+
 
 func show_main_menu() -> void:
 	if ui_manager:

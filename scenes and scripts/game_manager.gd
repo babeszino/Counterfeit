@@ -58,10 +58,6 @@ func start_game() -> void:
 		level_manager.start_sequence()
 	
 	game_active = true
-	
-	var main_menu = get_node_or_null("/root/Main/Menu")
-	if main_menu:
-		main_menu.queue_free()
 
 
 func restart_game() -> void:

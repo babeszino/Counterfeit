@@ -2,7 +2,6 @@ extends CanvasLayer
 
 @onready var health_display : Control = $TopContainer/HealthDisplay
 @onready var ammo_display : Label = $BottomContainer/AmmoDisplay
-@onready var pause_menu : Control = $PauseMenu
 @onready var timer_label : Label = $TimerContainer/TimerLabel
 @onready var score_display : MarginContainer = $ScoreDisplay
 
@@ -92,9 +91,6 @@ func _on_pause_menu_resume_requested() -> void:
 func _on_pause_menu_main_menu_requested() -> void:
 	var game_manager = get_node_or_null("/root/Main/Managers/GameManager")
 	if game_manager:
-		if pause_menu:
-			pause_menu.hide()
-		
 		get_tree().paused = false
 		game_manager.return_to_main_menu()
 
@@ -136,9 +132,6 @@ func hide_game_ui() -> void:
 		timer_label.visible = false
 	if score_display:
 		score_display.visible = false
-	
-	if pause_menu:
-		pause_menu.hide()
 	
 	$TopContainer.visible = false
 	$BottomContainer.visible = false
