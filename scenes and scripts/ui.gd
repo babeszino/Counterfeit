@@ -17,11 +17,13 @@ func _ready() -> void:
 	
 	health_display.hide_all_health_bars()
 	
-	# connect to player (if it already exists)
 	find_player()
 
 
 func _process(_delta: float) -> void:
+	if get_tree().paused:
+		return
+	
 	if player == null:
 		find_player()
 		return

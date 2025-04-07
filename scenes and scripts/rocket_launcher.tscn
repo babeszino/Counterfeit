@@ -73,7 +73,7 @@ sprite_frames = SubResource("SpriteFrames_pf3y3")
 animation = &"shoot"
 
 [node name="EndOfGun" type="Marker2D" parent="."]
-position = Vector2(96, 24)
+position = Vector2(108, 12)
 
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.1

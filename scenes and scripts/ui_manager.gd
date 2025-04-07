@@ -12,18 +12,15 @@ var player_ref = null
 
 
 func _ready() -> void:
-	# Connect to state manager
 	if state_manager:
 		if not state_manager.is_connected("state_changed", Callable(self, "_on_game_state_changed")):
 			state_manager.connect("state_changed", Callable(self, "_on_game_state_changed"))
 
-	# Connect main menu signals
 	if main_menu:
 		if not main_menu.is_connected("start_game_pressed", Callable(self, "_on_start_game_pressed")):
 			main_menu.connect("start_game_pressed", Callable(self, "_on_start_game_pressed"))
 	
 	if pause_menu:
-		# Connect signals
 		if pause_menu.has_signal("resume_requested"):
 			pause_menu.connect("resume_requested", Callable(self, "_on_resume_requested"))
 		if pause_menu.has_signal("main_menu_requested"):
@@ -31,7 +28,6 @@ func _ready() -> void:
 		if pause_menu.has_signal("quit_requested"):
 			pause_menu.connect("quit_requested", Callable(self, "_on_quit_requested"))
 		
-		# Make sure it starts hidden
 		pause_menu.visible = false
 	
 	if hud:
@@ -52,6 +48,12 @@ func set_player(player_node) -> void:
 func show_main_menu() -> void:
 	if main_menu:
 		main_menu.visible = true
+		
+		await get_tree().process_frame
+		
+		var start_button = main_menu.get_node_or_null("VBoxContainer/StartButton")
+		if start_button:
+			start_button.grab_focus()
 
 
 func hide_main_menu() -> void:
@@ -93,7 +95,6 @@ func show_level_completed_screen(completion_time: float, multiplier: float, orig
 	if level_completed.has_method("setup"):
 		level_completed.setup(completion_time, multiplier, original_score, multiplied_score)
 	
-	# Connect the continue_pressed signal to level_manager
 	var level_manager = get_node_or_null("/root/Main/Managers/LevelManager")
 	if level_manager and level_completed.has_signal("continue_pressed"):
 		level_completed.connect("continue_pressed", Callable(level_manager, "_on_completion_screen_continue"))
@@ -115,7 +116,6 @@ func show_transition_animation(animation_name: String) -> void:
 	if transition.has_method("set_animation"):
 		transition.set_animation(animation_name)
 	
-	# Connect the animation_completed signal to level_manager
 	var level_manager = get_node_or_null("/root/Main/Managers/LevelManager")
 	if level_manager and transition.has_signal("animation_completed"):
 		transition.connect("animation_completed", Callable(level_manager, "_on_transition_animation_completed"))

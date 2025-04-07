@@ -107,7 +107,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_aigob")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_054iw")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_gj5v8")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_8clog")
-text = "Main Menu"
+text = "Return to main menu"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)

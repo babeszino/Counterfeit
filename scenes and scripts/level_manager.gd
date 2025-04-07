@@ -108,6 +108,11 @@ func load_next_map() -> void:
 	
 	total_time += level_completion_time
 	
+	if current_map_sequence_position + 1 >= randomized_map_indexes.size():
+		get_tree().paused = true
+		show_game_completed_screen()
+		return
+	
 	get_tree().paused = true
 	
 	var ui_manager = get_node_or_null("/root/Main/Managers/UIManager") 

@@ -1,6 +1,7 @@
 extends Control
 
 var main_menu : String = "res://scenes and scripts/main_menu.tscn"
+
 @onready var main_menu_button = $VBoxContainer/MainMenuButton
 @onready var quit_button = $VBoxContainer/QuitButton
 @onready var final_score_label = $VBoxContainer/FinalScore
