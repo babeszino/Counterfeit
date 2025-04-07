@@ -2,8 +2,8 @@ extends Node
 
 @onready var ui_container = $"../../UIContainer"
 @onready var main_menu = $"../../UIContainer/MainMenu" 
-@onready var hud = null  # We'll instance this when needed
-@onready var pause_menu = null  # We'll instance this when needed
+@onready var hud = $"../../UIContainer/HUD"
+@onready var pause_menu = $"../../UIContainer/PauseMenu"
 
 @onready var game_manager = $"../GameManager"
 @onready var state_manager = $"../GameStateManager"
@@ -18,9 +18,24 @@ func _ready() -> void:
 			state_manager.connect("state_changed", Callable(self, "_on_game_state_changed"))
 
 	# Connect main menu signals
-	if main_menu and main_menu.has_signal("start_game_pressed"):
+	if main_menu:
 		if not main_menu.is_connected("start_game_pressed", Callable(self, "_on_start_game_pressed")):
 			main_menu.connect("start_game_pressed", Callable(self, "_on_start_game_pressed"))
+	
+	if pause_menu:
+		# Connect signals
+		if pause_menu.has_signal("resume_requested"):
+			pause_menu.connect("resume_requested", Callable(self, "_on_resume_requested"))
+		if pause_menu.has_signal("main_menu_requested"):
+			pause_menu.connect("main_menu_requested", Callable(self, "_on_main_menu_requested"))
+		if pause_menu.has_signal("quit_requested"):
+			pause_menu.connect("quit_requested", Callable(self, "_on_quit_requested"))
+		
+		# Make sure it starts hidden
+		pause_menu.visible = false
+	
+	if hud:
+		hud.visible = false
 
 
 func _on_start_game_pressed() -> void:
@@ -34,40 +49,6 @@ func set_player(player_node) -> void:
 		hud.set_player(player_ref)
 
 
-func create_hud() -> void:
-	# Create HUD only if needed
-	if not hud:
-		var hud_scene = load("res://scenes and scripts/ui.tscn")
-		if hud_scene:
-			hud = hud_scene.instantiate()
-			ui_container.add_child(hud)
-			hud.name = "HUD"
-	
-	if hud:
-		hud.visible = true
-
-
-func create_pause_menu() -> void:
-	# Create pause menu only if needed
-	if not pause_menu:
-		var pause_menu_scene = load("res://scenes and scripts/pause_menu.tscn")
-		if pause_menu_scene:
-			pause_menu = pause_menu_scene.instantiate() 
-			ui_container.add_child(pause_menu)
-			pause_menu.name = "PauseMenu"
-			
-			# Connect signals
-			if pause_menu.has_signal("resume_requested"):
-				pause_menu.connect("resume_requested", Callable(self, "_on_resume_requested"))
-			if pause_menu.has_signal("main_menu_requested"):
-				pause_menu.connect("main_menu_requested", Callable(self, "_on_main_menu_requested"))
-			if pause_menu.has_signal("quit_requested"):
-				pause_menu.connect("quit_requested", Callable(self, "_on_quit_requested"))
-	
-	if pause_menu:
-		pause_menu.visible = true
-
-
 func show_main_menu() -> void:
 	if main_menu:
 		main_menu.visible = true
@@ -79,7 +60,8 @@ func hide_main_menu() -> void:
 
 
 func show_hud() -> void:
-	create_hud()  # Create if needed
+	if hud:
+		hud.visible = true
 
 
 func hide_hud() -> void:
@@ -88,7 +70,8 @@ func hide_hud() -> void:
 
 
 func show_pause_menu() -> void:
-	create_pause_menu()  # Create if needed
+	if pause_menu:
+		pause_menu.visible = true
 
 
 func hide_pause_menu() -> void:
@@ -142,7 +125,9 @@ func hide_all_game_ui() -> void:
 
 func show_game_ui() -> void:
 	hide_main_menu()
-	show_hud()
+	if hud:
+		hud.visible = true
+		hud.show_game_ui()
 
 
 func _on_game_state_changed(old_state, new_state) -> void:

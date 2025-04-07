@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://bpoyniwfq3c1j"]
+[gd_scene load_steps=19 format=3 uid="uid://bpoyniwfq3c1j"]
 
 [ext_resource type="Script" path="res://scenes and scripts/game_manager.gd" id="1_0koby"]
 [ext_resource type="Script" path="res://scenes and scripts/main.gd" id="1_tvtuk"]
 [ext_resource type="Script" path="res://scenes and scripts/level_manager.gd" id="2_27cet"]
 [ext_resource type="Script" path="res://scenes and scripts/score_system.gd" id="3_kgbpd"]
+[ext_resource type="PackedScene" uid="uid://csp3sn1jfrc4q" path="res://scenes and scripts/ui.tscn" id="4_2ah3j"]
 [ext_resource type="Script" path="res://scenes and scripts/enemy_manager.gd" id="4_bx2m0"]
 [ext_resource type="Script" path="res://scenes and scripts/weapon_manager.gd" id="4_x53i6"]
 [ext_resource type="Script" path="res://scenes and scripts/game_state_manager.gd" id="5_34edo"]
@@ -16,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bet0ig2ohlwoa" path="res://scenes and scripts/m4.tscn" id="10_mo187"]
 [ext_resource type="PackedScene" uid="uid://4qfu5in5a81x" path="res://scenes and scripts/main_menu.tscn" id="11_b7vdj"]
 [ext_resource type="PackedScene" uid="uid://dq6mrfih01xxj" path="res://scenes and scripts/rocket_launcher.tscn" id="11_kpmhb"]
+[ext_resource type="PackedScene" uid="uid://dlra1pyn3q201" path="res://scenes and scripts/pause_menu.tscn" id="12_tdus4"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_tvtuk")
@@ -50,6 +52,10 @@ script = ExtResource("3_kgbpd")
 process_mode = 3
 
 [node name="MainMenu" parent="UIContainer" instance=ExtResource("11_b7vdj")]
+
+[node name="PauseMenu" parent="UIContainer" instance=ExtResource("12_tdus4")]
+
+[node name="HUD" parent="UIContainer" instance=ExtResource("4_2ah3j")]
 
 [node name="LevelContainer" type="Node" parent="."]
 
