@@ -2,13 +2,9 @@
 TO-DO:
 ///////////////////////////////////////////////////////////
 
--restructuring - maybe actually have a main scene that instances everything, instead of doing it all in code
-
--look at all the instancing in code - maybe all of it could be done in the editor instead?
-
 -rework all the codes where necessary, maybe use constants in some places?
 
--take care of all the errors in the debugger
+-take care of all the warnings in the debugger
 
 -organize the project directory - including the assets, scenes and scripts - maybe upgrade the project to Godot 4.4?
 
@@ -119,3 +115,7 @@ the Player's detection zone - repeat until either the Player dies or the Enemy d
 -rebuild all of the maps
 
 -add transition animations that plays when the player advances to the next level - these should give something to the story of the game
+
+-restructuring - maybe actually have a main scene that instances everything, instead of doing it all in code
+
+-look at all the instancing in code - maybe all of it could be done in the editor instead?

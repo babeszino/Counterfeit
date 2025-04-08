@@ -7,7 +7,7 @@ enum State { GUARD, ATTACK }
 @onready var line_of_sight = $LineOfSightRay
 
 var player : CharacterBody2D = null
-var gun = null
+var weapon = null
 var enemy : CharacterBody2D = null
 var current_state : int = State.GUARD
 
@@ -66,22 +66,22 @@ func process_guard_state(delta: float) -> void:
 
 
 func process_attack_state(delta: float) -> void:
-	if player != null and gun != null and enemy != null:
+	if player != null and weapon != null and enemy != null:
 		var direction = enemy.global_position.direction_to(player.global_position)
 		enemy.rotation = lerp_angle(enemy.rotation, direction.angle(), 0.1)
 		
 		if has_line_of_sight_to_player():
-			if gun.get("auto_fire") == true:
-				if gun.has_method("can_shoot") and gun.can_shoot():
-					gun.shoot(direction)
+			if weapon.get("auto_fire") == true:
+				if weapon.has_method("can_shoot") and weapon.can_shoot():
+					weapon.shoot(direction)
 			
 			else:
-				gun.shoot(direction)
+				weapon.shoot(direction)
 
 
-func initialize(enemy_node, gun_node):
+func initialize(enemy_node, weapon_node):
 	self.enemy = enemy_node
-	self.gun = gun_node
+	self.weapon = weapon_node
 	
 	if line_of_sight:
 		line_of_sight.enabled = true

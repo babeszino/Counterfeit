@@ -38,19 +38,19 @@ func _process(_delta: float) -> void:
 	else:
 		health_display.hide_all_health_bars()
 	
-	var gun = player.get_node_or_null("Gun")
-	if gun == null:
+	var weapon = player.get_node_or_null("Weapon")
+	if weapon == null:
 		for child in player.get_children():
 			if child.has_method("get_ammo_display"):
-				gun = child
+				weapon = child
 				break
 	
-	if gun != null and gun.has_method("get_ammo_display"):
-		var ammo_text = gun.get_ammo_display()
+	if weapon != null and weapon.has_method("get_ammo_display"):
+		var ammo_text = weapon.get_ammo_display()
 		update_ammo_display(ammo_text)
 		
-		if gun.has_signal("reload_started") and !gun.is_connected("reload_started", Callable(self, "_on_gun_reload_started")):
-			gun.connect("reload_started", Callable(self, "_on_gun_reload_started"))
+		if weapon.has_signal("reload_started") and !weapon.is_connected("reload_started", Callable(self, "_on_weapon_reload_started")):
+			weapon.connect("reload_started", Callable(self, "_on_weapon_reload_started"))
 	else:
 		update_ammo_display("-- / --")
 	
@@ -69,9 +69,9 @@ func find_player() -> void:
 
 func set_player(player_node) -> void:
 	if player != null:
-		var old_gun = player.get_node_or_null("Gun")
-		if old_gun != null and old_gun.has_signal("reload_started") and old_gun.is_connected("reload_started", Callable(self, "_on_gun_reload_started")):
-			old_gun.disconnect("reload_started", Callable(self, "_on_gun_reload_started"))
+		var old_weapon = player.get_node_or_null("Weapon")
+		if old_weapon != null and old_weapon.has_signal("reload_started") and old_weapon.is_connected("reload_started", Callable(self, "_on_weapon_reload_started")):
+			old_weapon.disconnect("reload_started", Callable(self, "_on_weapon_reload_started"))
 	
 	player = player_node
 
@@ -109,7 +109,7 @@ func update_timer(elapsed_seconds: float) -> void:
 	timer_label.text = "Time: " + str(minutes) + ":" + str(seconds).pad_zeros(2)
 
 
-func _on_gun_reload_started(duration: float) -> void:
+func _on_weapon_reload_started(duration: float) -> void:
 	if ammo_display and ammo_display.has_method("start_reload_progress"):
 		ammo_display.start_reload_progress(duration)
 

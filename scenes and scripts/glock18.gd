@@ -3,7 +3,7 @@
 # ################
 extends Node2D
 
-class_name Gun
+class_name Glock18
 
 signal reload_started
 
@@ -16,7 +16,7 @@ signal reload_started
 
 # fegyver balance valtozok
 var player_damage : int = 50
-var enemy_damage : int = 10
+var enemy_damage : int = 6
 var player_cooldown : float = 0.1
 var enemy_cooldown : float = 0.7
 

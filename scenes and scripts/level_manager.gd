@@ -203,13 +203,13 @@ func reset_player_stats() -> void:
 		
 	player.health_point.hp = 100
 	
-	var gun = player.get_node_or_null("Gun")
-	if gun != null:
-		if gun.get("max_ammo") != null and gun.get("current_ammo") != null:
-			gun.current_ammo = gun.max_ammo
+	var weapon = player.get_node_or_null("Weapon")
+	if weapon != null:
+		if weapon.get("max_ammo") != null and weapon.get("current_ammo") != null:
+			weapon.current_ammo = weapon.max_ammo
 		
-		if gun.get("is_reloading") != null:
-			gun.is_reloading = false
+		if weapon.get("is_reloading") != null:
+			weapon.is_reloading = false
 
 
 func cleanup_current_map() -> void:
