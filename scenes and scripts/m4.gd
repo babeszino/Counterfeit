@@ -16,7 +16,7 @@ signal reload_started
 
 # fegyver balance valtozok
 var player_damage : int = 35
-var enemy_damage : int = 3
+var enemy_damage : int = 2
 var player_cooldown : float = 0.08
 var enemy_cooldown : float = 0.15
 

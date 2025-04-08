@@ -1,3 +1,7 @@
+# ################
+# player falugras kepesseg
+# lehetove teszi, hogy a player atugorjon ugrofalakon (JumpWall tilemap layer-eken)
+# ################
 extends Node2D
 
 # node reference-ek
