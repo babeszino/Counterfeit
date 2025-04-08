@@ -66,12 +66,6 @@ func setup_weapon_owner() -> void:
 		active_animation = enemy_animation
 		is_enemy = true
 		attack_cooldown.wait_time = enemy_cooldown
-	
-	#else:
-		#player_animation.visible = true
-		#enemy_animation.visible = false
-		#active_animation = player_animation
-		#is_enemy = false
 
 
 # felautomata es automata loves, illetve toltes allapotok feldolgozasa

@@ -62,10 +62,6 @@ func setup_weapon_owner() -> void:
 		enemy_animation.visible = true
 		active_animation = enemy_animation
 		attack_cooldown.wait_time = enemy_cooldown
-		
-	#else:
-		#player_animation.visible = true
-		#active_animation = player_animation
 
 
 # loves es toltes allapotok feldolgozasa
