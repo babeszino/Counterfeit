@@ -52,8 +52,8 @@ func _physics_process(_delta: float) -> void:
 	
 	look_at(get_global_mouse_position())
 	
-	if gun and gun.has_method("set_player_moving"):
-		gun.set_player_moving(direction != Vector2.ZERO)
+	if gun and gun.has_method("set_owner_moving"):
+		gun.set_owner_moving(direction != Vector2.ZERO)
 	
 	update_animation(direction)
 

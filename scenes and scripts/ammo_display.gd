@@ -1,13 +1,21 @@
+# ################
+# jatekos jelenlegi ammo-janak, illetve az ujratoltes progress bar-nak a frissitese
+# ################
 extends Label
 
+# node reference a progress bar-ra
 @onready var reload_progress : ProgressBar = $ReloadProgress
+
+# reload progress bar-hoz
 var reload_tween : Tween
 
 
+# ammo display text frissites
 func update_ammo(ammo_text: String) -> void:
 	text = ammo_text
 
 
+# reload progress bar animacio elinditasa
 func start_reload_progress(duration: float) -> void:
 	if reload_tween and reload_tween.is_valid():
 		reload_tween.kill()
@@ -20,5 +28,6 @@ func start_reload_progress(duration: float) -> void:
 	reload_tween.tween_callback(Callable(self, "_on_reload_complete"))
 
 
+# ha veget er a reload progress bar animation
 func _on_reload_complete() -> void:
 	reload_progress.visible = false

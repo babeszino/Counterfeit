@@ -1,37 +1,44 @@
+# ################
+# duplacsovu shotgun, ami szorassal rendelkezik es pellet-eket lo (tobb bullet-et)
+# ################
 extends Node2D
 
 class_name DoubleBarrelShotgun
 
 signal reload_started
 
+# node reference-ek
 @onready var end_of_gun = $EndOfGun
 @onready var attack_cooldown = $AttackCooldown
 @onready var reload_timer = $ReloadTimer
 @onready var player_animation = $PlayerAnimation
 @onready var enemy_animation = $EnemyAnimation
 
-# balancing
+# fegyver balance valtozok
 var player_damage : int = 45
 var enemy_damage : int = 2
 var player_cooldown : float = 0.08
 var enemy_cooldown : float = 1
 
+# fegyver property-k
 var bullet_scene
 var max_ammo : int = 2
 var current_ammo : int = 2
 var is_reloading : bool = false
 var weapon_name : String = "Double Barrel Shotgun"
 var auto_fire : bool = false
-var pellet_count : int = 6  # pellets per shot
-var spread_angle : float = 0.6  # spread angle (radians!)
+var pellet_count : int = 6  # pellet-ek szama lovesenkent
+var spread_angle : float = 0.6  # szorasi szog (radianban)
 
+# animacio allapot valtozok
 var current_animation : String = "idle"
 var is_shooting : bool = false
-var player_moving : bool = false
+var owner_moving : bool = false
 var active_animation = null
 var is_enemy : bool = false
 
 
+# fegyver inicializalasa
 func _ready() -> void:
 	current_ammo = max_ammo
 	bullet_scene = load("res://scenes and scripts/bullet.tscn")
@@ -43,6 +50,7 @@ func _ready() -> void:
 		current_animation = "idle"
 
 
+# feyver beallitasa az owner alapjan (player vagy enemy)
 func setup_weapon_owner() -> void:
 	var parent = get_parent()
 	
@@ -60,13 +68,14 @@ func setup_weapon_owner() -> void:
 		is_enemy = true
 		attack_cooldown.wait_time = enemy_cooldown
 	
-	else:
-		player_animation.visible = true
-		enemy_animation.visible = false
-		active_animation = player_animation
-		is_enemy = false
+	#else:
+		#player_animation.visible = true
+		#enemy_animation.visible = false
+		#active_animation = player_animation
+		#is_enemy = false
 
 
+# loves es toltes allapotok feldolgozasa
 func _process(_delta: float) -> void:
 	if current_ammo <= 0 and !is_reloading:
 		reload()
@@ -79,6 +88,10 @@ func _process(_delta: float) -> void:
 		update_animation_state()
 
 
+# loves, ha a feltetelek engedik
+# target_direction parameter az enemy ai lovesi iranyahoz (ha meg van adva)
+# ha ZERO marad a target_direction parameter, akkor a kurzor pozicioja lesz a player lovesi iranya
+# visszateresi ertek -> sikeres volt-e a loves
 func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	if current_ammo <= 0:
 		reload()
@@ -90,6 +103,7 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	if !attack_cooldown.is_stopped():
 		return false
 	
+	# lovesi irany kiszamitasa a player szamara
 	if target_direction == Vector2.ZERO:
 		var mouse_direction = (get_global_mouse_position() - global_position).normalized()
 		var gun_forward = Vector2.RIGHT.rotated(global_rotation)
@@ -100,7 +114,7 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 		else:
 			target_direction = mouse_direction
 	
-	# spawn more pellets (bullets) at once
+	# egyszerre tobb pellet (bullet) spawn-olasa
 	var projectile_manager = get_tree().root.get_node_or_null("Main/Managers/ProjectileManager")
 	for i in range(pellet_count):
 		var spread = randf_range(-spread_angle/2, spread_angle/2)
@@ -124,6 +138,7 @@ func shoot(target_direction: Vector2 = Vector2.ZERO) -> bool:
 	return true
 
 
+# fegyver ujratoltes
 func reload() -> void:
 	if !is_reloading and current_ammo < max_ammo:
 		is_reloading = true
@@ -131,25 +146,30 @@ func reload() -> void:
 		emit_signal("reload_started", reload_timer.wait_time)
 
 
+# tud-e loni a fegyver
 func can_shoot() -> bool:
 	return attack_cooldown.is_stopped() and current_ammo > 0 and !is_reloading
 
 
+# timer az ujratoltes vegenek meghatarozasahoz
 func _on_reload_timer_timeout() -> void:
 	current_ammo = max_ammo
 	is_reloading = false
 	update_animation_state()
 
 
+# ammo display text
 func get_ammo_display() -> String:
 	return str(current_ammo) + " / " + str(max_ammo)
 
 
-func set_player_moving(moving: bool) -> void:
-	player_moving = moving
+# player es enemy animacio mozgasi allapotanak frissitese
+func set_owner_moving(moving: bool) -> void:
+	owner_moving = moving
 	update_animation_state()
 
 
+# helyes animacio beallitasa a fegyver allapota alapjan - idle, shoot, walk animaciok
 func update_animation_state() -> void:
 	if not active_animation:
 		return
@@ -159,7 +179,7 @@ func update_animation_state() -> void:
 			active_animation.play("shoot")
 			current_animation = "shoot"
 	
-	elif player_moving:
+	elif owner_moving:
 		if current_animation != "walk":
 			active_animation.play("walk")
 			current_animation = "walk"
@@ -170,14 +190,17 @@ func update_animation_state() -> void:
 			current_animation = "idle"
 
 
+# "fire" gomb megnyomasanak kezelese (loves)
 func fire_pressed() -> void:
 	shoot()
 
 
+# konzisztencia - mas fegyverek miatt
 func fire_released() -> void:
 	pass
 
 
+# helyes damage ertekek visszaadasa owner alapjan (player vagy enemy)
 func get_damage() -> int:
 	var parent = get_parent()
 	if parent and parent.is_in_group("player"):

@@ -95,8 +95,8 @@ func navigate_to_player(delta: float) -> void:
 	var distance_to_player = global_position.distance_to(enemy_ai.player.global_position)
 	if distance_to_player > attack_distance:
 		velocity = direction * movement_speed
-		if gun and gun.has_method("set_player_moving"):
-			gun.set_player_moving(false)
+		if gun and gun.has_method("set_owner_moving"):
+			gun.set_owner_moving(false)
 	else:
 		velocity = Vector2.ZERO
 
@@ -122,9 +122,9 @@ func update_animation() -> void:
 
 
 func update_weapon_animation() -> void:
-	if gun and gun.has_method("set_player_moving"):
+	if gun and gun.has_method("set_owner_moving"):
 		var is_moving = velocity.length() > 10.0
-		gun.set_player_moving(is_moving)
+		gun.set_owner_moving(is_moving)
 
 
 func equip_weapon(weapon_scene_path_or_instance) -> void:

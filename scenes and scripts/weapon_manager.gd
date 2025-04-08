@@ -22,7 +22,6 @@ func get_weapon(weapon_name: String) -> Node:
 
 
 func get_weapon_instance(weapon_type: String) -> Node:
-	# Instead of duplicating, we'll load the original scenes
 	var scene_paths = {
 		"BaseballBat": "res://scenes and scripts/baseball_bat.tscn",
 		"Glock18": "res://scenes and scripts/glock18.tscn",
