@@ -90,7 +90,7 @@ func actor_setup() -> void:
 
 
 # mozgas a jatekos fele navigation-t hasznalva (ATTACK state-ben)
-func navigate_to_player(delta: float) -> void:
+func navigate_to_player(_delta: float) -> void:
 	if enemy_ai == null or enemy_ai.player == null:
 		return
 	

@@ -1,18 +1,17 @@
-# scenes and scripts/maps/finish_door.gd
+# ################
+# palya befejezesi ajto, ami akkor nyilik ki, ha minden enemy halott az aktualis palyan
+# ha a player bemegy az ajton, akkor trigger-elodik az atvezeto animacio
+# ################
 extends Node2D
 
+# node reference-ek
 @onready var door_animation = $FinishDoor/FinishDoorAnimation
 @onready var door_collision = $DoorBody/CollisionShape2D
-@onready var door_area = $FinishDoor
-@onready var static_body = $DoorBody
 
 var door_is_open : bool = false
 
 
-func _ready():
-	door_is_open = false
-
-
+# ajto kinyitasa
 func open():
 	if door_is_open:
 		return
@@ -26,8 +25,9 @@ func open():
 	door_collision.disabled = true
 
 
+# atvezeto animacio trigger-elese, ha a player bemegy az ajton
 func _on_body_entered(body):
-	if body.name == "Player" or body.is_in_group("player"):
-		var level_manager = get_node("/root/Main/Managers/LevelManager")
+	if body.is_in_group("player"):
+		var level_manager = get_node_or_null("/root/Main/Managers/LevelManager")
 		if level_manager:
 			level_manager.call_deferred("load_next_map")

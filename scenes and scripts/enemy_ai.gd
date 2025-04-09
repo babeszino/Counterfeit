@@ -74,7 +74,7 @@ func process_current_state(delta: float) -> void:
 
 
 # enemy viselkedese guard state-ben
-func process_guard_state(delta: float) -> void:
+func process_guard_state(_delta: float) -> void:
 	var enemy_movement = enemy.get_node_or_null("EnemyMovement")
 	if enemy_movement:
 		enemy_movement.patrol()
@@ -84,7 +84,7 @@ func process_guard_state(delta: float) -> void:
 
 
 # enemy viselkedese attack state-ben
-func process_attack_state(delta: float) -> void:
+func process_attack_state(_delta: float) -> void:
 	if player != null and weapon != null and enemy != null:
 		var direction = enemy.global_position.direction_to(player.global_position)
 		enemy.rotation = lerp_angle(enemy.rotation, direction.angle(), 0.1)

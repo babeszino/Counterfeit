@@ -20,7 +20,6 @@ func _ready():
 		game_manager.connect("game_started", Callable(self, "_on_game_started"))
 		game_manager.connect("game_paused", Callable(self, "_on_game_paused"))
 		game_manager.connect("game_resumed", Callable(self, "_on_game_resumed"))
-		game_manager.connect("game_over", Callable(self, "_on_game_over"))
 
 
 func change_state(new_state):
