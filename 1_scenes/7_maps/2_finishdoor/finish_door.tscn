@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://b0sglxudbhfom"]
 
-[ext_resource type="Script" path="res://scenes and scripts/maps/finish_door.gd" id="1_vgy78"]
+[ext_resource type="Script" path="res://1_scenes/7_maps/2_finishdoor/finish_door.gd" id="1_vgy78"]
 [ext_resource type="Texture2D" uid="uid://dr5ka3fb3e7sk" path="res://assets/map layouts/door_animation_spritesheet.png" id="2_dhdwn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x2bq2"]

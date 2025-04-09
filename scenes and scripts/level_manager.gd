@@ -17,7 +17,7 @@ signal map_ready(map_instance, sequence_position)
 var current_map_index : int = 0
 var current_map_sequence_position : int = 0
 var maps : Array = []
-var maps_path : String = "res://scenes and scripts/maps/"
+var maps_path : String = "res://1_scenes/7_maps/1_layouts/"
 var randomized_map_indexes : Array = []
 
 # palya timer valtozok

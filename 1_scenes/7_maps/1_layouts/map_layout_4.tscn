@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=4 uid="uid://ythrlwp0jwqc"]
 
 [ext_resource type="Texture2D" uid="uid://d0p2kpba620mv" path="res://assets/map layouts/map_layout_4_tileset.png" id="1_d8y76"]
-[ext_resource type="PackedScene" uid="uid://b0sglxudbhfom" path="res://scenes and scripts/finish_door.tscn" id="2_nes25"]
+[ext_resource type="PackedScene" uid="uid://b0sglxudbhfom" path="res://1_scenes/7_maps/2_finishdoor/finish_door.tscn" id="2_nes25"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uynp0"]
 texture = ExtResource("1_d8y76")
