@@ -15,6 +15,23 @@ func _ready() -> void:
 	new_game_button.grab_focus()
 
 
+func _process(_delta: float) -> void:
+	if new_game_button.has_focus():
+		new_game_button.text = ">New game<"
+	else:
+		new_game_button.text = "New game"
+	
+	if main_menu_button.has_focus():
+		main_menu_button.text = ">Return to main menu<"
+	else:
+		main_menu_button.text = "Return to main menu"
+	
+	if quit_button.has_focus():
+		quit_button.text = ">Quit<"
+	else:
+		quit_button.text = "Quit"
+
+
 # jatek ujrainditasa 
 func _on_new_game_button_pressed() -> void:
 	var game_manager = get_node("/root/Main/Managers/GameManager")

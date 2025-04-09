@@ -1,10 +1,17 @@
+# ################
+# score display script - pontszam es killstreak megjelenitese
+# kezeli az animaciokat es a lathatosagot
+# ################
 extends MarginContainer
 
+# node reference-ek
 @onready var score_display = $VBoxContainer/ScoreDisplay
 @onready var killstreak_display = $VBoxContainer/KillstreakDisplay
+
 var killstreak_timer: Timer
 
 
+# timer inicializalasa, signal-ok osszekapcsolasa
 func _ready():
 	killstreak_timer = Timer.new()
 	killstreak_timer.wait_time = 2.0
@@ -20,10 +27,12 @@ func _ready():
 		score_system.connect("killstreak_updated", Callable(self, "update_killstreak"))
 
 
+# pontszam frissitese
 func update_score(new_score: int) -> void:
 	score_display.text = str(new_score)
 
 
+# megfelelo killstreak felirat megjelenitese es timer-jenek elinditasa
 func update_killstreak(streak_type: int) -> void:
 	match streak_type:
 		0:
@@ -46,10 +55,12 @@ func update_killstreak(streak_type: int) -> void:
 			killstreak_display.visible = true
 			killstreak_timer.start()
 	
+	# killstreak animacio
 	var tween = create_tween()
 	tween.tween_property(killstreak_display, "scale", Vector2(1.2, 1.2), 0.1)
 	tween.tween_property(killstreak_display, "scale", Vector2(1.0, 1.0), 0.1)
 
 
+# killstreak eltuntetese, ha lejar a killstreak timer
 func _on_killstreak_timer_timeout() -> void:
 	killstreak_display.visible = false
