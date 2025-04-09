@@ -12,11 +12,6 @@ var weapon_map = {
 }
 
 
-func _ready() -> void:
-	for weapon in weapons_container.get_children():
-		weapon.visible = false
-
-
 func get_weapon(weapon_name: String) -> Node:
 	return weapons_container.get_node_or_null(weapon_name)
 

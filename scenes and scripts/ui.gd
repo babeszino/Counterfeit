@@ -10,13 +10,7 @@ var player = null
 
 
 func _ready() -> void:
-	health_display.visible = false
-	ammo_display.visible = false
-	timer_label.visible = false
-	score_display.visible = false
-	
 	health_display.hide_all_health_bars()
-	
 	find_player()
 
 

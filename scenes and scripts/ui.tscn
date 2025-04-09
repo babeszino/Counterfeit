@@ -15,6 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_qcsck")
 
 [node name="TopContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_right = 296.0
 offset_bottom = 90.0
 theme_override_constants/margin_left = 20
@@ -23,6 +24,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="HealthDisplay" parent="TopContainer" instance=ExtResource("2_cx6hi")]
+visible = false
 layout_mode = 2
 
 [node name="BottomContainer" type="MarginContainer" parent="."]
@@ -40,9 +42,11 @@ theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
 [node name="AmmoDisplay" parent="BottomContainer" instance=ExtResource("3_8han1")]
+visible = false
 layout_mode = 2
 
 [node name="ScoreDisplay" parent="." instance=ExtResource("5_wsrlm")]
+visible = false
 layout_mode = 1
 
 [node name="TimerContainer" type="MarginContainer" parent="."]
@@ -57,6 +61,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
 [node name="TimerLabel" type="Label" parent="TimerContainer"]
+visible = false
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)

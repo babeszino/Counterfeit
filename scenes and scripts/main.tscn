@@ -68,11 +68,16 @@ mouse_filter = 2
 [node name="WeaponsContainer" type="Node" parent="."]
 
 [node name="BaseballBat" parent="WeaponsContainer" instance=ExtResource("7_kignq")]
+visible = false
 
 [node name="Glock18" parent="WeaponsContainer" instance=ExtResource("8_efc6u")]
+visible = false
 
 [node name="DoubleBarrel" parent="WeaponsContainer" instance=ExtResource("9_sx26o")]
+visible = false
 
 [node name="M4" parent="WeaponsContainer" instance=ExtResource("10_mo187")]
+visible = false
 
 [node name="RocketLauncher" parent="WeaponsContainer" instance=ExtResource("11_kpmhb")]
+visible = false
