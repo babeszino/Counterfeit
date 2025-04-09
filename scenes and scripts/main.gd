@@ -1,3 +1,7 @@
+# ################
+# lev el controller script - palyabetoltes, atvezetesek, tovabbhaladas
+# kezeli a palyakat, a player pozicionalasat es egy palya befejezeset
+# ################
 extends Node
 
 @onready var game_manager = $Managers/GameManager

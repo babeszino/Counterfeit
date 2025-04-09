@@ -1,43 +1,45 @@
+# ################
+# lev el controller script - palyabetoltes, atvezetesek, tovabbhaladas
+# kezeli a palyakat, a player pozicionalasat es egy palya befejezeset
+# ################
 extends Node
 
+# map ready signal - emit, ha egy uj palya betolt es ready
 signal map_ready(map_instance, sequence_position)
 
+# node reference-ek
 @onready var level_container = $"../../LevelContainer"
 @onready var player_container = $"../../PlayerContainer"
 @onready var game_manager = $"../GameManager"
 @onready var enemy_manager = $"../EnemyManager"
 
+# palyakezelo valtozok
 var current_map_index : int = 0
 var current_map_sequence_position : int = 0
 var maps : Array = []
 var maps_path : String = "res://scenes and scripts/maps/"
 var randomized_map_indexes : Array = []
 
+# palya timer valtozok
 var level_start_time : float = 0.0
 var level_completion_time : float = 0.0
 var total_time : float = 0.0
+
+# teljesitesi ido threshold-ok (kuszobok) szorzohoz
 var very_fast_times : Array = [16.0, 19.0, 16.0, 17.0, 18.0] # x1.5 times
 var fast_times : Array = [20.0, 23.0, 20.0, 21.0, 22.0] # x1.25 times
 
-var weapons = {
-	0: "res://scenes and scripts/baseball_bat.tscn",
-	1: "res://scenes and scripts/glock18.tscn",
-	2: "res://scenes and scripts/double_barrel_shotgun.tscn",
-	3: "res://scenes and scripts/m4.tscn",
-	4: "res://scenes and scripts/m4.tscn"
-}
-var rocket_launcher : String = "res://scenes and scripts/rocket_launcher.tscn"
-
-var level_completed_screen = preload("res://scenes and scripts/level_completed_screen.tscn")
-var game_completion_scene = preload("res://scenes and scripts/game_completed_screen.tscn")
+# jelenlegi palya reference-ek
 var current_map_instance = null
 var finish_door_container = null
 
 
+# palyak keresesenek elinditasa
 func _ready() -> void:
 	find_existing_maps()
 
 
+#  palyak kigyujtese a mappajukbol
 func find_existing_maps() -> void:
 	var dir = DirAccess.open(maps_path)
 	dir.list_dir_begin()
@@ -51,6 +53,7 @@ func find_existing_maps() -> void:
 	maps.sort()
 
 
+# randomizalt sorozat letrehozasa a palyaknak
 func randomize_map_order() -> void:
 	randomized_map_indexes = []
 	for i in range(maps.size()):
@@ -59,12 +62,14 @@ func randomize_map_order() -> void:
 	randomized_map_indexes.shuffle()
 
 
+# a palyasorozat inditasa
 func start_sequence() -> void:
 	randomize_map_order()
 	current_map_sequence_position = 0
 	switch_to_map(randomized_map_indexes[current_map_sequence_position])
 
 
+# palyavaltas - palya betoltese es beallitasa
 func switch_to_map(map_index) -> void:
 	if map_index < 0 or map_index >= maps.size():
 		return
@@ -95,6 +100,7 @@ func switch_to_map(map_index) -> void:
 		find_door()
 
 
+# jelenlegi palya befejezesenek feldolgozasa es kovetkezo palya betoltese
 func load_next_map() -> void:
 	var multiplier = calculate_score_multiplier()
 	
@@ -120,6 +126,7 @@ func load_next_map() -> void:
 		ui_manager.show_level_completed_screen(level_completion_time, multiplier, multiplied_score)
 
 
+# folytatas a kovetkezo palyara, ha a jatekos continue-t nyom
 func _on_completion_screen_continue(multiplier: float) -> void:
 	get_tree().paused = false
 	
@@ -129,6 +136,7 @@ func _on_completion_screen_continue(multiplier: float) -> void:
 	
 	current_map_sequence_position += 1
 	
+	# atvezeto animaciok megjelenitese a masodik es a negyedik palya befejezese utan
 	if current_map_sequence_position == 2 or current_map_sequence_position == 4:
 		var ui_manager = get_node_or_null("/root/Main/Managers/UIManager")
 		if ui_manager and ui_manager.has_method("show_transition_animation"):
@@ -147,6 +155,7 @@ func _on_completion_screen_continue(multiplier: float) -> void:
 	switch_to_map(next_map_index)
 
 
+# ha vege az atvezeto animacionak
 func _on_transition_animation_completed() -> void:
 	if current_map_sequence_position >= randomized_map_indexes.size():
 		show_game_completed_screen()
@@ -156,6 +165,7 @@ func _on_transition_animation_completed() -> void:
 	switch_to_map(next_map_index)
 
 
+# a player elhelyezese a PlayerSpawn Marker2D node poziciojaba
 func position_player_on_map() -> void:
 	var player = game_manager.player if game_manager else null
 	
@@ -167,27 +177,7 @@ func position_player_on_map() -> void:
 		player.global_position = spawn_point.global_position
 
 
-func spawn_enemies() -> void:
-	if !game_manager or !current_map_instance:
-		return
-	
-	var spawn_points = current_map_instance.get_node_or_null("SpawnPoints")
-	if not spawn_points:
-		return
-	
-	for child in spawn_points.get_children():
-		if "EnemySpawn" in child.name:
-			var enemy = preload("res://scenes and scripts/enemy.tscn").instantiate()
-			level_container.add_child(enemy)
-			enemy.global_position = child.global_position
-			enemy.enemy_died.connect(game_manager.on_enemy_died)
-			
-			if enemy.has_method("equip_weapon") and weapons.has(current_map_sequence_position):
-				enemy.equip_weapon(weapons[current_map_sequence_position])
-			
-			game_manager.register_enemy()
-
-
+# a finish door megkeresese az aktualis palyan
 func find_door() -> void:
 	if !current_map_instance:
 		return
@@ -195,6 +185,7 @@ func find_door() -> void:
 	finish_door_container = current_map_instance.get_node_or_null("FinishDoorContainer")
 
 
+# a player eleterejenek es fegyverenek (ujratoltes) reset-elese 
 func reset_player_stats() -> void:
 	var player = game_manager.player if game_manager else null
 	
@@ -212,6 +203,7 @@ func reset_player_stats() -> void:
 			weapon.is_reloading = false
 
 
+# aktualis palya cleanup-olasa (takaritasa) -> bloodstain effektek eltuntetese
 func cleanup_current_map() -> void:
 	if current_map_instance:
 		current_map_instance.queue_free()
@@ -222,6 +214,8 @@ func cleanup_current_map() -> void:
 		bloodstain.queue_free()
 
 
+# jatek befejezo kepernyo megjelenitese
+# vegso statisztikak megjelenitese - osszesitett pontszam, osszesitett teljesitesi ido
 func show_game_completed_screen() -> void:
 	if game_manager:
 		game_manager.cleanup_entities()
@@ -243,6 +237,7 @@ func show_game_completed_screen() -> void:
 	current_map_sequence_position = 0
 
 
+# helyes fegyveradas a player-nek a az aktualis palyasorozat szama alapjan
 func assign_weapon() -> void:
 	var player = game_manager.player if game_manager else null
 	
@@ -256,15 +251,17 @@ func assign_weapon() -> void:
 			player.equip_weapon(weapon)
 
 
+# palya timer elinditasa
 func start_level_timer() -> void:
 	level_start_time = Time.get_ticks_msec() / 1000.0
 
 
+# palya vegi szorzo meghatarozasa az aktualis palya threshold-jai alapjan
 func calculate_score_multiplier() -> float:
 	level_completion_time = (Time.get_ticks_msec() / 1000) - level_start_time
 	
-	var very_fast_threshold = 15.0 # default
-	var fast_threshold = 18.5 # default
+	var very_fast_threshold : float
+	var fast_threshold : float
 	
 	if current_map_sequence_position < randomized_map_indexes.size():
 		var map_index = randomized_map_indexes[current_map_sequence_position]

@@ -24,7 +24,7 @@ func update_score(new_score: int) -> void:
 	score_display.text = str(new_score)
 
 
-func update_killstreak(streak_type: int, streak_count: int) -> void:
+func update_killstreak(streak_type: int) -> void:
 	match streak_type:
 		0:
 			killstreak_display.visible = false

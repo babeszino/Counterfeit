@@ -1,7 +1,7 @@
 extends Node
 
 signal score_changed(new_score)
-signal killstreak_updated(streak_type, streak_count)
+signal killstreak_updated(streak_type)
 
 @onready var game_manager = $"../GameManager"
 
@@ -57,20 +57,20 @@ func register_kill() -> void:
 	
 	if current_killstreak == 1:
 		double_kill_timer.start()
-		emit_signal("killstreak_updated", KillstreakType.SINGLE_KILL, current_killstreak)
+		emit_signal("killstreak_updated", KillstreakType.SINGLE_KILL)
 	
 	elif current_killstreak == 2:
 		double_kill_timer.stop()
 		triple_kill_timer.start()
-		emit_signal("killstreak_updated", KillstreakType.DOUBLE_KILL, current_killstreak)
+		emit_signal("killstreak_updated", KillstreakType.DOUBLE_KILL)
 	
 	elif current_killstreak == 3:
 		triple_kill_timer.stop()
 		multi_kill_timer.start()
-		emit_signal("killstreak_updated", KillstreakType.TRIPLE_KILL, current_killstreak)
+		emit_signal("killstreak_updated", KillstreakType.TRIPLE_KILL)
 	
 	elif current_killstreak >= 4:
-		emit_signal("killstreak_updated", KillstreakType.MULTI_KILL, current_killstreak)
+		emit_signal("killstreak_updated", KillstreakType.MULTI_KILL)
 		multi_kill_timer.stop()
 		multi_kill_timer.start()
 
@@ -83,14 +83,14 @@ func add_score(points: int) -> void:
 func _on_double_kill_timer_timeout() -> void:
 	if current_killstreak == 1:
 		current_killstreak = 0
-		emit_signal("killstreak_updated", KillstreakType.NONE, 0)
+		emit_signal("killstreak_updated", KillstreakType.NONE)
 
 
 func _on_triple_kill_timer_timeout() -> void:
 	if current_killstreak == 2:
 		add_score(25)
 		current_killstreak = 0
-		emit_signal("killstreak_updated", KillstreakType.NONE, 0)
+		emit_signal("killstreak_updated", KillstreakType.NONE)
 
 
 func _on_multi_kill_timer_timeout() -> void:
@@ -102,7 +102,7 @@ func _on_multi_kill_timer_timeout() -> void:
 			add_score(100)
 		
 		current_killstreak = 0
-		emit_signal("killstreak_updated", KillstreakType.NONE, 0)
+		emit_signal("killstreak_updated", KillstreakType.NONE)
 
 
 func reset_score() -> void:
@@ -114,11 +114,9 @@ func reset_score() -> void:
 	multi_kill_timer.stop()
 	
 	emit_signal("score_changed", score)
-	emit_signal("killstreak_updated", KillstreakType.NONE, 0)
+	emit_signal("killstreak_updated", KillstreakType.NONE)
 
 
 func apply_multiplier(multiplier: float) -> void:
-	var original_score = score
 	score = int(score * multiplier)
-	
 	emit_signal("score_changed", score)
