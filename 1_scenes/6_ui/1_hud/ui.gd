@@ -63,8 +63,8 @@ func update_ammo_display(ammo_text: String) -> void:
 
 # a player health display-jenek (eletero megjelenitesenek) frissitese
 func update_player_health() -> void:
-	if player.health_point != null:
-		health_display.update_health_bar(player.health_point.hp)
+	if player.hp != null:
+		health_display.update_health_bar(player.hp)
 	else:
 		health_display.hide_all_health_bars()
 

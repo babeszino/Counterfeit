@@ -192,7 +192,7 @@ func reset_player_stats() -> void:
 	if !player:
 		return
 		
-	player.health_point.hp = 100
+	player.hp = 100
 	
 	var weapon = player.get_node_or_null("Weapon")
 	if weapon != null:

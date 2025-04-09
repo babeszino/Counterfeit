@@ -7,7 +7,6 @@ extends CharacterBody2D
 signal enemy_died
 
 # node reference-ek
-@onready var health_point = $HP
 @onready var nav_agent = $NavigationAgent2D
 @onready var enemy_ai = $EnemyAI
 @onready var enemy_movement = $EnemyMovement
@@ -16,6 +15,9 @@ signal enemy_died
 # effect scene-ek preload-olasa
 var bleeding_effect_scene = preload("res://1_scenes/5_effects/bleed_effect.tscn")
 var bloodstain_scene = preload("res://1_scenes/5_effects/bloodstain.tscn")
+
+var hp : int = 100:
+	set = set_hp
 
 var speed : float = 75.0
 
@@ -28,6 +30,8 @@ var is_dying : bool = false
 
 # inicializalas
 func _ready() -> void:
+	hp = 100
+	
 	if enemy_ai:
 		enemy_ai.initialize(self, weapon)
 	
@@ -58,7 +62,7 @@ func handle_hit(damage_amount: int = 50):
 	if is_dying:
 		return
 	
-	health_point.hp -= damage_amount
+	hp -= damage_amount
 	spawn_bleeding_effect()
 	
 	var player_nodes = get_tree().get_nodes_in_group("player")
@@ -67,7 +71,7 @@ func handle_hit(damage_amount: int = 50):
 		enemy_ai.set_state(enemy_ai.State.ATTACK)
 		update_path()
 	
-	if health_point.hp <= 0:
+	if hp <= 0:
 		is_dying = true
 		spawn_bloodstain()
 		die()
@@ -176,3 +180,8 @@ func spawn_bloodstain() -> void:
 	var bloodstain = bloodstain_scene.instantiate()
 	get_tree().root.add_child(bloodstain)
 	bloodstain.global_position = global_position
+
+
+# hp setter
+func set_hp(new_hp: int):
+	hp = clamp(new_hp, 0, 100)

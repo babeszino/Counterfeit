@@ -7,13 +7,15 @@ extends CharacterBody2D
 class_name Player
 
 # node reference-ek
-@onready var health_point : Node2D = $HP
 @onready var player_collision : CollisionShape2D = $CollisionShape2D
 @onready var player_animation : AnimatedSprite2D = $AnimatedSprite2D
 
 # effect scene-ek preload-olasa
 var bleeding_effect_scene = preload("res://1_scenes/5_effects/bleed_effect.tscn")
 var bloodstain_scene = preload("res://1_scenes/5_effects/bloodstain.tscn")
+
+var hp : int = 100:
+	set = set_hp
 
 var speed : float = 200.0
 
@@ -30,6 +32,7 @@ var knockback_fadeout : float = 0.8 # visszalokes "enyhulese" (0.8 -> 20% frame-
 
 # inicializalas
 func _ready() -> void:
+	hp = 100
 	player_animation.play("idle")
 	current_animation = "idle"
 	
@@ -110,10 +113,10 @@ func handle_hit(damage_amount: int = 1) -> void:
 	if is_dying:
 		return
 	
-	health_point.hp -= damage_amount
+	hp -= damage_amount
 	spawn_bleeding_effect()
 	
-	if health_point.hp <= 0:
+	if hp <= 0:
 		is_dying = true
 		
 		spawn_bloodstain()
@@ -172,7 +175,7 @@ func activate(spawn_position = null) -> void:
 	if has_node("Camera2D"):
 		$Camera2D.enabled = true
 	
-	health_point.hp = 100
+	hp = 100
 	is_dying = false
 
 
@@ -191,3 +194,8 @@ func deactivate() -> void:
 	if weapon:
 		weapon.queue_free()
 		weapon = null
+
+
+# hp setter
+func set_hp(new_hp: int):
+	hp = clamp(new_hp, 0, 100)
