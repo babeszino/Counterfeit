@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://bq3eon7ux0sq3"]
 
-[ext_resource type="Script" path="res://scenes and scripts/double_barrel_shotgun.gd" id="1_hqisd"]
+[ext_resource type="Script" path="res://1_scenes/2_weapons/double_barrel_shotgun.gd" id="1_hqisd"]
 [ext_resource type="Texture2D" uid="uid://csr70hssc4cw4" path="res://assets/player character/weapons/3_double barrel/walk/player_double_barrel_walk1.png" id="2_3p46a"]
 [ext_resource type="Texture2D" uid="uid://bmgmfpiailcdc" path="res://assets/player character/weapons/3_double barrel/shoot/player_double_barrel_shoot1.png" id="3_c3imq"]
 [ext_resource type="Texture2D" uid="uid://bte11ivie48sq" path="res://assets/player character/weapons/3_double barrel/shoot/player_double_barrel_shoot2.png" id="4_oymg2"]

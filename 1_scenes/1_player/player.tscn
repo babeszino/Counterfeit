@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://c70c3tbs3toos"]
 
-[ext_resource type="Script" path="res://scenes and scripts/player.gd" id="1_j2an2"]
+[ext_resource type="Script" path="res://1_scenes/1_player/player.gd" id="1_j2an2"]
 [ext_resource type="Texture2D" uid="uid://bqaujafipok54" path="res://assets/player character/movement/walk/player_walk1.png" id="2_o4ash"]
 [ext_resource type="Texture2D" uid="uid://drl42kv0lua0v" path="res://assets/player character/movement/walk/player_walk2.png" id="3_e65ov"]
 [ext_resource type="Texture2D" uid="uid://00ow3mrylhcc" path="res://assets/player character/movement/walk/player_walk3.png" id="4_0xk2h"]
@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://b4w38ia0ke50" path="res://assets/player character/movement/walk (sideways)/player_walk_sideways6.png" id="15_ons4g"]
 [ext_resource type="Texture2D" uid="uid://7fnv6l6vunfp" path="res://assets/player character/movement/walk (sideways)/player_walk_sideways7.png" id="16_0883r"]
 [ext_resource type="Texture2D" uid="uid://buw0cpw4ve30v" path="res://assets/player character/movement/walk (sideways)/player_walk_sideways8.png" id="17_3xr7l"]
-[ext_resource type="Script" path="res://scenes and scripts/player_movement.gd" id="19_y3k8s"]
+[ext_resource type="Script" path="res://1_scenes/1_player/player_movement.gd" id="19_y3k8s"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dqy66"]
 animations = [{

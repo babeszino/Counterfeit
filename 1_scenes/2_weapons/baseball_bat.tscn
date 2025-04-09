@@ -1,6 +1,6 @@
 [gd_scene load_steps=37 format=3 uid="uid://uhngxdfe4pyn"]
 
-[ext_resource type="Script" path="res://scenes and scripts/baseball_bat.gd" id="1_oh6xh"]
+[ext_resource type="Script" path="res://1_scenes/2_weapons/baseball_bat.gd" id="1_oh6xh"]
 [ext_resource type="Texture2D" uid="uid://t82qqyb8x17j" path="res://assets/player character/weapons/1_baseball bat/attack/player_baseball_bat_attack1.png" id="2_m8bi1"]
 [ext_resource type="Texture2D" uid="uid://cthgvlqajoqni" path="res://assets/player character/weapons/1_baseball bat/attack/player_baseball_bat_attack2.png" id="3_ehos7"]
 [ext_resource type="Texture2D" uid="uid://cefeoqjuci3uf" path="res://assets/player character/weapons/1_baseball bat/attack/player_baseball_bat_attack3.png" id="4_mhsnv"]

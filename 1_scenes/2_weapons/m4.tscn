@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://bet0ig2ohlwoa"]
 
-[ext_resource type="Script" path="res://scenes and scripts/m4.gd" id="1_hs63h"]
+[ext_resource type="Script" path="res://1_scenes/2_weapons/m4.gd" id="1_hs63h"]
 [ext_resource type="Texture2D" uid="uid://coy2npiv1lqsg" path="res://assets/player character/weapons/4_m4/walk/player_m4_walk1.png" id="2_q3av0"]
 [ext_resource type="Texture2D" uid="uid://cypam8a4hgjr2" path="res://assets/player character/weapons/4_m4/shoot/player_m4_shoot1.png" id="3_h43tc"]
 [ext_resource type="Texture2D" uid="uid://y2jjwpu04xt" path="res://assets/player character/weapons/4_m4/shoot/player_m4_shoot2.png" id="4_6te7a"]

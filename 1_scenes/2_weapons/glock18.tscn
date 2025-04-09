@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://dxywyh2v0bi41"]
 
-[ext_resource type="Script" path="res://scenes and scripts/glock18.gd" id="1_ws8qo"]
+[ext_resource type="Script" path="res://1_scenes/2_weapons/glock18.gd" id="1_ws8qo"]
 [ext_resource type="Texture2D" uid="uid://6g1ts33dnrpc" path="res://assets/player character/weapons/2_glock18/walk/player_glock18_walk1.png" id="2_tgrti"]
 [ext_resource type="Texture2D" uid="uid://bhw7qu4vjc2me" path="res://assets/player character/weapons/2_glock18/shoot/player_glock18_shoot1.png" id="3_mdvye"]
 [ext_resource type="Texture2D" uid="uid://dbipmu5h2hwp6" path="res://assets/player character/weapons/2_glock18/shoot/player_glock18_shoot2.png" id="4_c4b3x"]

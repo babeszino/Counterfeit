@@ -18,11 +18,11 @@ var weapon_map = {
 
 # fegyver scene fajlok eleresi utjai
 const WEAPON_PATHS = {
-	"BaseballBat": "res://scenes and scripts/baseball_bat.tscn",
-	"Glock18": "res://scenes and scripts/glock18.tscn",
-	"DoubleBarrel": "res://scenes and scripts/double_barrel_shotgun.tscn",
-	"M4": "res://scenes and scripts/m4.tscn",
-	"RocketLauncher": "res://scenes and scripts/rocket_launcher.tscn"
+	"BaseballBat": "res://1_scenes/2_weapons/baseball_bat.tscn",
+	"Glock18": "res://1_scenes/2_weapons/glock18.tscn",
+	"DoubleBarrel": "res://1_scenes/2_weapons/double_barrel_shotgun.tscn",
+	"M4": "res://1_scenes/2_weapons/m4.tscn",
+	"RocketLauncher": "res://1_scenes/2_weapons/rocket_launcher.tscn"
 }
 
 

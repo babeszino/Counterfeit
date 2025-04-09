@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dq6mrfih01xxj"]
 
-[ext_resource type="Script" path="res://scenes and scripts/rocket_launcher.gd" id="1_3vuew"]
+[ext_resource type="Script" path="res://1_scenes/2_weapons/rocket_launcher.gd" id="1_3vuew"]
 [ext_resource type="Texture2D" uid="uid://wcf8kp6dcmbe" path="res://assets/player character/weapons/5_rocket launcher/walk/player_rocket_launcher_walk1.png" id="2_o1n4c"]
 [ext_resource type="Texture2D" uid="uid://cam0m1afjkny0" path="res://assets/player character/weapons/5_rocket launcher/shoot/player_rocket_launcher_shoot1.png" id="3_ixbio"]
 [ext_resource type="Texture2D" uid="uid://xk8ai7onhqk4" path="res://assets/player character/weapons/5_rocket launcher/shoot/player_rocket_launcher_shoot2.png" id="4_p3wbb"]
