@@ -12,7 +12,7 @@ extends Area2D
 var bullet_direction := Vector2.ZERO
 var bullet_shooter : Node = null
 var shooter_group : String = "player"
-var explosion_scene = preload("res://scenes and scripts/explosion.tscn")
+var explosion_scene = preload("res://1_scenes/4_projectiles/explosion.tscn")
 var exploded : bool = false # tobb robbanas elkerulesehez
 
 var speed : int = 450

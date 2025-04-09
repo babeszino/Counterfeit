@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://81vikiantxyn"]
 
-[ext_resource type="Script" path="res://scenes and scripts/rocket.gd" id="1_pwtjy"]
+[ext_resource type="Script" path="res://1_scenes/4_projectiles/rocket.gd" id="1_pwtjy"]
 [ext_resource type="Texture2D" uid="uid://cvi10vhg3w61n" path="res://assets/player character/weapons/5_rocket launcher/rocket/rocket flying/rocket1.png" id="2_4r1ad"]
 [ext_resource type="Texture2D" uid="uid://ky3yacvdjtut" path="res://assets/player character/weapons/5_rocket launcher/rocket/rocket flying/rocket2.png" id="3_64vib"]
 

@@ -12,7 +12,7 @@ extends Node
 @onready var level_manager = $"../LevelManager"
 
 # enemy scene preload
-var enemy_scene = preload("res://scenes and scripts/enemy.tscn")
+var enemy_scene = preload("res://1_scenes/3_enemy/enemy.tscn")
 
 # enemy tracking
 var active_enemies = []

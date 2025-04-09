@@ -40,7 +40,7 @@ var fire_button_held : bool = false # szamon tartja, hogy lenyomva tartjuk-e a "
 # fegyver inicializalasa
 func _ready() -> void:
 	current_ammo = max_ammo
-	bullet_scene = load("res://scenes and scripts/bullet.tscn")
+	bullet_scene = load("res://1_scenes/4_projectiles/bullet.tscn")
 	
 	setup_weapon_owner()
 	

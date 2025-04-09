@@ -10,9 +10,9 @@ extends Node
 @onready var game_manager = $"../GameManager"
 
 # bullet, rocket es explosion scene-ek preload-olasa
-var bullet_scene = preload("res://scenes and scripts/bullet.tscn")
-var rocket_scene = preload("res://scenes and scripts/rocket.tscn")
-var explosion_scene = preload("res://scenes and scripts/explosion.tscn")
+var bullet_scene = preload("res://1_scenes/4_projectiles/bullet.tscn")
+var rocket_scene = preload("res://1_scenes/4_projectiles/rocket.tscn")
+var explosion_scene = preload("res://1_scenes/4_projectiles/explosion.tscn")
 
 
 # bullet projectile letrehozasa a meghatarozott pozicioban, meghatarozott iranyba

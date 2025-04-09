@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cv8oqpx2tfadd" path="res://assets/blood/blood stain/blood_stain6.png" id="6_brkxg"]
 [ext_resource type="Texture2D" uid="uid://c051nyu5ij4ja" path="res://assets/blood/blood stain/blood_stain7.png" id="7_w76ko"]
 [ext_resource type="Texture2D" uid="uid://btgwqv2gp3aoh" path="res://assets/blood/blood stain/blood_stain8.png" id="8_ra8fw"]
-[ext_resource type="Script" path="res://scenes and scripts/bloodstain.gd" id="9_e1d5c"]
+[ext_resource type="Script" path="res://1_scenes/5_effects/bloodstain.gd" id="9_e1d5c"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5it13"]
 animations = [{

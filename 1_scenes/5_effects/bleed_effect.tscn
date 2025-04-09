@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bfq1y15knej5" path="res://assets/blood/character bleeding/character_bleeding6.png" id="6_sfsqk"]
 [ext_resource type="Texture2D" uid="uid://cp5aqnak1jtyu" path="res://assets/blood/character bleeding/character_bleeding7.png" id="7_lm4ju"]
 [ext_resource type="Texture2D" uid="uid://b5o8mymksei5g" path="res://assets/blood/character bleeding/character_bleeding8.png" id="8_comi2"]
-[ext_resource type="Script" path="res://scenes and scripts/bleed_effect.gd" id="9_udkix"]
+[ext_resource type="Script" path="res://1_scenes/5_effects/bleed_effect.gd" id="9_udkix"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5mxm6"]
 animations = [{

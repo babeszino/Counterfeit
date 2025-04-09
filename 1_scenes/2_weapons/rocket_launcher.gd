@@ -39,7 +39,7 @@ var owner_moving : bool = false
 # fegyver inicializalasa
 func _ready() -> void:
 	current_ammo = max_ammo
-	rocket_scene = load("res://scenes and scripts/rocket.tscn")
+	rocket_scene = load("res://1_scenes/4_projectiles/rocket.tscn")
 	
 	player_animation.play("idle")
 	current_animation = "idle"

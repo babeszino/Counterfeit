@@ -12,8 +12,8 @@ class_name Player
 @onready var player_animation : AnimatedSprite2D = $AnimatedSprite2D
 
 # effect scene-ek preload-olasa
-var bleeding_effect_scene = preload("res://scenes and scripts/bleed_effect.tscn")
-var bloodstain_scene = preload("res://scenes and scripts/bloodstain.tscn")
+var bleeding_effect_scene = preload("res://1_scenes/5_effects/bleed_effect.tscn")
+var bloodstain_scene = preload("res://1_scenes/5_effects/bloodstain.tscn")
 
 var speed : float = 200.0
 

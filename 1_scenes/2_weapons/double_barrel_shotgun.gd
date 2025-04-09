@@ -41,7 +41,7 @@ var is_enemy : bool = false
 # fegyver inicializalasa
 func _ready() -> void:
 	current_ammo = max_ammo
-	bullet_scene = load("res://scenes and scripts/bullet.tscn")
+	bullet_scene = load("res://1_scenes/4_projectiles/bullet.tscn")
 	
 	setup_weapon_owner()
 	
