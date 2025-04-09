@@ -4,18 +4,12 @@ extends Node
 @onready var main_menu = $"../../UIContainer/MainMenu" 
 @onready var hud = $"../../UIContainer/HUD"
 @onready var pause_menu = $"../../UIContainer/PauseMenu"
-
 @onready var game_manager = $"../GameManager"
-@onready var state_manager = $"../GameStateManager"
 
 var player_ref = null
 
 
 func _ready() -> void:
-	if state_manager:
-		if not state_manager.is_connected("state_changed", Callable(self, "_on_game_state_changed")):
-			state_manager.connect("state_changed", Callable(self, "_on_game_state_changed"))
-
 	if main_menu:
 		if not main_menu.is_connected("start_game_pressed", Callable(self, "_on_start_game_pressed")):
 			main_menu.connect("start_game_pressed", Callable(self, "_on_start_game_pressed"))
@@ -27,6 +21,14 @@ func _ready() -> void:
 			pause_menu.connect("main_menu_requested", Callable(self, "_on_main_menu_requested"))
 		if pause_menu.has_signal("quit_requested"):
 			pause_menu.connect("quit_requested", Callable(self, "_on_quit_requested"))
+	
+	if game_manager:
+		if not game_manager.is_connected("game_started", Callable(self, "show_game_ui")):
+			game_manager.connect("game_started", Callable(self, "show_game_ui"))
+		if not game_manager.is_connected("game_paused", Callable(self, "show_pause_menu")):
+			game_manager.connect("game_paused", Callable(self, "show_pause_menu"))
+		if not game_manager.is_connected("game_resumed", Callable(self, "hide_pause_menu")):
+			game_manager.connect("game_resumed", Callable(self, "hide_pause_menu"))
 		
 		pause_menu.visible = false
 	
@@ -87,13 +89,13 @@ func show_death_screen() -> void:
 	death_screen.name = "DeathScreen"
 
 
-func show_level_completed_screen(completion_time: float, multiplier: float, original_score: int, multiplied_score: int) -> void:
+func show_level_completed_screen(completion_time: float, multiplier: float, multiplied_score: int) -> void:
 	var level_completed = load("res://scenes and scripts/level_completed_screen.tscn").instantiate()
 	ui_container.add_child(level_completed)
 	level_completed.name = "LevelCompletedScreen"
 	
 	if level_completed.has_method("setup"):
-		level_completed.setup(completion_time, multiplier, original_score, multiplied_score)
+		level_completed.setup(completion_time, multiplier, multiplied_score)
 	
 	var level_manager = get_node_or_null("/root/Main/Managers/LevelManager")
 	if level_manager and level_completed.has_signal("continue_pressed"):
@@ -139,22 +141,6 @@ func show_game_ui() -> void:
 	if hud:
 		hud.visible = true
 		hud.show_game_ui()
-
-
-func _on_game_state_changed(old_state, new_state) -> void:
-	match new_state:
-		state_manager.GameState.MAIN_MENU:
-			hide_hud()
-			show_main_menu()
-			hide_pause_menu()
-		state_manager.GameState.PLAYING:
-			show_hud()
-			hide_main_menu()
-			hide_pause_menu()
-		state_manager.GameState.PAUSED:
-			show_hud()
-			hide_main_menu()
-			show_pause_menu()
 
 
 func _on_resume_requested() -> void:

@@ -8,7 +8,6 @@ extends Node
 @onready var enemy_container = $"../../EnemyContainer" 
 @onready var level_container = $"../../LevelContainer"
 @onready var game_manager = $"../GameManager"
-@onready var state_manager = $"../GameStateManager"
 @onready var weapon_manager = $"../WeaponManager"
 @onready var level_manager = $"../LevelManager"
 

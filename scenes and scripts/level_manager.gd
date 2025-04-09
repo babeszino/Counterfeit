@@ -117,7 +117,7 @@ func load_next_map() -> void:
 	
 	var ui_manager = get_node_or_null("/root/Main/Managers/UIManager") 
 	if ui_manager and ui_manager.has_method("show_level_completed_screen"):
-		ui_manager.show_level_completed_screen(level_completion_time, multiplier, current_score, multiplied_score)
+		ui_manager.show_level_completed_screen(level_completion_time, multiplier, multiplied_score)
 
 
 func _on_completion_screen_continue(multiplier: float) -> void:
