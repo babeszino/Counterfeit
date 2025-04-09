@@ -10,7 +10,7 @@ extends Control
 @onready var timer_label : Label = $TimerContainer/TimerLabel
 @onready var score_display : MarginContainer = $ScoreDisplay
 
-# player reference-nek -> az ui frissitesehez a player allapota alapjan
+# player reference-nek -> a ui frissitesehez a player allapota alapjan
 var player = null
 
 
