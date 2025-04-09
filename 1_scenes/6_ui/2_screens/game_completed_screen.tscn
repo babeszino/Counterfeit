@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c1cow4bdg8cnn"]
 
-[ext_resource type="Script" path="res://scenes and scripts/game_completed_screen.gd" id="1_udt21"]
+[ext_resource type="Script" path="res://1_scenes/6_ui/2_screens/game_completed_screen.gd" id="1_udt21"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aigob"]
 

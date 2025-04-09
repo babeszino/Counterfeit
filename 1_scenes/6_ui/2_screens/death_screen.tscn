@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://btjcobe1ly1xk"]
 
-[ext_resource type="Script" path="res://scenes and scripts/death_screen.gd" id="1_2yrcq"]
+[ext_resource type="Script" path="res://1_scenes/6_ui/2_screens/death_screen.gd" id="1_2yrcq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6thd5"]
 

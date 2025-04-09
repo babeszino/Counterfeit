@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://7l507ctbvla4"]
 
-[ext_resource type="Script" path="res://scenes and scripts/transition_animation.gd" id="1_foxfm"]
+[ext_resource type="Script" path="res://1_scenes/6_ui/2_screens/transition_animation.gd" id="1_foxfm"]
 [ext_resource type="Texture2D" uid="uid://d2irsisd7x8tk" path="res://assets/transition animations/2_after fourth level/after_fourth_level1.png" id="2_opjdu"]
 [ext_resource type="Texture2D" uid="uid://dac01ydt3d14q" path="res://assets/transition animations/2_after fourth level/after_fourth_level2.png" id="3_flxv5"]
 [ext_resource type="Texture2D" uid="uid://dooqgys20j0mh" path="res://assets/transition animations/2_after fourth level/after_fourth_level3.png" id="4_jjkhc"]

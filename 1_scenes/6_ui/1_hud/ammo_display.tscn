@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b3mel4ctnym63"]
 
-[ext_resource type="Script" path="res://scenes and scripts/ammo_display.gd" id="1_2xfrp"]
+[ext_resource type="Script" path="res://1_scenes/6_ui/1_hud/ammo_display.gd" id="1_2xfrp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uo2fh"]
 bg_color = Color(1, 1, 1, 1)

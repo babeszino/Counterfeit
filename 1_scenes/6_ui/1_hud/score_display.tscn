@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c6t3uji20phab"]
 
-[ext_resource type="Script" path="res://scenes and scripts/score_display.gd" id="1_vjp28"]
+[ext_resource type="Script" path="res://1_scenes/6_ui/1_hud/score_display.gd" id="1_vjp28"]
 
 [node name="ScoreContainer" type="MarginContainer"]
 anchors_preset = 5

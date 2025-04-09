@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://csp3sn1jfrc4q"]
 
-[ext_resource type="Script" path="res://scenes and scripts/ui.gd" id="1_qcsck"]
-[ext_resource type="PackedScene" uid="uid://mshkucx6t227" path="res://scenes and scripts/health_display.tscn" id="2_cx6hi"]
-[ext_resource type="PackedScene" uid="uid://b3mel4ctnym63" path="res://scenes and scripts/ammo_display.tscn" id="3_8han1"]
-[ext_resource type="PackedScene" uid="uid://c6t3uji20phab" path="res://scenes and scripts/score_display.tscn" id="5_wsrlm"]
+[ext_resource type="Script" path="res://1_scenes/6_ui/1_hud/ui.gd" id="1_qcsck"]
+[ext_resource type="PackedScene" uid="uid://mshkucx6t227" path="res://1_scenes/6_ui/1_hud/health_display.tscn" id="2_cx6hi"]
+[ext_resource type="PackedScene" uid="uid://b3mel4ctnym63" path="res://1_scenes/6_ui/1_hud/ammo_display.tscn" id="3_8han1"]
+[ext_resource type="PackedScene" uid="uid://c6t3uji20phab" path="res://1_scenes/6_ui/1_hud/score_display.tscn" id="5_wsrlm"]
 
 [node name="UI" type="Control"]
 layout_mode = 3

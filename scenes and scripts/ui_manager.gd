@@ -117,14 +117,14 @@ func hide_pause_menu() -> void:
 
 # death screen (kepernyo) megjelenitese, ha meghal a player
 func show_death_screen() -> void:
-	var death_screen = load("res://scenes and scripts/death_screen.tscn").instantiate()
+	var death_screen = load("res://1_scenes/6_ui/2_screens/death_screen.tscn").instantiate()
 	ui_container.add_child(death_screen)
 	death_screen.name = "DeathScreen"
 
 
 # level completion screen (kepernyo) megjelenitese statisztikaval
 func show_level_completed_screen(completion_time: float, multiplier: float, multiplied_score: int) -> void:
-	var level_completed = load("res://scenes and scripts/level_completed_screen.tscn").instantiate()
+	var level_completed = load("res://1_scenes/6_ui/2_screens/level_completed_screen.tscn").instantiate()
 	ui_container.add_child(level_completed)
 	level_completed.name = "LevelCompletedScreen"
 	
@@ -139,7 +139,7 @@ func show_level_completed_screen(completion_time: float, multiplier: float, mult
 
 # game completion screen (kepernyo) megjelenitese az osszesitett statisztikaval
 func show_game_completed_screen(final_score: int, total_time: float) -> void:
-	var game_completed = load("res://scenes and scripts/game_completed_screen.tscn").instantiate()
+	var game_completed = load("res://1_scenes/6_ui/2_screens/game_completed_screen.tscn").instantiate()
 	ui_container.add_child(game_completed)
 	game_completed.name = "GameCompletedScreen"
 	if game_completed.has_method("setup_statistics"):
@@ -148,7 +148,7 @@ func show_game_completed_screen(final_score: int, total_time: float) -> void:
 
 # atvezeto animaciok megjelenitese
 func show_transition_animation(animation_name: String) -> void:
-	var transition = load("res://scenes and scripts/transition_animation.tscn").instantiate()
+	var transition = load("res://1_scenes/6_ui/2_screens/transition_animation.tscn").instantiate()
 	ui_container.add_child(transition)
 	transition.name = "TransitionAnimation"
 	
