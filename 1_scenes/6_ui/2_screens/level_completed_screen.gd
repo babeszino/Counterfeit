@@ -22,6 +22,12 @@ func _ready():
 	continue_button.grab_focus()
 
 
+# a gomb feliratanak valtoztatasa focus allapot alapjan
+func _process(_delta: float) -> void:
+	if continue_button.has_focus():
+		continue_button.text = ">Continue to next level<"
+
+
 # level completed screen beallitasa a statisztikaval
 func setup(completion_time: float, multiplier_value: float, multiplied_score: int):
 	multiplier = multiplier_value
